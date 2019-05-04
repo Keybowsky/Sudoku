@@ -4,7 +4,7 @@ package Sudoku;
 Pierwsza wersja, potem dodam komentarze w javadocu co służy do czego.
  */
 
-public class Solver {
+class Solver {
 
     private int [][] boardToSolve;
 
@@ -22,12 +22,12 @@ public class Solver {
     }
 
 
-    public int[][] getBoardToSolve() {
+    int[][] getBoardToSolve() {
         return boardToSolve;
     }
 
 
-    private boolean check(int row, int column, int checkedNumber){
+    boolean check(int row, int column, int checkedNumber){
 
         boolean checkRow = true;
         boolean checkColumn = true;
@@ -54,7 +54,7 @@ public class Solver {
     }
 
 
-    public boolean solve() {
+    boolean solve() {
         for (int row = 0; row < SIZE; row++)
             for (int column = 0; column < SIZE; column++)
                 if (boardToSolve[row][column] == EMPTY_CELL) {
