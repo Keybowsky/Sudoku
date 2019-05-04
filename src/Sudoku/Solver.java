@@ -61,7 +61,6 @@ class Solver {
                     for (int number = 1; number <= SIZE; number++) {
                         if (check(row, column, number)) {
                             boardToSolve[row][column] = number;
-
                             if (solve()) {
                                 return true;
                             } else {

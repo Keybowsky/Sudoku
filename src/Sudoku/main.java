@@ -6,7 +6,7 @@ public class main {
 
     public static void main(String[] args) {
 
-            /*
+        /*
 
             int tablica [][]={
                     {5,3,0,0,7,0,0,0,0},
@@ -72,15 +72,23 @@ public class main {
                 System.out.println();
             }
 
-     */
+         */
 
         Generator generator = new Generator();
 
 
-        generator.diagonalSectionGeneration();
+        generator.boardGeneration();
 
         int[][] tablicaZKtorejGenerowano = generator.getGenerationBoard();
-        //int[][] wygenerowanaTabica = generator.getGeneratedBoard();
+        int[][] wygenerowanaTabica = generator.getGeneratedBoard();
+
+        Solver solver3 = new Solver(wygenerowanaTabica);
+
+        solver3.solve();
+
+        int[][] rozwiazanie = solver3.getBoardToSolve();
+
+
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -92,7 +100,7 @@ public class main {
         System.out.println();
         System.out.println();
 
-        /*
+
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 System.out.print(wygenerowanaTabica[i][j] + "  ");
@@ -100,7 +108,17 @@ public class main {
             System.out.println();
         }
 
-         */
+        System.out.println();
+        System.out.println();
+
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(rozwiazanie[i][j] + "  ");
+            }
+            System.out.println();
+        }
+
 
 
     }

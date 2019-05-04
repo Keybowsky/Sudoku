@@ -17,7 +17,6 @@ class Generator {
     };
 
     private int[][] generatedBoard;
-    private Solver generator = new Solver(generationBoard);
     private Random rand = new Random();
 
     int[][] getGenerationBoard() {
@@ -28,7 +27,6 @@ class Generator {
         return generatedBoard;
     }
 
-    //poniższa funkcja do naprawy
 
     private boolean diagonalSectionCheck(int row, int column, int checkedNumber) {
 
@@ -36,21 +34,22 @@ class Generator {
         int sectionColumn = column - column % 3;
 
         for (int i = sectionRow; i < sectionRow + 3; i++) {
-            for (int j = sectionColumn; j < sectionColumn + 3; j++)
+            for (int j = sectionColumn; j < sectionColumn + 3; j++) {
                 if (generationBoard[i][j] == checkedNumber)
                     return false;
+            }
         }
 
         return true;
     }
 
 
-    void diagonalSectionGeneration() {
+    private void diagonalSectionGeneration() {
 
         for (int section=0; section<7; section = section+3) {
             for (int row = section; row < section+3; row++) {
                 for (int column = section; column < section+3; column++) {
-                    int randNumber = rand.nextInt(8) + 1;
+                    int randNumber = rand.nextInt(9) + 1;
                     if (diagonalSectionCheck(row, column, randNumber))
                         generationBoard[row][column] = randNumber;
                     else
@@ -64,6 +63,7 @@ class Generator {
 
         int randNumber = rand.nextInt(14) + 51;
         diagonalSectionGeneration();
+        Solver generator = new Solver(generationBoard);
         generator.solve();
         generatedBoard = generator.getBoardToSolve();
 
@@ -78,5 +78,4 @@ class Generator {
                 i--;
         }
     }
-
 }
