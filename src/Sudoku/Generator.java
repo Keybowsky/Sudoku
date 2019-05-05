@@ -39,13 +39,21 @@ class Generator {
                     return false;
             }
         }
-
+        // petle do sprawdzania powtórzeń w kolumnach i rzędach
+        /*for (int i = 0; i < 9; i++) {
+            if (generationBoard[row][i] == checkedNumber)
+                return false;
+        }
+        for (int i = 0; i < 9; i++) {
+            if (generationBoard[i][column] == checkedNumber)
+                return false;
+        }*/
         return true;
     }
 
 
-    private void diagonalSectionGeneration() {
 
+    private void diagonalSectionGeneration() {
         for (int section=0; section<7; section = section+3) {
             for (int row = section; row < section+3; row++) {
                 for (int column = section; column < section+3; column++) {
@@ -55,9 +63,28 @@ class Generator {
                     else
                         column--;
                 }
+
             }
         }
     }
+    /* wersja generatora z generowaniem całej planszy
+    private void diagonalSectionGeneration() {
+        for (int sectionX=0; sectionX<7; sectionX = sectionX+3) {
+            for (int sectionY=0; sectionY<7; sectionY=sectionY+3) {
+                for (int row = sectionX; row < sectionX+3; row++) {
+                    for (int column = sectionY; column < sectionY+3; column++) {
+                        int randNumber = rand.nextInt(9) + 1;
+                        if (diagonalSectionCheck(row, column, randNumber))
+                            generationBoard[row][column] = randNumber;
+                        else
+                            column--;
+                    }
+                }
+
+            }
+        }
+    }*/
+
 
     void boardGeneration() {
 

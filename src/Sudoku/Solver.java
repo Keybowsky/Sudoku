@@ -27,7 +27,7 @@ class Solver {
     }
 
 
-    boolean check(int row, int column, int checkedNumber){
+    private boolean check(int row, int column, int checkedNumber){
 
         boolean checkRow = true;
         boolean checkColumn = true;
