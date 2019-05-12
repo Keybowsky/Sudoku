@@ -7,7 +7,6 @@ import javax.swing.*;
 public class menuBar {
     JLabel name;
     JButton newGame, loadGame, settings, exitGame;
-    JScrollPane scrollPane;
 
     public JMenuBar createMenuBar() {
         JMenuBar menuBar;
