@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class menuBar {
+public class MenuBar {
     JLabel name;
     JButton newGame, loadGame, settings, exitGame;
 
@@ -12,11 +12,11 @@ public class menuBar {
         JMenuBar menuBar;
         JMenu menu, submenuGameType, submenuGameDifficulty;
         JMenuItem menuItemEasy,menuItemMedium ,menuItemHard;
-        
+
         menuBar = new JMenuBar();
         menu = new JMenu("Gra");
         menuBar.add(menu);
-        
+
         submenuGameType = new JMenu("Typ gry");
         submenuGameType.setMnemonic(KeyEvent.VK_S);
 
@@ -66,7 +66,7 @@ public class menuBar {
         return menuBar;
     }
 
-public Container createContentPane() {
+    public Container createContentPane() {
 
 
         JPanel rootPanel = new JPanel(new BorderLayout(5,50));
@@ -171,11 +171,11 @@ public Container createContentPane() {
         JFrame frame = new JFrame("SUDOKU 6000");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        menuBar demo = new menuBar();
+        MenuBar demo = new MenuBar();
         frame.setJMenuBar(demo.createMenuBar());
         frame.setContentPane(demo.createContentPane());
 
-       frame.setMaximumSize(new Dimension(630,630));
+        frame.setMaximumSize(new Dimension(630,630));
         frame.setMinimumSize(new Dimension(630,630));
         frame.setVisible(true);
     }
