@@ -1,0 +1,183 @@
+package Sudoku;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class menuBar {
+    JLabel name;
+    JButton newGame, loadGame, settings, exitGame;
+    JScrollPane scrollPane;
+
+    public JMenuBar createMenuBar() {
+        JMenuBar menuBar;
+        JMenu menu, submenuGameType, submenuGameDifficulty;
+        JMenuItem menuItemEasy,menuItemMedium ,menuItemHard;
+        
+        menuBar = new JMenuBar();
+        menu = new JMenu("Gra");
+        menuBar.add(menu);
+        
+        submenuGameType = new JMenu("Typ gry");
+        submenuGameType.setMnemonic(KeyEvent.VK_S);
+
+
+        menu.add(submenuGameType);
+
+        menu.addSeparator();
+        submenuGameDifficulty = new JMenu("Poziom trudności");
+        submenuGameDifficulty.setMnemonic(KeyEvent.VK_S);
+
+        menuItemEasy = new JMenuItem("Łatwy");
+        submenuGameDifficulty.add(menuItemEasy);
+        menuItemEasy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+            }
+        });
+
+
+        menuItemMedium = new JMenuItem("Średni");
+        submenuGameDifficulty.add(menuItemMedium);
+        menuItemMedium.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+            }
+        });
+
+        menuItemHard =new JMenuItem("Trudny");
+        submenuGameDifficulty.add(menuItemHard);
+        menuItemHard.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+            }
+        });
+
+        menu.add(submenuGameDifficulty);
+
+        menu = new JMenu("Info");
+        menuBar.add(menu);
+
+        return menuBar;
+    }
+
+    public Container createContentPane() {
+
+
+        JPanel rootPanel = new JPanel(new BorderLayout(5,50));
+        rootPanel.setOpaque(false);
+
+        JPanel buttonPanelInside = new JPanel(new BorderLayout());
+        JPanel buttonPanelTop = new JPanel(new BorderLayout());
+        buttonPanelTop.setOpaque(false);
+        JPanel buttonPanelBottom = new JPanel(new BorderLayout());
+        buttonPanelBottom.setOpaque(false);
+        JPanel namePanel = new JPanel(new BorderLayout());
+        namePanel.setOpaque(false);
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.setOpaque(false);
+        JPanel leftSpacer = new JPanel(new BorderLayout());
+        leftSpacer.setOpaque(false);
+        JPanel rightSpacer = new JPanel(new BorderLayout());
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+
+        rightSpacer.setMinimumSize(new Dimension(50,50));
+        leftSpacer.setMinimumSize(new Dimension(50,50));
+        buttonPanelInside.setMinimumSize(new Dimension(330,430));
+        //buttonPanel.setMaximumSize(new Dimension(330,430));
+        namePanel.setMinimumSize(new Dimension(630,200));
+
+        //rootPanel.add(leftSpacer, BorderLayout.WEST);
+       //rootPanel.add(rightSpacer, BorderLayout.EAST);
+        rootPanel.add(namePanel, BorderLayout.NORTH);
+        rootPanel.add(buttonPanelInside, BorderLayout.SOUTH);
+        //rootPanel.add(buttonPanel, BorderLayout.CENTER);
+        buttonPanelInside.add(buttonPanelTop, BorderLayout.NORTH);
+        buttonPanelInside.add(buttonPanelBottom, BorderLayout.SOUTH);
+
+        name = new JLabel("SUDOKU 6000");
+        name.setFont(new Font("Arial", Font.BOLD, 70));
+        name.setHorizontalAlignment(SwingConstants.CENTER);
+        name.setVerticalAlignment(SwingConstants.CENTER);
+        newGame = new JButton("Nowa gra");
+
+        loadGame = new JButton("Wczytaj grę");
+        //loadGame.setSize(200,50);
+
+        settings = new JButton("Ustawienia");
+
+        exitGame = new JButton("Wyjdź z gry");
+
+        buttonPanelTop.add(newGame,BorderLayout.NORTH );
+        buttonPanelTop.add(loadGame,BorderLayout.SOUTH);
+
+        buttonPanelBottom.add(settings,BorderLayout.NORTH);
+        buttonPanelBottom.add(exitGame,BorderLayout.SOUTH);
+        namePanel.add(name,BorderLayout.CENTER);
+
+        newGame.setMinimumSize(new Dimension(200,50));
+        newGame.setPreferredSize(new Dimension(200,50));
+        loadGame.setMinimumSize(new Dimension(200,50));
+        loadGame.setPreferredSize(new Dimension(200,50));
+        // loadGame.setMaximumSize(new Dimension(200,50));
+        settings.setMinimumSize(new Dimension(200,50));
+        settings.setPreferredSize(new Dimension(200,50));
+        exitGame.setMinimumSize(new Dimension(200,50));
+        exitGame.setPreferredSize(new Dimension(200,50));
+
+
+        newGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+            }
+        });
+
+        loadGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+
+        settings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+
+        exitGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+
+        return rootPanel;
+    }
+
+    public static void createAndShowGUI() {
+
+        JFrame frame = new JFrame("SUDOKU 6000");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        menuBar demo = new menuBar();
+        frame.setJMenuBar(demo.createMenuBar());
+        frame.setContentPane(demo.createContentPane());
+
+       frame.setMaximumSize(new Dimension(630,630));
+        frame.setMinimumSize(new Dimension(630,630));
+        frame.setVisible(true);
+    }
+}
