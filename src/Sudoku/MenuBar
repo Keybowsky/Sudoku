@@ -67,69 +67,66 @@ public class menuBar {
         return menuBar;
     }
 
-    public Container createContentPane() {
+public Container createContentPane() {
 
 
         JPanel rootPanel = new JPanel(new BorderLayout(5,50));
-        rootPanel.setOpaque(false);
-
-        JPanel buttonPanelInside = new JPanel(new BorderLayout());
-        JPanel buttonPanelTop = new JPanel(new BorderLayout());
-        buttonPanelTop.setOpaque(false);
-        JPanel buttonPanelBottom = new JPanel(new BorderLayout());
-        buttonPanelBottom.setOpaque(false);
-        JPanel namePanel = new JPanel(new BorderLayout());
-        namePanel.setOpaque(false);
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.setOpaque(false);
         JPanel leftSpacer = new JPanel(new BorderLayout());
-        leftSpacer.setOpaque(false);
         JPanel rightSpacer = new JPanel(new BorderLayout());
-        JPanel buttonPanel = new JPanel(new BorderLayout());
-
-        rightSpacer.setMinimumSize(new Dimension(50,50));
-        leftSpacer.setMinimumSize(new Dimension(50,50));
-        buttonPanelInside.setMinimumSize(new Dimension(330,430));
-        //buttonPanel.setMaximumSize(new Dimension(330,430));
-        namePanel.setMinimumSize(new Dimension(630,200));
-
-        //rootPanel.add(leftSpacer, BorderLayout.WEST);
-       //rootPanel.add(rightSpacer, BorderLayout.EAST);
-        rootPanel.add(namePanel, BorderLayout.NORTH);
-        rootPanel.add(buttonPanelInside, BorderLayout.SOUTH);
-        //rootPanel.add(buttonPanel, BorderLayout.CENTER);
-        buttonPanelInside.add(buttonPanelTop, BorderLayout.NORTH);
-        buttonPanelInside.add(buttonPanelBottom, BorderLayout.SOUTH);
 
         name = new JLabel("SUDOKU 6000");
         name.setFont(new Font("Arial", Font.BOLD, 70));
         name.setHorizontalAlignment(SwingConstants.CENTER);
         name.setVerticalAlignment(SwingConstants.CENTER);
         newGame = new JButton("Nowa gra");
-
         loadGame = new JButton("Wczytaj grę");
-        //loadGame.setSize(200,50);
-
         settings = new JButton("Ustawienia");
-
         exitGame = new JButton("Wyjdź z gry");
 
-        buttonPanelTop.add(newGame,BorderLayout.NORTH );
-        buttonPanelTop.add(loadGame,BorderLayout.SOUTH);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(4, 1));
+        buttonPanel.add(newGame);
+        buttonPanel.add(loadGame);
+        buttonPanel.add(settings);
+        buttonPanel.add(exitGame);
 
-        buttonPanelBottom.add(settings,BorderLayout.NORTH);
-        buttonPanelBottom.add(exitGame,BorderLayout.SOUTH);
-        namePanel.add(name,BorderLayout.CENTER);
+        JPanel mainPanel = new JPanel();
+        GridBagLayout layout = new GridBagLayout();
+        mainPanel.setLayout(layout);
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 3;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.ipady = 100;
+        mainPanel.add(name, gbc);
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        mainPanel.add(leftSpacer,gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        mainPanel.add(buttonPanel,gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        mainPanel.add(rightSpacer,gbc);
+
+        rootPanel.add(mainPanel,BorderLayout.CENTER);
 
         newGame.setMinimumSize(new Dimension(200,50));
         newGame.setPreferredSize(new Dimension(200,50));
         loadGame.setMinimumSize(new Dimension(200,50));
         loadGame.setPreferredSize(new Dimension(200,50));
-        // loadGame.setMaximumSize(new Dimension(200,50));
         settings.setMinimumSize(new Dimension(200,50));
         settings.setPreferredSize(new Dimension(200,50));
         exitGame.setMinimumSize(new Dimension(200,50));
         exitGame.setPreferredSize(new Dimension(200,50));
+
+
 
 
         newGame.addActionListener(new ActionListener() {
@@ -164,8 +161,11 @@ public class menuBar {
         });
 
 
+
+
         return rootPanel;
     }
+
 
     public static void createAndShowGUI() {
 
