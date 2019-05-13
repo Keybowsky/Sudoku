@@ -11,7 +11,7 @@ import javax.swing.text.NumberFormatter;
 import java.text.ParseException;
 
 
-public class GameLayout extends MenuLayout {
+public class GameLayout{
 
 
 
