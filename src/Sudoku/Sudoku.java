@@ -10,15 +10,14 @@ public class Sudoku{
     public static void main(String[] args) {
 
 
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Graphical.menuWindow();
-            }
-        });
-
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                Graphical.gameWindow();
+                try {
+                    GUI window = new GUI();
+                    window.frameMenu.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
