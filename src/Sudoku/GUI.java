@@ -1,27 +1,27 @@
 package Sudoku;
 
+
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
 
-public class GUI {
+class GUI {
 
-    protected static JFrame frameMenu;
-    protected static JFrame frameGame;
+    static JFrame frameMenu;
+    private static JFrame frameGame;
     private final Action newGameAction = new newGameAction();
     private final Action loadGameAction = new loadGameAction();
     private final Action settingsAction = new settingsAction();
     private final Action exitGameAction = new exitGameAction();
     private final Action menuItemBackMainAction = new menuItemBackMainAction();
 
-    public GUI() {
+    GUI() {
 
         menuItSelf();
         gameIsSelf();
@@ -29,7 +29,7 @@ public class GUI {
 
 
 
-    protected JLabel gameName() {
+    private JLabel gameName() {
         JLabel name = new JLabel("SUDOKU 6000");
         name.setFont(new Font("Arial", Font.BOLD, 70));
         name.setHorizontalAlignment(SwingConstants.CENTER);
@@ -39,21 +39,19 @@ public class GUI {
         return name;
     }
 
-    protected JOptionPane creatorsMessage() {
+    private void creatorsMessage() {
 
         JOptionPane creators = new JOptionPane();
         showMessageDialog(creators, "Adrian Chabowski\n Aleksander Matłok\n Franciszek Przewoźny\n", "Twórcy", JOptionPane.PLAIN_MESSAGE);
-        return creators;
     }
 
-    protected JOptionPane gameNotSaved() {
+    private void gameNotSaved() {
 
         JOptionPane gameNotSaved = new JOptionPane();
         showMessageDialog(gameNotSaved, "Gra nie została zapisana. Powrót do menu głównego", "Informacja", JOptionPane.PLAIN_MESSAGE);
-        return gameNotSaved;
     }
 
-    protected JMenuBar createMenuBar() {
+    private JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menu, submenuGameType, submenuGameDifficulty;
         JMenuItem menuItemEasy, menuItemMedium, menuItemHard, menuItemTutorial, menuItemNormal, menuItemCreators, menuItemBackMain;
@@ -64,9 +62,7 @@ public class GUI {
 
         menuItemBackMain = new JMenuItem();
 
-        menuItemBackMain.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
+        menuItemBackMain.addActionListener(e -> {
         });
         menuItemBackMain.setAction(menuItemBackMainAction);
 
@@ -92,34 +88,16 @@ public class GUI {
 
         menuItemEasy = new JMenuItem("Łatwy");
         submenuGameDifficulty.add(menuItemEasy);
-        menuItemEasy.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-
-            }
-        });
+        menuItemEasy.addActionListener(e -> { });
 
 
         menuItemMedium = new JMenuItem("Średni");
         submenuGameDifficulty.add(menuItemMedium);
-        menuItemMedium.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-
-            }
-        });
+        menuItemMedium.addActionListener(e -> { });
 
         menuItemHard = new JMenuItem("Trudny");
         submenuGameDifficulty.add(menuItemHard);
-        menuItemHard.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-
-            }
-        });
+        menuItemHard.addActionListener(e -> { });
 
         menu.add(submenuGameDifficulty);
 
@@ -129,13 +107,7 @@ public class GUI {
         menuBar.add(menu);
 
         menuItemCreators = new JMenuItem("Twórcy gry");
-        menuItemCreators.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                creatorsMessage();
-
-            }
-        });
+        menuItemCreators.addActionListener(e -> creatorsMessage());
 
         menuItemBackMain.setText("Powrót do Menu Głównego");
 
@@ -144,7 +116,7 @@ public class GUI {
         return menuBar;
     }
 
-    protected void menuItSelf() {
+    private void menuItSelf() {
 
         frameMenu = new JFrame("SUDOKU");
         frameMenu.setMaximumSize(new Dimension(630,630));
@@ -203,17 +175,13 @@ public class GUI {
 
 
 
-        newGame.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
+        newGame.addActionListener(e -> {
         });
         newGame.setAction(newGameAction);
 
 
 
-        exitGame.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
+        exitGame.addActionListener(e -> {
         });
         exitGame.setAction(exitGameAction);
 
@@ -230,7 +198,7 @@ public class GUI {
 
     }
 
-    protected void gameIsSelf() {
+    private void gameIsSelf() {
 
         frameGame = new JFrame("SUDOKU");
         frameGame.setMaximumSize(new Dimension(630,630));
@@ -600,7 +568,7 @@ public class GUI {
     ////////////
 
     private class newGameAction extends AbstractAction {
-        public newGameAction() {
+        newGameAction() {
 
         }
         public void actionPerformed(ActionEvent e) {
@@ -610,7 +578,7 @@ public class GUI {
     }
 
     private class loadGameAction extends AbstractAction {
-        public loadGameAction() {
+        loadGameAction() {
 
         }
         public void actionPerformed(ActionEvent e) {
@@ -619,7 +587,7 @@ public class GUI {
     }
 
     private class settingsAction extends AbstractAction {
-        public settingsAction() {
+        settingsAction() {
 
         }
         public void actionPerformed(ActionEvent e) {
@@ -629,7 +597,7 @@ public class GUI {
     }
 
     private class exitGameAction extends AbstractAction {
-        public exitGameAction() {
+        exitGameAction() {
 
         }
         public void actionPerformed(ActionEvent e) {
@@ -638,7 +606,7 @@ public class GUI {
     }
 
     private class menuItemBackMainAction extends AbstractAction {
-        public menuItemBackMainAction() {
+        menuItemBackMainAction() {
 
         }
         public void actionPerformed(ActionEvent e) {
