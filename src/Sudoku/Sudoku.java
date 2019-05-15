@@ -1,19 +1,28 @@
 package Sudoku;
 
-public class main {
+import java.awt.*;
+
+public class Sudoku {
 
     //Szybki test
 
     public static void main(String[] args) {
 
-        
-        
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
-                toolBar.createAndShowGUI();
+                try {
+                    GUI window = new GUI();
+                    window.frameMenu.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
-        /*
+
+
+
+/*
 
         int tablica [][]={
                 {5,3,0,0,7,0,0,0,0},
@@ -40,47 +49,47 @@ public class main {
         };
 
 
-            System.out.print("tablica:");
-            for (int i=0; i<9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    System.out.print(tablica[i][j] + "  ");
-                }
-                System.out.println();
+        System.out.print("tablica:");
+        for (int i=0; i<9; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(tablica[i][j] + "  ");
             }
-
-            Solver solver1 = new Solver(tablica);
-            Solver solver2 = new Solver(najtrudniejszeSudokuNaŚwiecie);
-
-            solver1.solve();
-
-            tablica = solver1.getBoardToSolve();
-
             System.out.println();
-            System.out.println();
+        }
 
-            System.out.print("tablica rozw?:");
-            for (int i=0; i<9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    System.out.print(tablica[i][j] + "  ");
-                }
-                System.out.println();
+        Solver solver1 = new Solver(tablica);
+        Solver solver2 = new Solver(najtrudniejszeSudokuNaŚwiecie);
+
+        solver1.solve();
+
+        tablica = solver1.getBoardToSolve();
+
+        System.out.println();
+        System.out.println();
+
+        System.out.print("tablica rozw?:");
+        for (int i=0; i<9; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(tablica[i][j] + "  ");
             }
-
-            solver2.solve();
-
-            najtrudniejszeSudokuNaŚwiecie = solver2.getBoardToSolve();
-
             System.out.println();
-            System.out.println();
-            System.out.print("najtrudniejsze:");
-            for (int i=0; i<9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    System.out.print(najtrudniejszeSudokuNaŚwiecie[i][j] + "  ");
-                }
-                System.out.println();
+        }
+
+        solver2.solve();
+
+        najtrudniejszeSudokuNaŚwiecie = solver2.getBoardToSolve();
+
+        System.out.println();
+        System.out.println();
+        System.out.print("najtrudniejsze:");
+        for (int i=0; i<9; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(najtrudniejszeSudokuNaŚwiecie[i][j] + "  ");
             }
-
             System.out.println();
+        }
+
+        System.out.println();
 
 
         */
