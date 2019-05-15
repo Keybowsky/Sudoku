@@ -62,8 +62,7 @@ class GUI {
 
         menuItemBackMain = new JMenuItem();
 
-        menuItemBackMain.addActionListener(e -> {
-        });
+        menuItemBackMain.addActionListener(e -> { });
         menuItemBackMain.setAction(menuItemBackMainAction);
 
         menu.add(menuItemBackMain);
@@ -175,15 +174,17 @@ class GUI {
 
 
 
-        newGame.addActionListener(e -> {
-        });
+        newGame.addActionListener(e -> { });
         newGame.setAction(newGameAction);
 
-
-
-        exitGame.addActionListener(e -> {
-        });
+        exitGame.addActionListener(e -> { });
         exitGame.setAction(exitGameAction);
+
+        loadGame.addActionListener(e -> { });
+        loadGame.setAction(loadGameAction);
+
+        settings.addActionListener(e -> { });
+        settings.setAction(settingsAction);
 
 
         newGame.setText("Nowa gra");
