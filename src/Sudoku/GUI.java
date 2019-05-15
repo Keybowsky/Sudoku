@@ -51,13 +51,13 @@ class GUI {
         Object[] options = {"Trudny","Średni","Łatwy"};
         int n = JOptionPane.showOptionDialog(newGameSelectDifficultyMessage, "Wybierz poziom trudności:", "Nowa Gra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         //TODO-Franek Wypełnianie w zależności od wybranej trudności
-        if(n==JOptionPane.YES_OPTION){
+        if(n == JOptionPane.YES_OPTION){
 
         }
-        if(n==JOptionPane.NO_OPTION){
+        if(n == JOptionPane.NO_OPTION){
 
         }
-        if(n==JOptionPane.CANCEL_OPTION){
+        if(n == JOptionPane.CANCEL_OPTION){
 
         }
     }
@@ -582,9 +582,12 @@ class GUI {
         frameGame.setContentPane(rootPanel);
         frameGame.setJMenuBar(createMenuBar());
 
+
+        //TODO-Everyone Uzupełnianie planszy według poziomu trudności
+
     }
 
-    ////////////
+
 
     private class newGameAction extends AbstractAction {
         newGameAction() {
