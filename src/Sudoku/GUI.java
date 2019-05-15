@@ -45,6 +45,23 @@ class GUI {
         showMessageDialog(creators, "Adrian Chabowski\n Aleksander Matłok\n Franciszek Przewoźny\n", "Twórcy", JOptionPane.PLAIN_MESSAGE);
     }
 
+    private void newGameSelectDifficultyMessage(){
+
+        JOptionPane newGameSelectDifficultyMessage = new JOptionPane();
+        Object[] options = {"Trudny","Średni","Łatwy"};
+        int n = JOptionPane.showOptionDialog(newGameSelectDifficultyMessage, "Wybierz poziom trudności:", "Nowa Gra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        //TODO-Franek Wypełnianie w zależności od wybranej trudności
+        if(n==JOptionPane.YES_OPTION){
+
+        }
+        if(n==JOptionPane.NO_OPTION){
+
+        }
+        if(n==JOptionPane.CANCEL_OPTION){
+
+        }
+    }
+
     private void gameNotSaved() {
 
         JOptionPane gameNotSaved = new JOptionPane();
@@ -80,6 +97,8 @@ class GUI {
 
 
         menu.add(submenuGameType);
+
+        //TODO-Franek Wypełnianie w zależności od wybranej trudności(z menubar)
 
         menu.addSeparator();
         submenuGameDifficulty = new JMenu("Poziom trudności");
@@ -121,7 +140,6 @@ class GUI {
         frameMenu.setMaximumSize(new Dimension(630,630));
         frameMenu.setMinimumSize(new Dimension(630,630));
         frameMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameMenu.setBackground((new Color(204, 255, 255)));
 
 
         JPanel rootPanel = new JPanel(new BorderLayout(5, 50));
@@ -573,6 +591,7 @@ class GUI {
 
         }
         public void actionPerformed(ActionEvent e) {
+            newGameSelectDifficultyMessage();
             GUI.frameMenu.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
