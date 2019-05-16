@@ -140,7 +140,7 @@ class GUI {
         frameMenu.setMaximumSize(new Dimension(630,630));
         frameMenu.setMinimumSize(new Dimension(630,630));
         frameMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        frameMenu.setLocationRelativeTo(null);
 
         JPanel rootPanel = new JPanel(new BorderLayout(5, 50));
         JPanel leftSpacer = new JPanel(new BorderLayout());
@@ -223,6 +223,7 @@ class GUI {
         frameGame.setMaximumSize(new Dimension(630,630));
         frameGame.setMinimumSize(new Dimension(630,630));
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameGame.setLocationRelativeTo(null);
 
         MaskFormatter formatter = null;
         try {
@@ -236,6 +237,7 @@ class GUI {
         int fieldBoxSize = 30;
 
         JButton buttonCheck = new JButton("Sprawdź");
+
 
 
         //paczka 11
@@ -570,9 +572,8 @@ class GUI {
         gbc.gridy = 2;
         fieldsPanel.add(buttonPanel9, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.ipadx = 3;
+        gbc.gridx = 3;
+        gbc.gridy = 1;
         fieldsPanel.add(buttonCheck, gbc);
 
 
