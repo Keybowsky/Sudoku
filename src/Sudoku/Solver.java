@@ -8,7 +8,7 @@ class Solver {
 
     private int [][] boardToSolve;
 
-    private static final int SIZE = 9;
+    static final int SIZE = 9;
     private static final int SECTION_SIZE = 3;
     private static final int EMPTY_CELL = 0;
 

@@ -18,6 +18,7 @@ class Generator {
 
     private int[][] generatedBoard;
     private Random rand = new Random();
+    private int numberOfFieldsToBeDeleted;
 
     int[][] getGenerationBoard() {
         return generationBoard;
@@ -39,15 +40,6 @@ class Generator {
                     return false;
             }
         }
-        // petle do sprawdzania powtórzeń w kolumnach i rzędach
-        /*for (int i = 0; i < 9; i++) {
-            if (generationBoard[row][i] == checkedNumber)
-                return false;
-        }
-        for (int i = 0; i < 9; i++) {
-            if (generationBoard[i][column] == checkedNumber)
-                return false;
-        }*/
         return true;
     }
 
@@ -67,34 +59,25 @@ class Generator {
             }
         }
     }
-    /* wersja generatora z generowaniem całej planszy
-    private void diagonalSectionGeneration() {
-        for (int sectionX=0; sectionX<7; sectionX = sectionX+3) {
-            for (int sectionY=0; sectionY<7; sectionY=sectionY+3) {
-                for (int row = sectionX; row < sectionX+3; row++) {
-                    for (int column = sectionY; column < sectionY+3; column++) {
-                        int randNumber = rand.nextInt(9) + 1;
-                        if (diagonalSectionCheck(row, column, randNumber))
-                            generationBoard[row][column] = randNumber;
-                        else
-                            column--;
-                    }
-                }
 
-            }
-        }
-    }*/
+    void difficultyLevel(int level){
 
+        if (level == 1)
+            numberOfFieldsToBeDeleted = rand.nextInt((8)+1) + 41; //Łatwy
+        if (level == 2)
+            numberOfFieldsToBeDeleted = rand.nextInt((7)+1) + 49; //Średni
+        if (level == 3)
+            numberOfFieldsToBeDeleted = rand.nextInt((5)+1) + 59; //Trudny
+    }
 
     void boardGeneration() {
 
-        int randNumber = rand.nextInt(14) + 51;
         diagonalSectionGeneration();
         Solver generator = new Solver(generationBoard);
         generator.solve();
         generatedBoard = generator.getBoardToSolve();
 
-        for (int i = 0; i < randNumber; i++) {
+        for (int i = 0; i < numberOfFieldsToBeDeleted; i++) {
 
             int randRow = rand.nextInt(9);
             int randColumn = rand.nextInt(9);

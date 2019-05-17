@@ -22,11 +22,11 @@ class GUI {
     private final Action exitGameAction = new exitGameAction();
     private final Action menuItemBackMainAction = new menuItemBackMainAction();
 
+
     GUI(){
         menuItSelf();
         gameItSelf();
     }
-
 
     //To jest etykieta ktora pojawia sie w panelach menu i game
     private JLabel gameName() {
@@ -652,7 +652,6 @@ class GUI {
 
 
 
-
     private class newGameAction extends AbstractAction {
         //newGameAction() {}
         public void actionPerformed(ActionEvent e) {
@@ -661,8 +660,6 @@ class GUI {
             GUI.frameGame.setVisible(true);
         }
     }
-
-
 
     private class loadGameAction extends AbstractAction {
         //loadGameAction() { }
@@ -701,5 +698,5 @@ class GUI {
         }
     }
 
-
 }
+
