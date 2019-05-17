@@ -43,7 +43,7 @@ class GUI {
     private void creatorsMessage() {
 
         JOptionPane creators = new JOptionPane();
-        showMessageDialog(creators, "Adrian Chabowski\n Aleksander Matłok\n Franciszek Przewoźny\n", "Twórcy", JOptionPane.PLAIN_MESSAGE);
+        showMessageDialog(creators, "Adrian Chabowski\nAleksander Matłok\nFranciszek Przewoźny\n", "Twórcy", JOptionPane.PLAIN_MESSAGE);
     }
 
     //Wiadomosc ktora wymaga wybrania poziomu trudnosci, pojawia sie po uruchomieniu opcji nowa gra z menu
