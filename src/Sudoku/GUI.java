@@ -138,7 +138,9 @@ class GUI {
         return menuBar;
     }
     //deklaracja, inicjalizacja menu glownego razem z przyciskami (etykieta i pasek gorny jest dodawany zzewnatrz)
-    public void menuItSelf() {
+
+
+    private void menuItSelf() {
 
         frameMenu = new JFrame("SUDOKU");
         frameMenu.setMaximumSize(new Dimension(630,630));
@@ -156,7 +158,6 @@ class GUI {
         JButton exitGame = new JButton("Wyjdź z gry");
 
 
-
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1));
         buttonPanel.add(newGame);
@@ -167,7 +168,6 @@ class GUI {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
 
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -221,8 +221,10 @@ class GUI {
 
     }
 
+
+
     //deklaracja i inicjalizacja panelu gry
-    protected void gameItSelf() {
+    private void gameItSelf() {
 
         frameGame = new JFrame("SUDOKU");
         frameGame.setMaximumSize(new Dimension(630,630));
@@ -230,7 +232,7 @@ class GUI {
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameGame.setLocationRelativeTo(null);
 
-        MaskFormatter formatter = null;
+        MaskFormatter formatter = new MaskFormatter();  //Zmiana z null żeby nie wywalało NullPointerException
         try {
             formatter = new MaskFormatter("#");
         } catch (ParseException e) {
@@ -244,9 +246,64 @@ class GUI {
 
         JButton buttonCheck = new JButton("Sprawdź");
 
+        JFormattedTextField [][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+
+        for (int i=0; i<Solver.SIZE; i++){
+            for (int j=0; j<Solver.SIZE; j++){
+                fields[i][j] = new JFormattedTextField(formatter);
+                fields[i][j].setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
+                fields[i][j].setHorizontalAlignment(JTextField.CENTER);
+            }
+        }
+
+        JPanel[] buttonPanel = new JPanel[Solver.SIZE];
+
+        for (int i=0; i<Solver.SIZE; i++) {
+            buttonPanel[i] = new JPanel();
+            buttonPanel[i].setSize(buttonPanelSize, buttonPanelSize);
+            buttonPanel[i].setLayout(new GridLayout(3, 3));
+        }
+
+        for (int i=0; i<Solver.SIZE; i++) {
+            for (int j=0; j < Solver.SIZE; j++) {
+
+                if (i<3) {
+                    if (j<3)
+                        buttonPanel[0].add(fields[i][j]);
+                    if (3<=j && j<6)
+                        buttonPanel[1].add(fields[i][j]);
+                    if (6<=j)
+                        buttonPanel[2].add(fields[i][j]);
+                }
+
+                if (3<=i && i<6){
+                    if (j<3)
+                        buttonPanel[3].add(fields[i][j]);
+                    if (3<=j && j<6)
+                        buttonPanel[4].add(fields[i][j]);
+                    if (6<=j)
+                        buttonPanel[5].add(fields[i][j]);
+                }
+
+                if (6<=i){
+                    if (j<3)
+                        buttonPanel[6].add(fields[i][j]);
+                    if (3<=j && j<6)
+                        buttonPanel[7].add(fields[i][j]);
+                    if (6<=j)
+                        buttonPanel[8].add(fields[i][j]);
+                }
+            }
+        }
+
+
+
+
+
 
 
         //paczka 11
+        /*
 
         JFormattedTextField field11 = new JFormattedTextField(formatter);
 
@@ -512,17 +569,19 @@ class GUI {
         buttonPanel9.add(field99);
 
 
-        buttonPanel1.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
-        buttonPanel2.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
-        buttonPanel3.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 0, Color.BLACK));
+         */
 
-        buttonPanel4.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 1, Color.BLACK));
-        buttonPanel5.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
-        buttonPanel6.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.BLACK));
+        buttonPanel[0].setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
+        buttonPanel[1].setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
+        buttonPanel[2].setBorder(BorderFactory.createMatteBorder(0, 1, 1, 0, Color.BLACK));
 
-        buttonPanel7.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.BLACK));
-        buttonPanel8.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
-        buttonPanel9.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, Color.BLACK));
+        buttonPanel[3].setBorder(BorderFactory.createMatteBorder(1, 0, 1, 1, Color.BLACK));
+        buttonPanel[4].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+        buttonPanel[5].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.BLACK));
+
+        buttonPanel[6].setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.BLACK));
+        buttonPanel[7].setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
+        buttonPanel[8].setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, Color.BLACK));
 
 
 
@@ -590,39 +649,39 @@ class GUI {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        fieldsPanel.add(buttonPanel1, gbc);
+        fieldsPanel.add(buttonPanel[0], gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        fieldsPanel.add(buttonPanel2, gbc);
+        fieldsPanel.add(buttonPanel[1], gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 0;
-        fieldsPanel.add(buttonPanel3, gbc);
+        fieldsPanel.add(buttonPanel[2], gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        fieldsPanel.add(buttonPanel4, gbc);
+        fieldsPanel.add(buttonPanel[3], gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        fieldsPanel.add(buttonPanel5, gbc);
+        fieldsPanel.add(buttonPanel[4], gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 1;
-        fieldsPanel.add(buttonPanel6, gbc);
+        fieldsPanel.add(buttonPanel[5], gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        fieldsPanel.add(buttonPanel7, gbc);
+        fieldsPanel.add(buttonPanel[6], gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        fieldsPanel.add(buttonPanel8, gbc);
+        fieldsPanel.add(buttonPanel[7], gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 2;
-        fieldsPanel.add(buttonPanel9, gbc);
+        fieldsPanel.add(buttonPanel[8], gbc);
 
         /*
         gbc.gridx = 3;

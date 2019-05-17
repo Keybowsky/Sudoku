@@ -12,8 +12,8 @@ public class Sudoku {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    GUI window = new GUI();
-                    window.frameMenu.setVisible(true);
+                    GUI GUI = new GUI();
+                    GUI.frameMenu.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -92,7 +92,7 @@ public class Sudoku {
         System.out.println();
 
 
-        */
+
         Generator generator = new Generator();
 
         generator.boardGeneration();
@@ -139,8 +139,7 @@ public class Sudoku {
             }
             System.out.println();
         }
-
-
+        */
 
     }
 }
