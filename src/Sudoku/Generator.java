@@ -67,17 +67,18 @@ class Generator {
         if (level == 2)
             numberOfFieldsToBeDeleted = rand.nextInt((7)+1) + 49; //Średni
         if (level == 3)
-            numberOfFieldsToBeDeleted = rand.nextInt((5)+1) + 59; //Trudny
+            numberOfFieldsToBeDeleted = rand.nextInt((5)+1) +59; //Trudny
     }
 
     void boardGeneration() {
+
 
         diagonalSectionGeneration();
         Solver generator = new Solver(generationBoard);
         generator.solve();
         generatedBoard = generator.getBoardToSolve();
 
-        for (int i = 0; i < numberOfFieldsToBeDeleted; i++) {
+        for (int i = 0; i < numberOfFieldsToBeDeleted; i++) { //Błąd jest tutaj - wartość nie wchodzi z difficultyLevel
 
             int randRow = rand.nextInt(9);
             int randColumn = rand.nextInt(9);

@@ -21,6 +21,9 @@ class GUI {
     private final Action settingsAction = new settingsAction();
     private final Action exitGameAction = new exitGameAction();
     private final Action menuItemBackMainAction = new menuItemBackMainAction();
+    private final Action checkGame = new checkGame();
+
+    private Generator generator = new Generator();
 
 
     GUI(){
@@ -43,7 +46,7 @@ class GUI {
     private void creatorsMessage() {
 
         JOptionPane creators = new JOptionPane();
-        showMessageDialog(creators, "Adrian Chabowski\n Aleksander Matłok\n Franciszek Przewoźny\n", "Twórcy", JOptionPane.PLAIN_MESSAGE);
+        showMessageDialog(creators, "Adrian Chabowski\nAleksander Matłok\nFranciszek Przewoźny\n", "Twórcy", JOptionPane.PLAIN_MESSAGE);
     }
 
     //Wiadomosc ktora wymaga wybrania poziomu trudnosci, pojawia sie po uruchomieniu opcji nowa gra z menu
@@ -52,15 +55,15 @@ class GUI {
         JOptionPane newGameSelectDifficultyMessage = new JOptionPane();
         Object[] options = {"Trudny","Średni","Łatwy"};
         int n = JOptionPane.showOptionDialog(newGameSelectDifficultyMessage, "Wybierz poziom trudności:", "Nowa Gra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        //TODO-Franek Wypełnianie w zależności od wybranej trudności
-        if(n == JOptionPane.YES_OPTION){
 
+        if(n == JOptionPane.YES_OPTION){
+            generator.difficultyLevel(1);
         }
         if(n == JOptionPane.NO_OPTION){
-
+            generator.difficultyLevel(2);
         }
         if(n == JOptionPane.CANCEL_OPTION){
-
+            generator.difficultyLevel(3);
         }
     }
 
@@ -110,16 +113,15 @@ class GUI {
 
         menuItemEasy = new JMenuItem("Łatwy");
         submenuGameDifficulty.add(menuItemEasy);
-        menuItemEasy.addActionListener(e -> { });
-
+        menuItemEasy.addActionListener(e -> { generator.difficultyLevel(1);});
 
         menuItemMedium = new JMenuItem("Średni");
         submenuGameDifficulty.add(menuItemMedium);
-        menuItemMedium.addActionListener(e -> { });
+        menuItemMedium.addActionListener(e -> { generator.difficultyLevel(2);});
 
         menuItemHard = new JMenuItem("Trudny");
         submenuGameDifficulty.add(menuItemHard);
-        menuItemHard.addActionListener(e -> { });
+        menuItemHard.addActionListener(e -> { generator.difficultyLevel(3);});
 
         menu.add(submenuGameDifficulty);
 
@@ -138,7 +140,14 @@ class GUI {
         return menuBar;
     }
     //deklaracja, inicjalizacja menu glownego razem z przyciskami (etykieta i pasek gorny jest dodawany zzewnatrz)
-    public void menuItSelf() {
+
+    private void checkGame(){
+
+        //tutaj sprawdzanie uruchomione przyciskiem z wewnątrz gry (może osobny messageDialog ?)
+
+    }
+
+    private void menuItSelf() {
 
         frameMenu = new JFrame("SUDOKU");
         frameMenu.setMaximumSize(new Dimension(630,630));
@@ -156,7 +165,6 @@ class GUI {
         JButton exitGame = new JButton("Wyjdź z gry");
 
 
-
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1));
         buttonPanel.add(newGame);
@@ -164,10 +172,10 @@ class GUI {
         buttonPanel.add(settings);
         buttonPanel.add(exitGame);
 
+
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
 
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -221,8 +229,10 @@ class GUI {
 
     }
 
+
+
     //deklaracja i inicjalizacja panelu gry
-    protected void gameItSelf() {
+    private void gameItSelf() {
 
         frameGame = new JFrame("SUDOKU");
         frameGame.setMaximumSize(new Dimension(630,630));
@@ -230,7 +240,7 @@ class GUI {
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameGame.setLocationRelativeTo(null);
 
-        MaskFormatter formatter = null;
+        MaskFormatter formatter = new MaskFormatter();  //Zmiana z null żeby nie wywalało NullPointerException
         try {
             formatter = new MaskFormatter("#");
         } catch (ParseException e) {
@@ -242,345 +252,74 @@ class GUI {
         int buttonPanelSize = 100;
         int fieldBoxSize = 30;
 
-        JButton buttonCheck = new JButton("Sprawdź");
+        JButton buttonCheck = new JButton();
+        buttonCheck.addActionListener(e -> { });
+        buttonCheck.setAction(checkGame);
+        buttonCheck.setText("Sprawdź");
+
+        JFormattedTextField [][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+
+        for (int i=0; i<Solver.SIZE; i++){
+            for (int j=0; j<Solver.SIZE; j++){
+                fields[i][j] = new JFormattedTextField(formatter);
+                fields[i][j].setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
+                fields[i][j].setHorizontalAlignment(JTextField.CENTER);
+            }
+        }
+
+        JPanel[] buttonPanel = new JPanel[Solver.SIZE];
+
+        for (int i=0; i<Solver.SIZE; i++) {
+            buttonPanel[i] = new JPanel();
+            buttonPanel[i].setSize(buttonPanelSize, buttonPanelSize);
+            buttonPanel[i].setLayout(new GridLayout(3, 3));
+        }
+
+        for (int i=0; i<Solver.SIZE; i++) {
+            for (int j=0; j < Solver.SIZE; j++) {
+
+                if (i<3) {
+                    if (j<3)
+                        buttonPanel[0].add(fields[i][j]);
+                    if (3<=j && j<6)
+                        buttonPanel[1].add(fields[i][j]);
+                    if (6<=j)
+                        buttonPanel[2].add(fields[i][j]);
+                }
+
+                if (3<=i && i<6){
+                    if (j<3)
+                        buttonPanel[3].add(fields[i][j]);
+                    if (3<=j && j<6)
+                        buttonPanel[4].add(fields[i][j]);
+                    if (6<=j)
+                        buttonPanel[5].add(fields[i][j]);
+                }
+
+                if (6<=i){
+                    if (j<3)
+                        buttonPanel[6].add(fields[i][j]);
+                    if (3<=j && j<6)
+                        buttonPanel[7].add(fields[i][j]);
+                    if (6<=j)
+                        buttonPanel[8].add(fields[i][j]);
+                }
+            }
+        }
+
+        buttonPanel[0].setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
+        buttonPanel[1].setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
+        buttonPanel[2].setBorder(BorderFactory.createMatteBorder(0, 1, 1, 0, Color.BLACK));
+
+        buttonPanel[3].setBorder(BorderFactory.createMatteBorder(1, 0, 1, 1, Color.BLACK));
+        buttonPanel[4].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+        buttonPanel[5].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.BLACK));
+
+        buttonPanel[6].setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.BLACK));
+        buttonPanel[7].setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
+        buttonPanel[8].setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, Color.BLACK));
 
 
-
-        //paczka 11
-
-        JFormattedTextField field11 = new JFormattedTextField(formatter);
-
-        field11.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
-        field11.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field12 = new JFormattedTextField(formatter);
-        field12.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field13 = new JFormattedTextField(formatter);
-        field13.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field21 = new JFormattedTextField(formatter);
-        field21.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field22 = new JFormattedTextField(formatter);
-        field22.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field23 = new JFormattedTextField(formatter);
-        field23.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field31 = new JFormattedTextField(formatter);
-        field31.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field32 = new JFormattedTextField(formatter);
-        field32.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field33 = new JFormattedTextField(formatter);
-        field33.setHorizontalAlignment(JTextField.CENTER);
-
-        JPanel buttonPanel1 = new JPanel();
-        buttonPanel1.setSize(buttonPanelSize, buttonPanelSize);
-        buttonPanel1.setLayout(new GridLayout(3, 3));
-        buttonPanel1.add(field11);
-        buttonPanel1.add(field12);
-        buttonPanel1.add(field13);
-        buttonPanel1.add(field21);
-        buttonPanel1.add(field22);
-        buttonPanel1.add(field23);
-        buttonPanel1.add(field31);
-        buttonPanel1.add(field32);
-        buttonPanel1.add(field33);
-
-        //paczka 12
-
-        JFormattedTextField field14 = new JFormattedTextField(formatter);
-        field14.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
-        field14.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field15 = new JFormattedTextField(formatter);
-        field15.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field16 = new JFormattedTextField(formatter);
-        field16.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field24 = new JFormattedTextField(formatter);
-        field24.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field25 = new JFormattedTextField(formatter);
-        field25.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field26 = new JFormattedTextField(formatter);
-        field26.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field34 = new JFormattedTextField(formatter);
-        field34.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field35 = new JFormattedTextField(formatter);
-        field35.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field36 = new JFormattedTextField(formatter);
-        field36.setHorizontalAlignment(JTextField.CENTER);
-
-        JPanel buttonPanel2 = new JPanel();
-        buttonPanel2.setSize(buttonPanelSize, buttonPanelSize);
-        buttonPanel2.setLayout(new GridLayout(3, 3));
-        buttonPanel2.add(field14);
-        buttonPanel2.add(field15);
-        buttonPanel2.add(field16);
-        buttonPanel2.add(field24);
-        buttonPanel2.add(field25);
-        buttonPanel2.add(field26);
-        buttonPanel2.add(field34);
-        buttonPanel2.add(field35);
-        buttonPanel2.add(field36);
-
-        //paczka 13
-
-        JFormattedTextField field17 = new JFormattedTextField(formatter);
-        field17.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
-        field17.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field18 = new JFormattedTextField(formatter);
-        field18.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field19 = new JFormattedTextField(formatter);
-        field19.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field27 = new JFormattedTextField(formatter);
-        field27.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field28 = new JFormattedTextField(formatter);
-        field28.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field29 = new JFormattedTextField(formatter);
-        field29.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field37 = new JFormattedTextField(formatter);
-        field37.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field38 = new JFormattedTextField(formatter);
-        field38.setHorizontalAlignment(JTextField.CENTER);
-        JFormattedTextField field39 = new JFormattedTextField(formatter);
-        field39.setHorizontalAlignment(JTextField.CENTER);
-
-        JPanel buttonPanel3 = new JPanel();
-        buttonPanel3.setSize(buttonPanelSize, buttonPanelSize);
-        buttonPanel3.setLayout(new GridLayout(3, 3));
-        buttonPanel3.add(field17);
-        buttonPanel3.add(field18);
-        buttonPanel3.add(field19);
-        buttonPanel3.add(field27);
-        buttonPanel3.add(field28);
-        buttonPanel3.add(field29);
-        buttonPanel3.add(field37);
-        buttonPanel3.add(field38);
-        buttonPanel3.add(field39);
-
-        //paczka 21
-
-        JFormattedTextField field41 = new JFormattedTextField(formatter);
-        field41.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
-        JFormattedTextField field42 = new JFormattedTextField(formatter);
-        JFormattedTextField field43 = new JFormattedTextField(formatter);
-        JFormattedTextField field51 = new JFormattedTextField(formatter);
-        JFormattedTextField field52 = new JFormattedTextField(formatter);
-        JFormattedTextField field53 = new JFormattedTextField(formatter);
-        JFormattedTextField field61 = new JFormattedTextField(formatter);
-        JFormattedTextField field62 = new JFormattedTextField(formatter);
-        JFormattedTextField field63 = new JFormattedTextField(formatter);
-
-        JPanel buttonPanel4 = new JPanel();
-        buttonPanel4.setSize(buttonPanelSize, buttonPanelSize);
-        buttonPanel4.setLayout(new GridLayout(3, 3));
-        buttonPanel4.add(field41);
-        buttonPanel4.add(field42);
-        buttonPanel4.add(field43);
-        buttonPanel4.add(field51);
-        buttonPanel4.add(field52);
-        buttonPanel4.add(field53);
-        buttonPanel4.add(field61);
-        buttonPanel4.add(field62);
-        buttonPanel4.add(field63);
-
-        //paczka 22
-
-        JFormattedTextField field44 = new JFormattedTextField(formatter);
-        field44.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
-        JFormattedTextField field45 = new JFormattedTextField(formatter);
-        JFormattedTextField field46 = new JFormattedTextField(formatter);
-        JFormattedTextField field54 = new JFormattedTextField(formatter);
-        JFormattedTextField field55 = new JFormattedTextField(formatter);
-        JFormattedTextField field56 = new JFormattedTextField(formatter);
-        JFormattedTextField field64 = new JFormattedTextField(formatter);
-        JFormattedTextField field65 = new JFormattedTextField(formatter);
-        JFormattedTextField field66 = new JFormattedTextField(formatter);
-
-        JPanel buttonPanel5 = new JPanel();
-        buttonPanel5.setSize(buttonPanelSize, buttonPanelSize);
-        buttonPanel5.setLayout(new GridLayout(3, 3));
-        buttonPanel5.add(field44);
-        buttonPanel5.add(field45);
-        buttonPanel5.add(field46);
-        buttonPanel5.add(field54);
-        buttonPanel5.add(field55);
-        buttonPanel5.add(field56);
-        buttonPanel5.add(field64);
-        buttonPanel5.add(field65);
-        buttonPanel5.add(field66);
-
-        //paczka 23
-
-        JFormattedTextField field47 = new JFormattedTextField(formatter);
-        field47.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
-        JFormattedTextField field48 = new JFormattedTextField(formatter);
-        JFormattedTextField field49 = new JFormattedTextField(formatter);
-        JFormattedTextField field57 = new JFormattedTextField(formatter);
-        JFormattedTextField field58 = new JFormattedTextField(formatter);
-        JFormattedTextField field59 = new JFormattedTextField(formatter);
-        JFormattedTextField field67 = new JFormattedTextField(formatter);
-        JFormattedTextField field68 = new JFormattedTextField(formatter);
-        JFormattedTextField field69 = new JFormattedTextField(formatter);
-
-        JPanel buttonPanel6 = new JPanel();
-        buttonPanel6.setSize(buttonPanelSize, buttonPanelSize);
-        buttonPanel6.setLayout(new GridLayout(3, 3));
-        buttonPanel6.add(field47);
-        buttonPanel6.add(field48);
-        buttonPanel6.add(field49);
-        buttonPanel6.add(field57);
-        buttonPanel6.add(field58);
-        buttonPanel6.add(field59);
-        buttonPanel6.add(field67);
-        buttonPanel6.add(field68);
-        buttonPanel6.add(field69);
-
-        //paczka 31
-
-
-        JFormattedTextField field71 = new JFormattedTextField(formatter);
-        field71.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
-        JFormattedTextField field72 = new JFormattedTextField(formatter);
-        JFormattedTextField field73 = new JFormattedTextField(formatter);
-        JFormattedTextField field81 = new JFormattedTextField(formatter);
-        JFormattedTextField field82 = new JFormattedTextField(formatter);
-        JFormattedTextField field83 = new JFormattedTextField(formatter);
-        JFormattedTextField field91 = new JFormattedTextField(formatter);
-        JFormattedTextField field92 = new JFormattedTextField(formatter);
-        JFormattedTextField field93 = new JFormattedTextField(formatter);
-
-        JPanel buttonPanel7 = new JPanel();
-        buttonPanel7.setSize(buttonPanelSize, buttonPanelSize);
-        buttonPanel7.setLayout(new GridLayout(3, 3));
-        buttonPanel7.add(field71);
-        buttonPanel7.add(field72);
-        buttonPanel7.add(field73);
-        buttonPanel7.add(field81);
-        buttonPanel7.add(field82);
-        buttonPanel7.add(field83);
-        buttonPanel7.add(field91);
-        buttonPanel7.add(field92);
-        buttonPanel7.add(field93);
-
-
-        //paczka 32
-
-
-        JFormattedTextField field74 = new JFormattedTextField(formatter);
-        field74.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
-        JFormattedTextField field75 = new JFormattedTextField(formatter);
-        JFormattedTextField field76 = new JFormattedTextField(formatter);
-        JFormattedTextField field84 = new JFormattedTextField(formatter);
-        JFormattedTextField field85 = new JFormattedTextField(formatter);
-        JFormattedTextField field86 = new JFormattedTextField(formatter);
-        JFormattedTextField field94 = new JFormattedTextField(formatter);
-        JFormattedTextField field95 = new JFormattedTextField(formatter);
-        JFormattedTextField field96 = new JFormattedTextField(formatter);
-
-        JPanel buttonPanel8 = new JPanel();
-        buttonPanel8.setSize(buttonPanelSize, buttonPanelSize);
-        buttonPanel8.setLayout(new GridLayout(3, 3));
-        buttonPanel8.add(field74);
-        buttonPanel8.add(field75);
-        buttonPanel8.add(field76);
-        buttonPanel8.add(field84);
-        buttonPanel8.add(field85);
-        buttonPanel8.add(field86);
-        buttonPanel8.add(field94);
-        buttonPanel8.add(field95);
-        buttonPanel8.add(field96);
-        //paczka 33
-
-
-        JFormattedTextField field77 = new JFormattedTextField(formatter);
-        field77.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
-        JFormattedTextField field78 = new JFormattedTextField(formatter);
-        JFormattedTextField field79 = new JFormattedTextField(formatter);
-        JFormattedTextField field87 = new JFormattedTextField(formatter);
-        JFormattedTextField field88 = new JFormattedTextField(formatter);
-        JFormattedTextField field89 = new JFormattedTextField(formatter);
-        JFormattedTextField field97 = new JFormattedTextField(formatter);
-        JFormattedTextField field98 = new JFormattedTextField(formatter);
-        JFormattedTextField field99 = new JFormattedTextField(formatter);
-
-        JPanel buttonPanel9 = new JPanel();
-        buttonPanel9.setSize(buttonPanelSize, buttonPanelSize);
-        buttonPanel9.setLayout(new GridLayout(3, 3));
-        buttonPanel9.add(field77);
-        buttonPanel9.add(field78);
-        buttonPanel9.add(field79);
-        buttonPanel9.add(field87);
-        buttonPanel9.add(field88);
-        buttonPanel9.add(field89);
-        buttonPanel9.add(field97);
-        buttonPanel9.add(field98);
-        buttonPanel9.add(field99);
-
-
-        buttonPanel1.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
-        buttonPanel2.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
-        buttonPanel3.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 0, Color.BLACK));
-
-        buttonPanel4.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 1, Color.BLACK));
-        buttonPanel5.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
-        buttonPanel6.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.BLACK));
-
-        buttonPanel7.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.BLACK));
-        buttonPanel8.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
-        buttonPanel9.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, Color.BLACK));
-
-
-
-
-
-/*
-        buttonPanel1.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEtchedBorder(
-                        Color.gray,
-                        new Color(156, 156, 158)),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
-        buttonPanel2.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEtchedBorder(
-                        Color.gray,
-                        new Color(156, 156, 158)),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
-        buttonPanel3.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEtchedBorder(
-                        Color.gray,
-                        new Color(156, 156, 158)),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
-        buttonPanel4.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEtchedBorder(
-                        Color.gray,
-                        new Color(156, 156, 158)),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
-
-        buttonPanel5.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEtchedBorder(
-                        Color.gray,
-                        new Color(156, 156, 158)),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
-        buttonPanel6.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEtchedBorder(
-                        Color.gray,
-                        new Color(156, 156, 158)),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
-
-        buttonPanel7.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEtchedBorder(
-                        Color.gray,
-                        new Color(156, 156, 158)),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
-
-        buttonPanel8.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEtchedBorder(
-                        Color.gray,
-                        new Color(156, 156, 158)),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
-        buttonPanel9.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEtchedBorder(
-                        Color.gray,
-                        new Color(156, 156, 158)),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
-
-
-
- */
         JPanel rootPanel = new JPanel();
         JPanel fieldsPanel = new JPanel();
         rootPanel.setLayout(new BorderLayout());
@@ -590,52 +329,46 @@ class GUI {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        fieldsPanel.add(buttonPanel1, gbc);
+        fieldsPanel.add(buttonPanel[0], gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        fieldsPanel.add(buttonPanel2, gbc);
+        fieldsPanel.add(buttonPanel[1], gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 0;
-        fieldsPanel.add(buttonPanel3, gbc);
+        fieldsPanel.add(buttonPanel[2], gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        fieldsPanel.add(buttonPanel4, gbc);
+        fieldsPanel.add(buttonPanel[3], gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        fieldsPanel.add(buttonPanel5, gbc);
+        fieldsPanel.add(buttonPanel[4], gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 1;
-        fieldsPanel.add(buttonPanel6, gbc);
+        fieldsPanel.add(buttonPanel[5], gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        fieldsPanel.add(buttonPanel7, gbc);
+        fieldsPanel.add(buttonPanel[6], gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        fieldsPanel.add(buttonPanel8, gbc);
+        fieldsPanel.add(buttonPanel[7], gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 2;
-        fieldsPanel.add(buttonPanel9, gbc);
+        fieldsPanel.add(buttonPanel[8], gbc);
 
-        /*
+
         gbc.gridx = 3;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
         fieldsPanel.add(buttonCheck, gbc);
-        */
 
-        //przyklad zapisu liczby do komorki i wylaczenia jej edycji (wprowadzanie liczb poczatkowych)
-        /*
-        field11.setText("4");
-        field11.setEditable(false);
-         */
 
 
         rootPanel.add(fieldsPanel, BorderLayout.CENTER);
@@ -647,13 +380,25 @@ class GUI {
 
         //TODO-Everyone Uzupełnianie planszy według poziomu trudności
 
+        generator.boardGeneration();
 
+        int [][] tempBoard = generator.getGeneratedBoard();
+
+        for (int i=0; i<Solver.SIZE; i++) {
+            for (int j = 0; j < Solver.SIZE; j++) {
+                fields[i][j].setValue(tempBoard[i][j]);
+                if(tempBoard[i][j]!=0)
+                    fields[i][j].setEditable(false);
+                else
+                    fields[i][j].setValue("");
+            }
+        }
+//pętla if else robi tak: jeśli liczba jest inna niż zero (czyli dana z góry) to blokuje edycje, jeśli jest zero (brak danej - do wpisu) to wstawia puste zamiast zera
     }
 
 
 
     private class newGameAction extends AbstractAction {
-        //newGameAction() {}
         public void actionPerformed(ActionEvent e) {
             newGameSelectDifficultyMessage();
             GUI.frameMenu.setVisible(false);
@@ -696,6 +441,11 @@ class GUI {
             GUI.frameGame.setVisible(false);
             GUI.frameMenu.setVisible(true);
         }
+    }
+
+    private class checkGame extends AbstractAction {
+        checkGame(){}
+        public void actionPerformed(ActionEvent e){}
     }
 
 }
