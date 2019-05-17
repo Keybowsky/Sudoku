@@ -2,6 +2,7 @@ package Sudoku;
 
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,14 +22,13 @@ class GUI {
     private final Action exitGameAction = new exitGameAction();
     private final Action menuItemBackMainAction = new menuItemBackMainAction();
 
-    GUI() {
 
+    GUI(){
         menuItSelf();
-        gameIsSelf();
+        gameItSelf();
     }
 
-
-
+    //To jest etykieta ktora pojawia sie w panelach menu i game
     private JLabel gameName() {
         JLabel name = new JLabel("SUDOKU 6000");
         name.setFont(new Font("Arial", Font.BOLD, 70));
@@ -39,18 +39,39 @@ class GUI {
         return name;
     }
 
+    //Wiadomosc Tworcy ktora pojawia sie poprzez uruchomienie odpowiedniego podmenu z panelu game
     private void creatorsMessage() {
 
         JOptionPane creators = new JOptionPane();
         showMessageDialog(creators, "Adrian Chabowski\n Aleksander Matłok\n Franciszek Przewoźny\n", "Twórcy", JOptionPane.PLAIN_MESSAGE);
     }
 
+    //Wiadomosc ktora wymaga wybrania poziomu trudnosci, pojawia sie po uruchomieniu opcji nowa gra z menu
+    private void newGameSelectDifficultyMessage(){
+
+        JOptionPane newGameSelectDifficultyMessage = new JOptionPane();
+        Object[] options = {"Trudny","Średni","Łatwy"};
+        int n = JOptionPane.showOptionDialog(newGameSelectDifficultyMessage, "Wybierz poziom trudności:", "Nowa Gra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        //TODO-Franek Wypełnianie w zależności od wybranej trudności
+        if(n == JOptionPane.YES_OPTION){
+
+        }
+        if(n == JOptionPane.NO_OPTION){
+
+        }
+        if(n == JOptionPane.CANCEL_OPTION){
+
+        }
+    }
+
+    //Wiadomosc ktora pojawia sie po powrocie do menu z menu gry
     private void gameNotSaved() {
 
         JOptionPane gameNotSaved = new JOptionPane();
         showMessageDialog(gameNotSaved, "Gra nie została zapisana. Powrót do menu głównego", "Informacja", JOptionPane.PLAIN_MESSAGE);
     }
 
+    //Utworzenie paska (tego na gorze ekranu)
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menu, submenuGameType, submenuGameDifficulty;
@@ -80,6 +101,8 @@ class GUI {
 
 
         menu.add(submenuGameType);
+
+        //TODO-Franek Wypełnianie w zależności od wybranej trudności(z menubar)
 
         menu.addSeparator();
         submenuGameDifficulty = new JMenu("Poziom trudności");
@@ -114,15 +137,14 @@ class GUI {
 
         return menuBar;
     }
-
-    private void menuItSelf() {
+    //deklaracja, inicjalizacja menu glownego razem z przyciskami (etykieta i pasek gorny jest dodawany zzewnatrz)
+    public void menuItSelf() {
 
         frameMenu = new JFrame("SUDOKU");
         frameMenu.setMaximumSize(new Dimension(630,630));
         frameMenu.setMinimumSize(new Dimension(630,630));
         frameMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameMenu.setBackground((new Color(204, 255, 255)));
-
+        frameMenu.setLocationRelativeTo(null);
 
         JPanel rootPanel = new JPanel(new BorderLayout(5, 50));
         JPanel leftSpacer = new JPanel(new BorderLayout());
@@ -199,12 +221,14 @@ class GUI {
 
     }
 
-    private void gameIsSelf() {
+    //deklaracja i inicjalizacja panelu gry
+    protected void gameItSelf() {
 
         frameGame = new JFrame("SUDOKU");
         frameGame.setMaximumSize(new Dimension(630,630));
         frameGame.setMinimumSize(new Dimension(630,630));
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameGame.setLocationRelativeTo(null);
 
         MaskFormatter formatter = null;
         try {
@@ -212,7 +236,8 @@ class GUI {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        formatter.setValidCharacters("0123456789");
+        formatter.setValidCharacters("123456789");
+
 
         int buttonPanelSize = 100;
         int fieldBoxSize = 30;
@@ -220,18 +245,29 @@ class GUI {
         JButton buttonCheck = new JButton("Sprawdź");
 
 
+
         //paczka 11
 
         JFormattedTextField field11 = new JFormattedTextField(formatter);
+
         field11.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
+        field11.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field12 = new JFormattedTextField(formatter);
+        field12.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field13 = new JFormattedTextField(formatter);
+        field13.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field21 = new JFormattedTextField(formatter);
+        field21.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field22 = new JFormattedTextField(formatter);
+        field22.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field23 = new JFormattedTextField(formatter);
+        field23.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field31 = new JFormattedTextField(formatter);
+        field31.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field32 = new JFormattedTextField(formatter);
+        field32.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field33 = new JFormattedTextField(formatter);
+        field33.setHorizontalAlignment(JTextField.CENTER);
 
         JPanel buttonPanel1 = new JPanel();
         buttonPanel1.setSize(buttonPanelSize, buttonPanelSize);
@@ -250,15 +286,23 @@ class GUI {
 
         JFormattedTextField field14 = new JFormattedTextField(formatter);
         field14.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
+        field14.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field15 = new JFormattedTextField(formatter);
+        field15.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field16 = new JFormattedTextField(formatter);
+        field16.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field24 = new JFormattedTextField(formatter);
+        field24.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field25 = new JFormattedTextField(formatter);
+        field25.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field26 = new JFormattedTextField(formatter);
+        field26.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field34 = new JFormattedTextField(formatter);
+        field34.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field35 = new JFormattedTextField(formatter);
+        field35.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field36 = new JFormattedTextField(formatter);
-
+        field36.setHorizontalAlignment(JTextField.CENTER);
 
         JPanel buttonPanel2 = new JPanel();
         buttonPanel2.setSize(buttonPanelSize, buttonPanelSize);
@@ -277,14 +321,23 @@ class GUI {
 
         JFormattedTextField field17 = new JFormattedTextField(formatter);
         field17.setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
+        field17.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field18 = new JFormattedTextField(formatter);
+        field18.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field19 = new JFormattedTextField(formatter);
+        field19.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field27 = new JFormattedTextField(formatter);
+        field27.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field28 = new JFormattedTextField(formatter);
+        field28.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field29 = new JFormattedTextField(formatter);
+        field29.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field37 = new JFormattedTextField(formatter);
+        field37.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field38 = new JFormattedTextField(formatter);
+        field38.setHorizontalAlignment(JTextField.CENTER);
         JFormattedTextField field39 = new JFormattedTextField(formatter);
+        field39.setHorizontalAlignment(JTextField.CENTER);
 
         JPanel buttonPanel3 = new JPanel();
         buttonPanel3.setSize(buttonPanelSize, buttonPanelSize);
@@ -459,6 +512,23 @@ class GUI {
         buttonPanel9.add(field99);
 
 
+        buttonPanel1.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
+        buttonPanel2.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
+        buttonPanel3.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 0, Color.BLACK));
+
+        buttonPanel4.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 1, Color.BLACK));
+        buttonPanel5.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+        buttonPanel6.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.BLACK));
+
+        buttonPanel7.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.BLACK));
+        buttonPanel8.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
+        buttonPanel9.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, Color.BLACK));
+
+
+
+
+
+/*
         buttonPanel1.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createEtchedBorder(
                         Color.gray,
@@ -509,6 +579,8 @@ class GUI {
                 BorderFactory.createEmptyBorder(15, 15, 15, 15)));
 
 
+
+ */
         JPanel rootPanel = new JPanel();
         JPanel fieldsPanel = new JPanel();
         rootPanel.setLayout(new BorderLayout());
@@ -552,10 +624,18 @@ class GUI {
         gbc.gridy = 2;
         fieldsPanel.add(buttonPanel9, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.ipadx = 3;
+        /*
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
         fieldsPanel.add(buttonCheck, gbc);
+        */
+
+        //przyklad zapisu liczby do komorki i wylaczenia jej edycji (wprowadzanie liczb poczatkowych)
+        /*
+        field11.setText("4");
+        field11.setEditable(false);
+         */
 
 
         rootPanel.add(fieldsPanel, BorderLayout.CENTER);
@@ -564,24 +644,25 @@ class GUI {
         frameGame.setContentPane(rootPanel);
         frameGame.setJMenuBar(createMenuBar());
 
+
+        //TODO-Everyone Uzupełnianie planszy według poziomu trudności
+
+
     }
 
-    ////////////
+
 
     private class newGameAction extends AbstractAction {
-        newGameAction() {
-
-        }
+        //newGameAction() {}
         public void actionPerformed(ActionEvent e) {
+            newGameSelectDifficultyMessage();
             GUI.frameMenu.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
     }
 
     private class loadGameAction extends AbstractAction {
-        loadGameAction() {
-
-        }
+        //loadGameAction() { }
         public void actionPerformed(ActionEvent e) {
             //GUI.frameMenu.setVisible(false);
         }
@@ -618,3 +699,4 @@ class GUI {
     }
 
 }
+
