@@ -8,6 +8,7 @@ public class Sudoku {
 
     public static void main(String[] args) {
 
+
         EventQueue.invokeLater(() -> {
             try {
                 GUI GUI = new GUI();
@@ -16,6 +17,7 @@ public class Sudoku {
                 e.printStackTrace();
             }
         });
+
 
     }
 }

@@ -60,33 +60,38 @@ class Generator {
         }
     }
 
-    void difficultyLevel(int level){
+    void difficultyLevel(int difficultyLevel){
 
-        if (level == 1)
-            numberOfFieldsToBeDeleted = rand.nextInt((8)+1) + 41; //Łatwy
-        if (level == 2)
-            numberOfFieldsToBeDeleted = rand.nextInt((7)+1) + 49; //Średni
-        if (level == 3)
-            numberOfFieldsToBeDeleted = rand.nextInt((5)+1) +59; //Trudny
+        if (difficultyLevel == 1)
+            numberOfFieldsToBeDeleted = rand.nextInt((8)+1)+41; //Łatwy
+        if (difficultyLevel == 2)
+            numberOfFieldsToBeDeleted = rand.nextInt((7)+1)+49; //Średni
+        if (difficultyLevel == 3)
+            numberOfFieldsToBeDeleted = rand.nextInt((5)+1)+59; //Trudny
+    }
+
+    private void fieldDeletion(int numberOfFieldsToBeDeleted){
+
+        while (numberOfFieldsToBeDeleted > 0){
+
+            int randRow = rand.nextInt(9);
+            int randColumn = rand.nextInt(9);
+
+            if (generatedBoard[randRow][randColumn] != 0) {
+                generatedBoard[randRow][randColumn] = 0;
+                numberOfFieldsToBeDeleted--;
+            }
+            else
+                numberOfFieldsToBeDeleted++;
+        }
     }
 
     void boardGeneration() {
-
 
         diagonalSectionGeneration();
         Solver generator = new Solver(generationBoard);
         generator.solve();
         generatedBoard = generator.getBoardToSolve();
-
-        for (int i = 0; i < numberOfFieldsToBeDeleted; i++) { //Błąd jest tutaj - wartość nie wchodzi z difficultyLevel
-
-            int randRow = rand.nextInt(9);
-            int randColumn = rand.nextInt(9);
-
-            if (generatedBoard[randRow][randColumn] != 0)
-                generatedBoard[randRow][randColumn] = 0;
-            else
-                i--;
-        }
+        fieldDeletion(numberOfFieldsToBeDeleted);
     }
 }

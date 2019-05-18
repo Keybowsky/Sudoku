@@ -26,7 +26,7 @@ class GUI {
     private Generator generator = new Generator();
 
 
-    GUI(){
+    GUI() {
         menuItSelf();
         gameItSelf();
     }
@@ -50,19 +50,19 @@ class GUI {
     }
 
     //Wiadomosc ktora wymaga wybrania poziomu trudnosci, pojawia sie po uruchomieniu opcji nowa gra z menu
-    private void newGameSelectDifficultyMessage(){
+    private void newGameSelectDifficultyMessage() {
 
         JOptionPane newGameSelectDifficultyMessage = new JOptionPane();
-        Object[] options = {"Trudny","Średni","Łatwy"};
+        Object[] options = {"Trudny", "Średni", "Łatwy"};
         int n = JOptionPane.showOptionDialog(newGameSelectDifficultyMessage, "Wybierz poziom trudności:", "Nowa Gra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
-        if(n == JOptionPane.YES_OPTION){
+        if (n == JOptionPane.YES_OPTION) {
             generator.difficultyLevel(1);
         }
-        if(n == JOptionPane.NO_OPTION){
+        if (n == JOptionPane.NO_OPTION) {
             generator.difficultyLevel(2);
         }
-        if(n == JOptionPane.CANCEL_OPTION){
+        if (n == JOptionPane.CANCEL_OPTION) {
             generator.difficultyLevel(3);
         }
     }
@@ -86,7 +86,8 @@ class GUI {
 
         menuItemBackMain = new JMenuItem();
 
-        menuItemBackMain.addActionListener(e -> { });
+        menuItemBackMain.addActionListener(e -> {
+        });
         menuItemBackMain.setAction(menuItemBackMainAction);
 
         menu.add(menuItemBackMain);
@@ -113,15 +114,15 @@ class GUI {
 
         menuItemEasy = new JMenuItem("Łatwy");
         submenuGameDifficulty.add(menuItemEasy);
-        menuItemEasy.addActionListener(e -> { generator.difficultyLevel(1);});
+        menuItemEasy.addActionListener(e -> generator.difficultyLevel(1));
 
         menuItemMedium = new JMenuItem("Średni");
         submenuGameDifficulty.add(menuItemMedium);
-        menuItemMedium.addActionListener(e -> { generator.difficultyLevel(2);});
+        menuItemMedium.addActionListener(e -> generator.difficultyLevel(2));
 
         menuItemHard = new JMenuItem("Trudny");
         submenuGameDifficulty.add(menuItemHard);
-        menuItemHard.addActionListener(e -> { generator.difficultyLevel(3);});
+        menuItemHard.addActionListener(e -> generator.difficultyLevel(3));
 
         menu.add(submenuGameDifficulty);
 
@@ -150,8 +151,8 @@ class GUI {
     private void menuItSelf() {
 
         frameMenu = new JFrame("SUDOKU");
-        frameMenu.setMaximumSize(new Dimension(630,630));
-        frameMenu.setMinimumSize(new Dimension(630,630));
+        frameMenu.setMaximumSize(new Dimension(630, 630));
+        frameMenu.setMinimumSize(new Dimension(630, 630));
         frameMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMenu.setLocationRelativeTo(null);
 
@@ -203,17 +204,20 @@ class GUI {
         exitGame.setPreferredSize(buttonSize);
 
 
-
-        newGame.addActionListener(e -> { });
+        newGame.addActionListener(e -> {
+        });
         newGame.setAction(newGameAction);
 
-        exitGame.addActionListener(e -> { });
+        exitGame.addActionListener(e -> {
+        });
         exitGame.setAction(exitGameAction);
 
-        loadGame.addActionListener(e -> { });
+        loadGame.addActionListener(e -> {
+        });
         loadGame.setAction(loadGameAction);
 
-        settings.addActionListener(e -> { });
+        settings.addActionListener(e -> {
+        });
         settings.setAction(settingsAction);
 
 
@@ -230,13 +234,12 @@ class GUI {
     }
 
 
-
     //deklaracja i inicjalizacja panelu gry
     private void gameItSelf() {
 
         frameGame = new JFrame("SUDOKU");
-        frameGame.setMaximumSize(new Dimension(630,630));
-        frameGame.setMinimumSize(new Dimension(630,630));
+        frameGame.setMaximumSize(new Dimension(630, 630));
+        frameGame.setMinimumSize(new Dimension(630, 630));
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameGame.setLocationRelativeTo(null);
 
@@ -253,14 +256,15 @@ class GUI {
         int fieldBoxSize = 30;
 
         JButton buttonCheck = new JButton();
-        buttonCheck.addActionListener(e -> { });
+        buttonCheck.addActionListener(e -> {
+        });
         buttonCheck.setAction(checkGame);
         buttonCheck.setText("Sprawdź");
 
-        JFormattedTextField [][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+        JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
 
-        for (int i=0; i<Solver.SIZE; i++){
-            for (int j=0; j<Solver.SIZE; j++){
+        for (int i = 0; i < Solver.SIZE; i++) {
+            for (int j = 0; j < Solver.SIZE; j++) {
                 fields[i][j] = new JFormattedTextField(formatter);
                 fields[i][j].setPreferredSize(new Dimension(fieldBoxSize, fieldBoxSize));
                 fields[i][j].setHorizontalAlignment(JTextField.CENTER);
@@ -269,39 +273,38 @@ class GUI {
 
         JPanel[] buttonPanel = new JPanel[Solver.SIZE];
 
-        for (int i=0; i<Solver.SIZE; i++) {
+        for (int i = 0; i < Solver.SIZE; i++) {
             buttonPanel[i] = new JPanel();
             buttonPanel[i].setSize(buttonPanelSize, buttonPanelSize);
             buttonPanel[i].setLayout(new GridLayout(3, 3));
         }
 
-        for (int i=0; i<Solver.SIZE; i++) {
-            for (int j=0; j < Solver.SIZE; j++) {
-
-                if (i<3) {
-                    if (j<3)
+        for (int i = 0; i < Solver.SIZE; i++) {
+            for (int j = 0; j < Solver.SIZE; j++) {
+                if (i < 3) {
+                    if (j < 3)
                         buttonPanel[0].add(fields[i][j]);
-                    if (3<=j && j<6)
+                    if (3 <= j && j < 6)
                         buttonPanel[1].add(fields[i][j]);
-                    if (6<=j)
+                    if (6 <= j)
                         buttonPanel[2].add(fields[i][j]);
                 }
 
-                if (3<=i && i<6){
-                    if (j<3)
+                if (3 <= i && i < 6) {
+                    if (j < 3)
                         buttonPanel[3].add(fields[i][j]);
-                    if (3<=j && j<6)
+                    if (3 <= j && j < 6)
                         buttonPanel[4].add(fields[i][j]);
-                    if (6<=j)
+                    if (6 <= j)
                         buttonPanel[5].add(fields[i][j]);
                 }
 
-                if (6<=i){
-                    if (j<3)
+                if (6 <= i) {
+                    if (j < 3)
                         buttonPanel[6].add(fields[i][j]);
-                    if (3<=j && j<6)
+                    if (3 <= j && j < 6)
                         buttonPanel[7].add(fields[i][j]);
-                    if (6<=j)
+                    if (6 <= j)
                         buttonPanel[8].add(fields[i][j]);
                 }
             }
@@ -370,7 +373,6 @@ class GUI {
         fieldsPanel.add(buttonCheck, gbc);
 
 
-
         rootPanel.add(fieldsPanel, BorderLayout.CENTER);
         rootPanel.add(gameName(), BorderLayout.NORTH);
 
@@ -382,20 +384,26 @@ class GUI {
 
         generator.boardGeneration();
 
-        int [][] tempBoard = generator.getGeneratedBoard();
+        int[][] tempBoard = generator.getGeneratedBoard();
 
-        for (int i=0; i<Solver.SIZE; i++) {
+        for (int i = 0; i < Solver.SIZE; i++) {
+            System.out.println();
+            for (int j = 0; j < Solver.SIZE; j++) {
+                System.out.print(tempBoard[i][j] + " / ");
+            }
+        }
+
+        for (int i = 0; i < Solver.SIZE; i++) {
             for (int j = 0; j < Solver.SIZE; j++) {
                 fields[i][j].setValue(tempBoard[i][j]);
-                if(tempBoard[i][j]!=0)
+                if (tempBoard[i][j] != 0) {     //pętla if else robi tak: jeśli liczba jest inna niż zero (czyli dana z góry) to blokuje edycje, jeśli jest zero (brak danej - do wpisu) to wstawia puste zamiast zera
                     fields[i][j].setEditable(false);
+                }
                 else
                     fields[i][j].setValue("");
             }
         }
-//pętla if else robi tak: jeśli liczba jest inna niż zero (czyli dana z góry) to blokuje edycje, jeśli jest zero (brak danej - do wpisu) to wstawia puste zamiast zera
     }
-
 
 
     private class newGameAction extends AbstractAction {
@@ -417,6 +425,7 @@ class GUI {
         settingsAction() {
 
         }
+
         public void actionPerformed(ActionEvent e) {
             GUI.frameMenu.setVisible(false);
             //GUI.frameSettings.setVisible(true);
@@ -427,6 +436,7 @@ class GUI {
         exitGameAction() {
 
         }
+
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
         }
@@ -436,6 +446,7 @@ class GUI {
         menuItemBackMainAction() {
 
         }
+
         public void actionPerformed(ActionEvent e) {
             gameNotSaved();
             GUI.frameGame.setVisible(false);
@@ -444,8 +455,11 @@ class GUI {
     }
 
     private class checkGame extends AbstractAction {
-        checkGame(){}
-        public void actionPerformed(ActionEvent e){}
+        checkGame() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+        }
     }
 
 }
