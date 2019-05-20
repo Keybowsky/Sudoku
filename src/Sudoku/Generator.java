@@ -60,7 +60,7 @@ class Generator {
         }
     }
 
-    void difficultyLevel(int difficultyLevel){
+    int difficultyLevel(int difficultyLevel){
 
         if (difficultyLevel == 1)
             numberOfFieldsToBeDeleted = rand.nextInt((8)+1)+41; //Łatwy
@@ -68,6 +68,7 @@ class Generator {
             numberOfFieldsToBeDeleted = rand.nextInt((7)+1)+49; //Średni
         if (difficultyLevel == 3)
             numberOfFieldsToBeDeleted = rand.nextInt((5)+1)+59; //Trudny
+        return numberOfFieldsToBeDeleted;
     }
 
     private void fieldDeletion(int numberOfFieldsToBeDeleted){
@@ -86,12 +87,12 @@ class Generator {
         }
     }
 
-    void boardGeneration() {
+    void boardGeneration(int difficultyLevelFromGUI) {
 
         diagonalSectionGeneration();
         Solver generator = new Solver(generationBoard);
         generator.solve();
         generatedBoard = generator.getBoardToSolve();
-        fieldDeletion(numberOfFieldsToBeDeleted);
+        fieldDeletion(difficultyLevelFromGUI);
     }
 }

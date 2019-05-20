@@ -2,7 +2,6 @@ package Sudoku;
 
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,19 +15,23 @@ class GUI {
 
     static JFrame frameMenu;
     private static JFrame frameGame;
+    private static JFrame newGameOptionFrame;
     private final Action newGameAction = new newGameAction();
     private final Action loadGameAction = new loadGameAction();
     private final Action settingsAction = new settingsAction();
     private final Action exitGameAction = new exitGameAction();
     private final Action menuItemBackMainAction = new menuItemBackMainAction();
     private final Action checkGame = new checkGame();
+    private final Action easyNewGame = new easyNewGame();
+    private final Action mediumNewGame = new mediumNewGame();
+    private final Action hardNewGame = new hardNewGame();
 
     private Generator generator = new Generator();
 
 
     GUI() {
         menuItSelf();
-        gameItSelf();
+
     }
 
     //To jest etykieta ktora pojawia sie w panelach menu i game
@@ -50,21 +53,68 @@ class GUI {
     }
 
     //Wiadomosc ktora wymaga wybrania poziomu trudnosci, pojawia sie po uruchomieniu opcji nowa gra z menu
-    private void newGameSelectDifficultyMessage() {
+    private JFrame newGameOption(){
+        newGameOptionFrame = new JFrame("Wybór trybu gry");
+        newGameOptionFrame.setMaximumSize(new Dimension(400, 200));
+        newGameOptionFrame.setMinimumSize(new Dimension(400, 200));
+        newGameOptionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        newGameOptionFrame.setLocationRelativeTo(null);
+        newGameOptionFrame.setVisible(true);
+        JPanel rootPanel = new JPanel();
+        rootPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
-        JOptionPane newGameSelectDifficultyMessage = new JOptionPane();
-        Object[] options = {"Trudny", "Średni", "Łatwy"};
-        int n = JOptionPane.showOptionDialog(newGameSelectDifficultyMessage, "Wybierz poziom trudności:", "Nowa Gra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        JLabel labelTop = new JLabel("Wybór poziomu trudności dla gry wolnej:");
+        labelTop.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTop.setVerticalAlignment(SwingConstants.CENTER);
 
-        if (n == JOptionPane.YES_OPTION) {
-            generator.difficultyLevel(1);
-        }
-        if (n == JOptionPane.NO_OPTION) {
-            generator.difficultyLevel(2);
-        }
-        if (n == JOptionPane.CANCEL_OPTION) {
-            generator.difficultyLevel(3);
-        }
+        //gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        //gbc.gridwidth = 2;
+        //gbc.ipadx = 3;
+        rootPanel.add(labelTop, gbc);
+
+        JButton easyGame = new JButton();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        rootPanel.add(easyGame, gbc);
+
+
+        JButton mediumGame = new JButton();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        rootPanel.add(mediumGame, gbc);
+
+
+        JButton hardGame = new JButton();
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        rootPanel.add(hardGame, gbc);
+
+
+        newGameOptionFrame.add(rootPanel);
+
+
+
+        easyGame.addActionListener(e -> {
+        });
+        easyGame.setAction(easyNewGame);
+
+        mediumGame.addActionListener(e -> {
+        });
+        mediumGame.setAction(mediumNewGame);
+
+        hardGame.addActionListener(e -> {
+        });
+        hardGame.setAction(hardNewGame);
+
+        easyGame.setText("Łatwy");
+        mediumGame.setText("Średni");
+        hardGame.setText("Trudny");
+
+
+        return newGameOptionFrame;
     }
 
     //Wiadomosc ktora pojawia sie po powrocie do menu z menu gry
@@ -235,7 +285,7 @@ class GUI {
 
 
     //deklaracja i inicjalizacja panelu gry
-    private void gameItSelf() {
+    private void gameItSelf(int difficultyLevel) {
 
         frameGame = new JFrame("SUDOKU");
         frameGame.setMaximumSize(new Dimension(630, 630));
@@ -381,8 +431,7 @@ class GUI {
 
 
         //TODO-Everyone Uzupełnianie planszy według poziomu trudności
-
-        generator.boardGeneration();
+        generator.boardGeneration(difficultyLevel);
 
         int[][] tempBoard = generator.getGeneratedBoard();
 
@@ -408,9 +457,10 @@ class GUI {
 
     private class newGameAction extends AbstractAction {
         public void actionPerformed(ActionEvent e) {
-            newGameSelectDifficultyMessage();
+            newGameOption();
             GUI.frameMenu.setVisible(false);
-            GUI.frameGame.setVisible(true);
+
+           // GUI.frameGame.setVisible(true);
         }
     }
 
@@ -461,6 +511,41 @@ class GUI {
         public void actionPerformed(ActionEvent e) {
         }
     }
+
+    private class easyNewGame extends AbstractAction {
+        easyNewGame() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            //gameItSelf(generator.difficultyLevel(1));
+            gameItSelf(1);
+            GUI.newGameOptionFrame.setVisible(false);
+            GUI.frameGame.setVisible(true);
+        }
+    }
+
+    private class mediumNewGame extends AbstractAction {
+        mediumNewGame() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            gameItSelf(2);
+            GUI.newGameOptionFrame.setVisible(false);
+            GUI.frameGame.setVisible(true);
+        }
+    }
+
+    private class hardNewGame extends AbstractAction {
+        hardNewGame() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            gameItSelf(3);
+            GUI.newGameOptionFrame.setVisible(false);
+            GUI.frameGame.setVisible(true);
+        }
+    }
+
 
 }
 
