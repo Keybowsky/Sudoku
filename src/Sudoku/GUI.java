@@ -13,7 +13,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 class GUI {
 
-    static JFrame frameMenu;
+    protected static JFrame frameMenu;
     private static JFrame frameGame;
     private static JFrame newGameOptionFrame;
     private final Action newGameAction = new newGameAction();
@@ -25,6 +25,7 @@ class GUI {
     private final Action easyNewGame = new easyNewGame();
     private final Action mediumNewGame = new mediumNewGame();
     private final Action hardNewGame = new hardNewGame();
+    private final Action tutorialAction = new tutorialAction();
 
     private Generator generator = new Generator();
 
@@ -55,8 +56,8 @@ class GUI {
     //Wiadomosc ktora wymaga wybrania poziomu trudnosci, pojawia sie po uruchomieniu opcji nowa gra z menu
     private JFrame newGameOption(){
         newGameOptionFrame = new JFrame("Wybór trybu gry");
-        newGameOptionFrame.setMaximumSize(new Dimension(400, 200));
-        newGameOptionFrame.setMinimumSize(new Dimension(400, 200));
+        newGameOptionFrame.setMaximumSize(new Dimension(450, 200));
+        newGameOptionFrame.setMinimumSize(new Dimension(450, 200));
         newGameOptionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         newGameOptionFrame.setLocationRelativeTo(null);
         newGameOptionFrame.setVisible(true);
@@ -65,32 +66,73 @@ class GUI {
         GridBagConstraints gbc = new GridBagConstraints();
 
         JLabel labelTop = new JLabel("Wybór poziomu trudności dla gry wolnej:");
-        labelTop.setHorizontalAlignment(SwingConstants.CENTER);
+       labelTop.setHorizontalAlignment(SwingConstants.CENTER);
         labelTop.setVerticalAlignment(SwingConstants.CENTER);
 
-        //gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 1;
+        gbc.fill= GridBagConstraints.BOTH;
+        gbc.gridx = 0;
         gbc.gridy = 0;
-        //gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
+       // gbc.ipady = 20;
         //gbc.ipadx = 3;
         rootPanel.add(labelTop, gbc);
 
         JButton easyGame = new JButton();
+        gbc.fill= GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 1;
+        gbc.weightx = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.ipadx = 5;
+        gbc.ipady = 10;
         rootPanel.add(easyGame, gbc);
 
 
         JButton mediumGame = new JButton();
+        gbc.fill= GridBagConstraints.BOTH;
         gbc.gridx = 1;
+        gbc.weightx = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
         gbc.gridy = 1;
+        gbc.ipadx = 5;
+        gbc.ipady = 10;
         rootPanel.add(mediumGame, gbc);
 
 
         JButton hardGame = new JButton();
+        gbc.fill= GridBagConstraints.BOTH;
         gbc.gridx = 2;
+        gbc.weightx = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
         gbc.gridy = 1;
+        gbc.ipadx = 5;
+        gbc.ipady = 10;
         rootPanel.add(hardGame, gbc);
+
+        JLabel labelBottom = new JLabel("Inne opcje:");
+        labelBottom.setHorizontalAlignment(SwingConstants.CENTER);
+        labelBottom.setVerticalAlignment(SwingConstants.CENTER);
+        gbc.fill= GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 3;
+       // gbc.ipady = 20;
+
+        //gbc.ipadx = 3;
+        rootPanel.add(labelBottom, gbc);
+
+        JButton tutorial = new JButton();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        gbc.gridwidth = 1;
+        gbc.gridy = 3;
+        gbc.ipadx = 5;
+        gbc.ipady = 10;
+        rootPanel.add(tutorial, gbc);
 
 
         newGameOptionFrame.add(rootPanel);
@@ -108,10 +150,15 @@ class GUI {
         hardGame.addActionListener(e -> {
         });
         hardGame.setAction(hardNewGame);
+        tutorial.addActionListener(e -> {
+        });
+        tutorial.setAction(tutorialAction);
+
 
         easyGame.setText("Łatwy");
         mediumGame.setText("Średni");
         hardGame.setText("Trudny");
+        tutorial.setText("Samouczek");
 
 
         return newGameOptionFrame;
@@ -499,7 +546,9 @@ class GUI {
 
         public void actionPerformed(ActionEvent e) {
             gameNotSaved();
+            GUI.frameGame.dispose();
             GUI.frameGame.setVisible(false);
+            GUI.newGameOptionFrame.setVisible(false);
             GUI.frameMenu.setVisible(true);
         }
     }
@@ -543,6 +592,16 @@ class GUI {
             gameItSelf(3);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
+        }
+    }
+
+    private class tutorialAction extends AbstractAction {
+        tutorialAction() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+
+
         }
     }
 

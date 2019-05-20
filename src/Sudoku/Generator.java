@@ -68,6 +68,7 @@ class Generator {
             numberOfFieldsToBeDeleted = rand.nextInt((7)+1)+49; //Średni
         if (difficultyLevel == 3)
             numberOfFieldsToBeDeleted = rand.nextInt((5)+1)+59; //Trudny
+        System.out.print(numberOfFieldsToBeDeleted);
         return numberOfFieldsToBeDeleted;
     }
 
@@ -85,14 +86,18 @@ class Generator {
             else
                 numberOfFieldsToBeDeleted++;
         }
+        /*
+        Tutaj się zesrywa program
+         */
     }
 
     void boardGeneration(int difficultyLevelFromGUI) {
+            diagonalSectionGeneration();
+            Solver generator = new Solver(generationBoard);
+            generator.solve();
+            generatedBoard = generator.getBoardToSolve();
+            //fieldDeletion(difficultyLevel(difficultyLevelFromGUI)); tak powinno byc a nie dziala
+            fieldDeletion(difficultyLevelFromGUI); //a tak jest tymczasowo - uzywa poziomu trudnosci jako ilosci do usuniecia
 
-        diagonalSectionGeneration();
-        Solver generator = new Solver(generationBoard);
-        generator.solve();
-        generatedBoard = generator.getBoardToSolve();
-        fieldDeletion(difficultyLevelFromGUI);
     }
 }
