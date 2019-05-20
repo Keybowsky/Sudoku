@@ -1,12 +1,15 @@
 package Sudoku;
 
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.text.ParseException;
+
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -31,9 +34,11 @@ class GUI {
 
 
     GUI() {
+
         menuItSelf();
 
     }
+
 
     //To jest etykieta ktora pojawia sie w panelach menu i game
     private JLabel gameName() {
@@ -175,7 +180,8 @@ class GUI {
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menu, submenuGameType, submenuGameDifficulty;
-        JMenuItem menuItemEasy, menuItemMedium, menuItemHard, menuItemTutorial, menuItemNormal, menuItemCreators, menuItemBackMain;
+        JMenuItem menuItemCreators, menuItemBackMain;
+        JRadioButtonMenuItem  radioButtonGameNormal, radioButtonGameTutorial;
 
         menuBar = new JMenuBar();
         menu = new JMenu("Gra");
@@ -189,39 +195,44 @@ class GUI {
 
         menu.add(menuItemBackMain);
 
+        ///
+
+        //a group of radio button menu items
         menu.addSeparator();
 
+        /*
         submenuGameType = new JMenu("Typ gry");
+
         submenuGameType.setMnemonic(KeyEvent.VK_S);
+        ButtonGroup gameTypeGroup = new ButtonGroup();
+        radioButtonGameNormal = new JRadioButtonMenuItem("Normalna gra");
+        radioButtonGameNormal.setSelected(true);
+        radioButtonGameNormal.setMnemonic(KeyEvent.VK_R);
+        gameTypeGroup.add(radioButtonGameNormal);
+        submenuGameType.add(radioButtonGameNormal);
 
-        menuItemTutorial = new JMenuItem("Samouczek");
-        submenuGameType.add(menuItemTutorial);
-
-        menuItemNormal = new JMenuItem("Normalna gra");
-        submenuGameType.add(menuItemNormal);
+        radioButtonGameTutorial = new JRadioButtonMenuItem("Samouczek");
+        radioButtonGameTutorial.setMnemonic(KeyEvent.VK_O);
+        gameTypeGroup.add(radioButtonGameTutorial);
+        submenuGameType.add(radioButtonGameTutorial);
 
 
         menu.add(submenuGameType);
 
+
+        radioButtonGameTutorial.addActionListener(e -> {
+        });
+        radioButtonGameTutorial.setAction(tutorialAction);
+
+        radioButtonGameNormal.addActionListener(e -> {
+            System.out.print("Cos");
+        });
+        //   radioButtonGameNormal.setAction();
+
+
+         */
+
         //TODO-Franek Wypełnianie w zależności od wybranej trudności(z menubar)
-
-        menu.addSeparator();
-        submenuGameDifficulty = new JMenu("Poziom trudności");
-        submenuGameDifficulty.setMnemonic(KeyEvent.VK_S);
-
-        menuItemEasy = new JMenuItem("Łatwy");
-        submenuGameDifficulty.add(menuItemEasy);
-        menuItemEasy.addActionListener(e -> generator.difficultyLevel(1));
-
-        menuItemMedium = new JMenuItem("Średni");
-        submenuGameDifficulty.add(menuItemMedium);
-        menuItemMedium.addActionListener(e -> generator.difficultyLevel(2));
-
-        menuItemHard = new JMenuItem("Trudny");
-        submenuGameDifficulty.add(menuItemHard);
-        menuItemHard.addActionListener(e -> generator.difficultyLevel(3));
-
-        menu.add(submenuGameDifficulty);
 
         menu = new JMenu("Info");
 
@@ -231,8 +242,10 @@ class GUI {
         menuItemCreators = new JMenuItem("Twórcy gry");
         menuItemCreators.addActionListener(e -> creatorsMessage());
 
-        menuItemBackMain.setText("Powrót do Menu Głównego");
 
+        menuItemBackMain.setText("Powrót do Menu Głównego");
+      //  radioButtonGameTutorial.setText("Samouczek");
+      //  radioButtonGameNormal.setText("Normalna gra");
         menu.add(menuItemCreators);
 
         return menuBar;
@@ -252,6 +265,9 @@ class GUI {
         frameMenu.setMinimumSize(new Dimension(630, 630));
         frameMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMenu.setLocationRelativeTo(null);
+
+
+
 
         JPanel rootPanel = new JPanel(new BorderLayout(5, 50));
         JPanel leftSpacer = new JPanel(new BorderLayout());

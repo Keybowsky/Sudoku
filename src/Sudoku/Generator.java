@@ -16,6 +16,24 @@ class Generator {
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 
+
+
+    private int[][] cleanBoard(){
+         int[][] cleanGenerationBoard = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        };
+         return cleanGenerationBoard;
+    }
+
+
     private int[][] generatedBoard;
     private Random rand = new Random();
     private int numberOfFieldsToBeDeleted;
@@ -92,11 +110,12 @@ class Generator {
     }
 
     void boardGeneration(int difficultyLevelFromGUI) {
+            generationBoard = cleanBoard();
             diagonalSectionGeneration();
             Solver generator = new Solver(generationBoard);
             generator.solve();
             generatedBoard = generator.getBoardToSolve();
-            //fieldDeletion(difficultyLevel(difficultyLevelFromGUI)); tak powinno byc a nie dziala
+            //fieldDeletion(difficultyLevel(difficultyLevelFromGUI)); //tak powinno byc a nie dziala
             fieldDeletion(difficultyLevelFromGUI); //a tak jest tymczasowo - uzywa poziomu trudnosci jako ilosci do usuniecia
 
     }

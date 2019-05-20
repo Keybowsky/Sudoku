@@ -1,5 +1,6 @@
 package Sudoku;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Sudoku {
@@ -17,6 +18,7 @@ public class Sudoku {
                 e.printStackTrace();
             }
         });
+
 
 
     }
