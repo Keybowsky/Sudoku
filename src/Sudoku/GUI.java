@@ -40,9 +40,10 @@ class GUI {
     private Generator generator = new Generator();
 
 
-    GUI() {
+    GUI()  {
 
         menuItSelf();
+
 
     }
 

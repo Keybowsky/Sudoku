@@ -94,8 +94,7 @@ class Generator {
             if (generatedBoard[randRow][randColumn] != 0) {
                 generatedBoard[randRow][randColumn] = 0;
                 numberOfFieldsToBeDeleted--;
-            }
-            else
+            } else
                 numberOfFieldsToBeDeleted++;
         }
         /*
@@ -104,13 +103,17 @@ class Generator {
     }
 
     void boardGeneration(int difficultyLevelFromGUI) {
-            generationBoard = cleanBoard();
-            diagonalSectionGeneration();
-            Solver generator = new Solver(generationBoard);
-            generator.solve();
-            generatedBoard = generator.getBoardToSolve();
-            //fieldDeletion(difficultyLevel(difficultyLevelFromGUI)); //tak powinno byc a nie dziala
-            fieldDeletion(difficultyLevelFromGUI); //a tak jest tymczasowo - uzywa poziomu trudnosci jako ilosci do usuniecia
+        generationBoard = cleanBoard();
+        diagonalSectionGeneration();
+        Solver generator = new Solver(generationBoard);
+        generator.solve();
+        generatedBoard = generator.getBoardToSolve();
+
+        fieldDeletion(10);
+        //int temp = difficultyLevelFromGUI;
+        //temp = difficultyLevel(temp);
+        //fieldDeletion(difficultyLevel(difficultyLevelFromGUI)); //tak powinno byc a nie dziala
+        //fieldDeletion(35); //a tak jest tymczasowo - uzywa poziomu trudnosci jako ilosci do usuniecia
 
     }
 }
