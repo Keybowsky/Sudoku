@@ -16,24 +16,6 @@ class Generator {
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 
-
-
-    private int[][] cleanBoard(){
-         int[][] cleanGenerationBoard = {
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0},
-        };
-         return cleanGenerationBoard;
-    }
-
-
     private int[][] generatedBoard;
     private Random rand = new Random();
     private int numberOfFieldsToBeDeleted;
@@ -46,6 +28,20 @@ class Generator {
         return generatedBoard;
     }
 
+    private int[][] cleanBoard() {
+        int[][] cleanGenerationBoard = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        };
+        return cleanGenerationBoard;
+    }
 
     private boolean diagonalSectionCheck(int row, int column, int checkedNumber) {
 
@@ -61,12 +57,10 @@ class Generator {
         return true;
     }
 
-
-
     private void diagonalSectionGeneration() {
-        for (int section=0; section<7; section = section+3) {
-            for (int row = section; row < section+3; row++) {
-                for (int column = section; column < section+3; column++) {
+        for (int section = 0; section < 7; section = section + 3) {
+            for (int row = section; row < section + 3; row++) {
+                for (int column = section; column < section + 3; column++) {
                     int randNumber = rand.nextInt(9) + 1;
                     if (diagonalSectionCheck(row, column, randNumber))
                         generationBoard[row][column] = randNumber;

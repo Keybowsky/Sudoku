@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.*;
+import java.nio.CharBuffer;
 import java.text.ParseException;
 
 
@@ -16,8 +18,13 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 class GUI {
 
-    protected static JFrame frameMenu;
+    static JFrame frameMenu;
     private static JFrame frameGame;
+    private static JFrame frameLoad;
+    private int userID = 0;
+    JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+    private String localisation = "./saveFiles/gameSaveUser" +userID+".txt";
+    private int[][] tempBoard;
     private static JFrame newGameOptionFrame;
     private final Action newGameAction = new newGameAction();
     private final Action loadGameAction = new loadGameAction();
@@ -29,7 +36,7 @@ class GUI {
     private final Action mediumNewGame = new mediumNewGame();
     private final Action hardNewGame = new hardNewGame();
     private final Action tutorialAction = new tutorialAction();
-
+    private final Action saveGameAction = new saveGameAction();
     private Generator generator = new Generator();
 
 
@@ -176,11 +183,23 @@ class GUI {
         showMessageDialog(gameNotSaved, "Gra nie została zapisana. Powrót do menu głównego", "Informacja", JOptionPane.PLAIN_MESSAGE);
     }
 
+    private void gameSaved() {
+
+        JOptionPane gameSaved = new JOptionPane();
+        showMessageDialog(gameSaved, "Gra została zapisana. Powrót do menu głównego", "Informacja", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void loadError(){
+        JOptionPane loadError = new JOptionPane();
+        showMessageDialog(loadError, "Błąd wczytywania gry. Plik nie istnieje", "Błąd", JOptionPane.PLAIN_MESSAGE);
+
+    }
+
     //Utworzenie paska (tego na gorze ekranu)
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menu, submenuGameType, submenuGameDifficulty;
-        JMenuItem menuItemCreators, menuItemBackMain;
+        JMenuItem menuItemCreators, menuItemBackMain,menuItemSaveGame;
         JRadioButtonMenuItem  radioButtonGameNormal, radioButtonGameTutorial;
 
         menuBar = new JMenuBar();
@@ -195,10 +214,14 @@ class GUI {
 
         menu.add(menuItemBackMain);
 
-        ///
-
-        //a group of radio button menu items
         menu.addSeparator();
+
+        menuItemSaveGame = new JMenuItem();
+        menuItemSaveGame.addActionListener(e -> {});
+        menuItemSaveGame.setAction(saveGameAction);
+        menu.add(menuItemSaveGame);
+
+
 
         /*
         submenuGameType = new JMenu("Typ gry");
@@ -244,6 +267,7 @@ class GUI {
 
 
         menuItemBackMain.setText("Powrót do Menu Głównego");
+        menuItemSaveGame.setText("Zapisz grę");
       //  radioButtonGameTutorial.setText("Samouczek");
       //  radioButtonGameNormal.setText("Normalna gra");
         menu.add(menuItemCreators);
@@ -346,9 +370,8 @@ class GUI {
 
     }
 
-
     //deklaracja i inicjalizacja panelu gry
-    private void gameItSelf(int difficultyLevel) {
+    private void gameItSelf(int difficultyLevel, int userID) {
 
         frameGame = new JFrame("SUDOKU");
         frameGame.setMaximumSize(new Dimension(630, 630));
@@ -374,7 +397,7 @@ class GUI {
         buttonCheck.setAction(checkGame);
         buttonCheck.setText("Sprawdź");
 
-        JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+
 
         for (int i = 0; i < Solver.SIZE; i++) {
             for (int j = 0; j < Solver.SIZE; j++) {
@@ -492,45 +515,97 @@ class GUI {
         frameGame.setContentPane(rootPanel);
         frameGame.setJMenuBar(createMenuBar());
 
+    if(userID==0) {
 
         //TODO-Everyone Uzupełnianie planszy według poziomu trudności
         generator.boardGeneration(difficultyLevel);
 
-        int[][] tempBoard = generator.getGeneratedBoard();
+       tempBoard = generator.getGeneratedBoard();
 
-        for (int i = 0; i < Solver.SIZE; i++) {
-            System.out.println();
-            for (int j = 0; j < Solver.SIZE; j++) {
-                System.out.print(tempBoard[i][j] + " / ");
-            }
+      for (int i = 0; i < Solver.SIZE; i++) {
+           System.out.println();
+           for (int j = 0; j < Solver.SIZE; j++) {
+               System.out.print(tempBoard[i][j] + " / ");
+          }
+       }
+
+
+      for (int i = 0; i < Solver.SIZE; i++) {
+        for (int j = 0; j < Solver.SIZE; j++) {
+            fields[i][j].setValue(tempBoard[i][j]);
+            if (tempBoard[i][j] != 0) {     //pętla if else robi tak: jeśli liczba jest inna niż zero (czyli dana z góry) to blokuje edycje, jeśli jest zero (brak danej - do wpisu) to wstawia puste zamiast zera
+                fields[i][j].setEditable(false);
+            } else
+                fields[i][j].setValue("");
+           }
         }
 
-        for (int i = 0; i < Solver.SIZE; i++) {
-            for (int j = 0; j < Solver.SIZE; j++) {
-                fields[i][j].setValue(tempBoard[i][j]);
-                if (tempBoard[i][j] != 0) {     //pętla if else robi tak: jeśli liczba jest inna niż zero (czyli dana z góry) to blokuje edycje, jeśli jest zero (brak danej - do wpisu) to wstawia puste zamiast zera
-                    fields[i][j].setEditable(false);
-                }
-                else
-                    fields[i][j].setValue("");
             }
+    else{
+
+
+    //wczytywanie po userID
+
         }
     }
 
+    private void saveGame() throws IOException{
+
+        BufferedWriter saver = new BufferedWriter(new FileWriter(localisation));
+/*
+        System.out.print("\nPlansza rozwiązana: ");
+        for(int i = 0; i<Solver.SIZE; i++){
+             for(int j = 0; j<Solver.SIZE; j++){
+            //System.out.print(tempBoard2[i][j]);
+            }
+          }
+
+ */
+
+         System.out.print("\nPlansza aktualna:   ");
+        for(int i = 0; i<Solver.SIZE; i++){
+            for(int j = 0; j<Solver.SIZE; j++){
+                if(fields[i][j].getValue()=="") {
+
+                    saver.write(("0").toString());
+                    System.out.print("0");
+                }
+                else {
+                    System.out.print(fields[i][j].getValue());
+                    saver.write((fields[i][j].getValue()).toString());
+                }
+            }
+        }
+        saver.close();
+
+
+    }
+
+    private void loadGame(int userID) throws IOException {
+    //userID = 1;
+
+
+    }
 
     private class newGameAction extends AbstractAction {
         public void actionPerformed(ActionEvent e) {
             newGameOption();
             GUI.frameMenu.setVisible(false);
-
            // GUI.frameGame.setVisible(true);
         }
     }
 
     private class loadGameAction extends AbstractAction {
-        //loadGameAction() { }
+        loadGameAction() { }
         public void actionPerformed(ActionEvent e) {
-            //GUI.frameMenu.setVisible(false);
+         //   GUI.frameMenu.setVisible(false);
+//            GUI.frameGame.dispose();
+            try {
+                loadGame(userID);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
         }
     }
 
@@ -583,7 +658,7 @@ class GUI {
 
         public void actionPerformed(ActionEvent e) {
             //gameItSelf(generator.difficultyLevel(1));
-            gameItSelf(1);
+            gameItSelf(1,0);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
@@ -594,7 +669,7 @@ class GUI {
         }
 
         public void actionPerformed(ActionEvent e) {
-            gameItSelf(2);
+            gameItSelf(2,0);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
@@ -605,7 +680,7 @@ class GUI {
         }
 
         public void actionPerformed(ActionEvent e) {
-            gameItSelf(3);
+            gameItSelf(3,0);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
@@ -618,6 +693,23 @@ class GUI {
         public void actionPerformed(ActionEvent e) {
 
 
+        }
+    }
+
+    private class saveGameAction extends AbstractAction {
+        saveGameAction() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            try {
+                saveGame();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            gameSaved();
+            frameGame.dispose();
+            frameGame.setVisible(false);
+            frameMenu.setVisible(true);
         }
     }
 
