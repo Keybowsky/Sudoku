@@ -72,21 +72,23 @@ class Generator {
         }
     }
 
-    int difficultyLevel(int difficultyLevel){
+    void difficultyLevel(int difficultyLevel) {
 
         if (difficultyLevel == 1)
-            numberOfFieldsToBeDeleted = rand.nextInt((8)+1)+41; //Łatwy
+            numberOfFieldsToBeDeleted = rand.nextInt((8) + 1) + 41; //Łatwy
         if (difficultyLevel == 2)
-            numberOfFieldsToBeDeleted = rand.nextInt((7)+1)+49; //Średni
+            numberOfFieldsToBeDeleted = rand.nextInt((7) + 1) + 49; //Średni
         if (difficultyLevel == 3)
-            numberOfFieldsToBeDeleted = rand.nextInt((5)+1)+59; //Trudny
+            numberOfFieldsToBeDeleted = rand.nextInt((5) + 1) + 59; //Trudny
         System.out.print(numberOfFieldsToBeDeleted);
-        return numberOfFieldsToBeDeleted;
+        // return numberOfFieldsToBeDeleted;
     }
 
-    private void fieldDeletion(int numberOfFieldsToBeDeleted){
 
-        while (numberOfFieldsToBeDeleted > 0){
+    protected void fieldDeletion(int difficultyLevel) {
+
+        numberOfFieldsToBeDeleted = difficultyLevel;
+        while (numberOfFieldsToBeDeleted > 0) {
 
             int randRow = rand.nextInt(9);
             int randColumn = rand.nextInt(9);
@@ -102,6 +104,7 @@ class Generator {
          */
     }
 
+
     void boardGeneration(int difficultyLevelFromGUI) {
         generationBoard = cleanBoard();
         diagonalSectionGeneration();
@@ -116,4 +119,5 @@ class Generator {
         //fieldDeletion(35); //a tak jest tymczasowo - uzywa poziomu trudnosci jako ilosci do usuniecia
 
     }
+
 }

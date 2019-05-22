@@ -11,12 +11,12 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.CharBuffer;
 import java.text.ParseException;
-
+import Sudoku.subGUI.*;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
 
-class GUI {
+class GUI{
 
     static JFrame frameMenu;
     private static JFrame frameGame;
@@ -39,34 +39,14 @@ class GUI {
     private final Action saveGameAction = new saveGameAction();
     private Generator generator = new Generator();
 
+    gameName gN = new gameName();
+    messages mSG = new messages();
 
     GUI()  {
-
         menuItSelf();
-
-
     }
 
 
-    //To jest etykieta ktora pojawia sie w panelach menu i game
-    private JLabel gameName() {
-        JLabel name = new JLabel("SUDOKU 6000");
-        name.setFont(new Font("Arial", Font.BOLD, 70));
-        name.setHorizontalAlignment(SwingConstants.CENTER);
-        name.setVerticalAlignment(SwingConstants.CENTER);
-
-
-        return name;
-    }
-
-    //Wiadomosc Tworcy ktora pojawia sie poprzez uruchomienie odpowiedniego podmenu z panelu game
-    private void creatorsMessage() {
-
-        JOptionPane creators = new JOptionPane();
-        showMessageDialog(creators, "Adrian Chabowski\nAleksander Matłok\nFranciszek Przewoźny\n", "Twórcy", JOptionPane.PLAIN_MESSAGE);
-    }
-
-    //Wiadomosc ktora wymaga wybrania poziomu trudnosci, pojawia sie po uruchomieniu opcji nowa gra z menu
     private JFrame newGameOption(){
         newGameOptionFrame = new JFrame("Wybór trybu gry");
         newGameOptionFrame.setMaximumSize(new Dimension(450, 200));
@@ -177,26 +157,10 @@ class GUI {
         return newGameOptionFrame;
     }
 
-    //Wiadomosc ktora pojawia sie po powrocie do menu z menu gry
-    private void gameNotSaved() {
-
-        JOptionPane gameNotSaved = new JOptionPane();
-        showMessageDialog(gameNotSaved, "Gra nie została zapisana. Powrót do menu głównego", "Informacja", JOptionPane.PLAIN_MESSAGE);
-    }
-
-    private void gameSaved() {
-
-        JOptionPane gameSaved = new JOptionPane();
-        showMessageDialog(gameSaved, "Gra została zapisana. Powrót do menu głównego", "Informacja", JOptionPane.PLAIN_MESSAGE);
-    }
-
-    private void loadError(){
-        JOptionPane loadError = new JOptionPane();
-        showMessageDialog(loadError, "Błąd wczytywania gry. Plik nie istnieje", "Błąd", JOptionPane.PLAIN_MESSAGE);
+    private void checkGame(){
 
     }
 
-    //Utworzenie paska (tego na gorze ekranu)
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menu, submenuGameType, submenuGameDifficulty;
@@ -264,23 +228,16 @@ class GUI {
         menuBar.add(menu);
 
         menuItemCreators = new JMenuItem("Twórcy gry");
-        menuItemCreators.addActionListener(e -> creatorsMessage());
+        menuItemCreators.addActionListener(e -> mSG.creatorsMessage());
 
 
         menuItemBackMain.setText("Powrót do Menu Głównego");
         menuItemSaveGame.setText("Zapisz grę");
-      //  radioButtonGameTutorial.setText("Samouczek");
-      //  radioButtonGameNormal.setText("Normalna gra");
+        //  radioButtonGameTutorial.setText("Samouczek");
+        //  radioButtonGameNormal.setText("Normalna gra");
         menu.add(menuItemCreators);
 
         return menuBar;
-    }
-    //deklaracja, inicjalizacja menu glownego razem z przyciskami (etykieta i pasek gorny jest dodawany zzewnatrz)
-
-    private void checkGame(){
-
-        //tutaj sprawdzanie uruchomione przyciskiem z wewnątrz gry (może osobny messageDialog ?)
-
     }
 
     private void menuItSelf() {
@@ -365,7 +322,7 @@ class GUI {
         exitGame.setText("Wyjdź z gry");
 
         rootPanel.add(mainPanel, BorderLayout.CENTER);
-        rootPanel.add(gameName(), BorderLayout.NORTH);
+        rootPanel.add(gN.gameName(), BorderLayout.NORTH);
         frameMenu.setContentPane(rootPanel);
 
 
@@ -511,7 +468,7 @@ class GUI {
 
 
         rootPanel.add(fieldsPanel, BorderLayout.CENTER);
-        rootPanel.add(gameName(), BorderLayout.NORTH);
+        rootPanel.add(gN.gameName(), BorderLayout.NORTH);
 
         frameGame.setContentPane(rootPanel);
         frameGame.setJMenuBar(createMenuBar());
@@ -634,10 +591,11 @@ class GUI {
     private class menuItemBackMainAction extends AbstractAction {
         menuItemBackMainAction() {
 
-        }
+            }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
-            gameNotSaved();
+            mSG.gameNotSaved();
             GUI.frameGame.dispose();
             GUI.frameGame.setVisible(false);
             GUI.newGameOptionFrame.setVisible(false);
@@ -697,7 +655,7 @@ class GUI {
         }
     }
 
-    private class saveGameAction extends AbstractAction {
+    class saveGameAction extends AbstractAction {
         saveGameAction() {
         }
 
@@ -707,13 +665,12 @@ class GUI {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            gameSaved();
+            mSG.gameSaved();
             frameGame.dispose();
             frameGame.setVisible(false);
             frameMenu.setVisible(true);
         }
     }
-
 
 }
 
