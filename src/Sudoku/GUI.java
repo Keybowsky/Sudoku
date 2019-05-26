@@ -1,19 +1,13 @@
 package Sudoku;
 
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.CharBuffer;
 import java.text.ParseException;
-import Sudoku.subGUI.*;
-
-import static javax.swing.JOptionPane.showMessageDialog;
+import java.util.Scanner;
 
 
 class GUI{
@@ -21,10 +15,10 @@ class GUI{
     static JFrame frameMenu;
     private static JFrame frameGame;
     private static JFrame frameLoad;
-    private int userID = 0;
+    private int userID = 1;
     JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
     private String localisation = "./saveFiles/gameSaveUser" +userID+".txt";
-    private int[][] tempBoard;
+    int[][] tempBoard;
     private static JFrame newGameOptionFrame;
     private final Action newGameAction = new newGameAction();
     private final Action loadGameAction = new loadGameAction();
@@ -37,7 +31,7 @@ class GUI{
     private final Action hardNewGame = new hardNewGame();
     private final Action tutorialAction = new tutorialAction();
     private final Action saveGameAction = new saveGameAction();
-    private Generator generator = new Generator();
+    Generator generator = new Generator();
 
     gameName gN = new gameName();
     messages mSG = new messages();
@@ -329,7 +323,7 @@ class GUI{
     }
 
     //deklaracja i inicjalizacja panelu gry
-    private void gameItSelf(int difficultyLevel, int userID) {
+    private void gameItSelf(int difficultyLevel, int userID){
 
         frameGame = new JFrame("SUDOKU");
         frameGame.setMaximumSize(new Dimension(630, 630));
@@ -474,51 +468,44 @@ class GUI{
         frameGame.setJMenuBar(createMenuBar());
 
     if(userID==0) {
+    newGame(difficultyLevel);
+            }
+    else{
+
+            loadGame(userID);
+    }
+    }
+
+    private void newGame(int difficultyLevel){
 
         //TODO-Everyone Uzupełnianie planszy według poziomu trudności
         generator.boardGeneration(difficultyLevel);
 
-       tempBoard = generator.getGeneratedBoard();
+        tempBoard = generator.getGeneratedBoard();
 
-      for (int i = 0; i < Solver.SIZE; i++) {
-           System.out.println();
-           for (int j = 0; j < Solver.SIZE; j++) {
-               System.out.print(tempBoard[i][j] + " / ");
-          }
-       }
-
-
-      for (int i = 0; i < Solver.SIZE; i++) {
-        for (int j = 0; j < Solver.SIZE; j++) {
-            fields[i][j].setValue(tempBoard[i][j]);
-            if (tempBoard[i][j] != 0) {     //pętla if else robi tak: jeśli liczba jest inna niż zero (czyli dana z góry) to blokuje edycje, jeśli jest zero (brak danej - do wpisu) to wstawia puste zamiast zera
-                fields[i][j].setEditable(false);
-            } else
-                fields[i][j].setValue("");
-           }
-        }
-
+        for (int i = 0; i < Solver.SIZE; i++) {
+            System.out.println();
+            for (int j = 0; j < Solver.SIZE; j++) {
+                System.out.print(tempBoard[i][j] + " / ");
             }
-    else{
-
-
-    //wczytywanie po userID
-
         }
+
+
+        for (int i = 0; i < Solver.SIZE; i++) {
+            for (int j = 0; j < Solver.SIZE; j++) {
+                fields[i][j].setValue(tempBoard[i][j]);
+                if (tempBoard[i][j] != 0) {     //pętla if else robi tak: jeśli liczba jest inna niż zero (czyli dana z góry) to blokuje edycje, jeśli jest zero (brak danej - do wpisu) to wstawia puste zamiast zera
+                    fields[i][j].setEditable(false);
+                } else
+                    fields[i][j].setValue("");
+            }
+        }
+
     }
 
     private void saveGame() throws IOException{
 
         BufferedWriter saver = new BufferedWriter(new FileWriter(localisation));
-/*
-        System.out.print("\nPlansza rozwiązana: ");
-        for(int i = 0; i<Solver.SIZE; i++){
-             for(int j = 0; j<Solver.SIZE; j++){
-            //System.out.print(tempBoard2[i][j]);
-            }
-          }
-
- */
 
          System.out.print("\nPlansza aktualna:   ");
         for(int i = 0; i<Solver.SIZE; i++){
@@ -532,16 +519,61 @@ class GUI{
                     System.out.print(fields[i][j].getValue());
                     saver.write((fields[i][j].getValue()).toString());
                 }
+                saver.write("\n");
             }
+            //
         }
         saver.close();
 
 
     }
 
-    private void loadGame(int userID) throws IOException {
-    //userID = 1;
+    private void loadGame(int userID){
+        //TODO-Everyone Tutaj wczytywanie
+        int col = 9;
+        int row = 9;
+        int loadBoard[][] = new int [row][col];
 
+
+
+        File file = new File(localisation);
+        try {
+            Scanner reader = new Scanner(file);
+
+            while (reader.hasNextLine()) {
+                for(int i=0; i<row;i++) {
+                    for (int j = 0; j < col; j++) {
+                       loadBoard[i][j] =  Integer.parseInt(reader.nextLine());
+                    }
+                }
+
+            }
+            reader.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Błąd odczytu");
+        }
+
+        tempBoard = loadBoard;
+
+        for (int i = 0; i < Solver.SIZE; i++) {
+            System.out.println();
+            for (int j = 0; j < Solver.SIZE; j++) {
+                System.out.print(tempBoard[i][j] + " / ");
+            }
+        }
+
+
+        for (int i = 0; i < Solver.SIZE; i++) {
+            for (int j = 0; j < Solver.SIZE; j++) {
+                fields[i][j].setValue(tempBoard[i][j]);
+                if (tempBoard[i][j] != 0) {     //pętla if else robi tak: jeśli liczba jest inna niż zero (czyli dana z góry) to blokuje edycje, jeśli jest zero (brak danej - do wpisu) to wstawia puste zamiast zera
+                    fields[i][j].setEditable(false);
+                } else
+                    fields[i][j].setValue("");
+            }
+        }
 
     }
 
@@ -558,12 +590,16 @@ class GUI{
         public void actionPerformed(ActionEvent e) {
          //   GUI.frameMenu.setVisible(false);
 //            GUI.frameGame.dispose();
+            /*
             try {
                 loadGame(userID);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
 
+             */
+            gameItSelf(0,userID);
+            GUI.frameGame.setVisible(true);
         }
     }
 
