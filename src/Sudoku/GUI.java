@@ -151,9 +151,6 @@ class GUI{
         return newGameOptionFrame;
     }
 
-    private void checkGame(){
-
-    }
 
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
@@ -543,7 +540,7 @@ class GUI{
             while (reader.hasNextLine()) {
                 for(int i=0; i<row;i++) {
                     for (int j = 0; j < col; j++) {
-                       loadBoard[i][j] =  Integer.parseInt(reader.nextLine());
+                        loadBoard[i][j] =  Integer.parseInt(reader.nextLine());
                     }
                 }
 
@@ -576,6 +573,11 @@ class GUI{
         }
 
     }
+
+    private void checkGame(){
+
+    }
+
 
     private class newGameAction extends AbstractAction {
         public void actionPerformed(ActionEvent e) {
@@ -632,8 +634,8 @@ class GUI{
         @Override
         public void actionPerformed(ActionEvent e) {
             mSG.gameNotSaved();
-            GUI.frameGame.dispose();
             GUI.frameGame.setVisible(false);
+            GUI.frameGame.dispose();
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameMenu.setVisible(true);
         }
