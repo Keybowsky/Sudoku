@@ -72,7 +72,7 @@ class Generator {
         }
     }
 
-    void difficultyLevel(int difficultyLevel) {
+    int difficultyLevel(int difficultyLevel) {
 
         if (difficultyLevel == 1)
             numberOfFieldsToBeDeleted = rand.nextInt((8) + 1) + 41; //Łatwy
@@ -81,27 +81,24 @@ class Generator {
         if (difficultyLevel == 3)
             numberOfFieldsToBeDeleted = rand.nextInt((5) + 1) + 59; //Trudny
         System.out.print(numberOfFieldsToBeDeleted);
-        // return numberOfFieldsToBeDeleted;
+        return numberOfFieldsToBeDeleted;
+        //return difficultyLevel;
     }
 
 
     protected void fieldDeletion(int difficultyLevel) {
 
-        numberOfFieldsToBeDeleted = difficultyLevel;
-        while (numberOfFieldsToBeDeleted > 0) {
-
-            int randRow = rand.nextInt(9);
-            int randColumn = rand.nextInt(9);
-
-            if (generatedBoard[randRow][randColumn] != 0) {
-                generatedBoard[randRow][randColumn] = 0;
-                numberOfFieldsToBeDeleted--;
-            } else
-                numberOfFieldsToBeDeleted++;
-        }
-        /*
-        Tutaj się zesrywa program
-         */
+            for(int row=0; row!=9; ++row) {
+                for (int i = 0; i <= difficultyLevel; ++i) {
+                    int randColumn = rand.nextInt(9);
+                    if (generatedBoard[row][randColumn] != 0) {
+                        //System.out.print(randColumn+" ");
+                        generatedBoard[row][randColumn] = 0;
+                        numberOfFieldsToBeDeleted--;
+                    } else
+                        numberOfFieldsToBeDeleted++;
+                }
+            }
     }
 
 
@@ -112,11 +109,12 @@ class Generator {
         generator.solve();
         generatedBoard = generator.getBoardToSolve();
 
-        fieldDeletion(10);
-        //int temp = difficultyLevelFromGUI;
-        //temp = difficultyLevel(temp);
-        //fieldDeletion(difficultyLevel(difficultyLevelFromGUI)); //tak powinno byc a nie dziala
-        //fieldDeletion(35); //a tak jest tymczasowo - uzywa poziomu trudnosci jako ilosci do usuniecia
+        if(difficultyLevelFromGUI==1)
+            fieldDeletion(5);
+        if(difficultyLevelFromGUI==2)
+            fieldDeletion(6);
+        if(difficultyLevelFromGUI==3)
+            fieldDeletion(7);
 
     }
 
