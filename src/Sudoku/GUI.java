@@ -16,9 +16,13 @@ class GUI{
     private static JFrame frameGame;
     private static JFrame frameLoad;
     private int userID = 1;
-    JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+    private JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+
     private String localisation = "./saveFiles/gameSaveUser" +userID+".txt";
-    int[][] tempBoard;
+    //TODO tworzenie folderu saveFiles jeśli już nie istnieje
+
+
+    private int[][] tempBoard;
     private static JFrame newGameOptionFrame;
     private final Action newGameAction = new newGameAction();
     private final Action loadGameAction = new loadGameAction();
@@ -502,6 +506,7 @@ class GUI{
 
     private void saveGame() throws IOException{
 
+
         BufferedWriter saver = new BufferedWriter(new FileWriter(localisation));
 
          System.out.print("\nPlansza aktualna:   ");
@@ -600,6 +605,7 @@ class GUI{
             }
 
              */
+            GUI.frameMenu.setVisible(false);
             gameItSelf(0,userID);
             GUI.frameGame.setVisible(true);
         }
