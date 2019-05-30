@@ -33,7 +33,6 @@ public class Tutorial extends GUI {
         // gbc.ipady = 20;
         //gbc.ipadx = 3;
 
-
         rootPanel.add(labelTop, gbc);
 
 
