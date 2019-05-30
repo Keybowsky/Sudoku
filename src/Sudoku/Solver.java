@@ -6,7 +6,7 @@ Pierwsza wersja, potem dodam komentarze w javadocu co służy do czego.
 
 class Solver {
 
-    protected int [][] boardToSolve;
+    private int [][] boardToSolve;
 
     static final int SIZE = 9;
     private static final int SECTION_SIZE = 3;

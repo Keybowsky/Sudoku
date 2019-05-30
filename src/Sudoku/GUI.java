@@ -12,11 +12,9 @@ import java.util.Scanner;
 
 class GUI{
 
-    protected static JFrame frameMenu;
-    protected static JFrame frameGame;
-    private static JFrame frameLoad;
+    static JFrame frameMenu;
+    private static JFrame frameGame;
     private static int[][] solvedBoard;
-
     private JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
     private File fileDirectory = new File("./saveFiles/");
     private String localisation = "./saveFiles/";
@@ -48,7 +46,7 @@ class GUI{
     }
 
 
-    protected void newGameOption(){
+    private void newGameOption(){
         newGameOptionFrame = new JFrame("Wybór trybu gry");
         newGameOptionFrame.setMaximumSize(new Dimension(450, 200));
         newGameOptionFrame.setMinimumSize(new Dimension(450, 200));
@@ -160,9 +158,8 @@ class GUI{
 
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
-        JMenu menu, submenuGameType, submenuGameDifficulty;
+        JMenu menu;
         JMenuItem menuItemCreators, menuItemBackMain,menuItemSaveGame;
-        JRadioButtonMenuItem  radioButtonGameNormal, radioButtonGameTutorial;
 
         menuBar = new JMenuBar();
         menu = new JMenu("Gra");
@@ -357,7 +354,7 @@ class GUI{
     }
 
     //deklaracja i inicjalizacja panelu gry
-    protected void gameItSelf(int difficultyLevel, int userID,boolean load){
+    private void gameItSelf(int difficultyLevel, int userID, boolean load){
 
         frameGame = new JFrame("SUDOKU");
         frameGame.setMaximumSize(new Dimension(630, 630));
@@ -501,13 +498,14 @@ class GUI{
         frameGame.setContentPane(rootPanel);
         frameGame.setJMenuBar(createMenuBar());
 
-    if(load==false) {
+    if(!load) {
     newGame(difficultyLevel);
             }
     else{
 
             loadGame(userID);
     }
+
     }
 
     private void newGame(int difficultyLevel){
@@ -522,7 +520,6 @@ class GUI{
                 System.out.print(tempBoard[i][j] + " / ");
             }
         }
-
 
         for (int i = 0; i < Solver.SIZE; i++) {
             for (int j = 0; j < Solver.SIZE; j++) {
@@ -640,6 +637,8 @@ class GUI{
         int temp;
         String tempS;
         System.out.println("checkGame function");
+
+
         for(int i = 0; i<9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (fields[i][j].getValue() == "") {
@@ -669,16 +668,10 @@ class GUI{
             else{
                 fields[i][j].setBackground(Color.red);
             }
-
-
             }
             System.out.println();
         }
-
-
         frameGame.repaint();
-
-
     }
 
     private class newGameAction extends AbstractAction {
@@ -797,7 +790,7 @@ class GUI{
         }
     }
 
-    class saveGameAction extends AbstractAction {
+    private class saveGameAction extends AbstractAction {
         saveGameAction() {
         }
 

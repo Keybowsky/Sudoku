@@ -18,11 +18,15 @@ class Generator {
 
     private int[][] generatedBoard;
     private Random rand = new Random();
+
+
     private int numberOfFieldsToBeDeleted;
 
     int[][] getGenerationBoard() {
         return generationBoard;
     }
+
+
 
     int[][] getGeneratedBoard() {
         return generatedBoard;
@@ -71,7 +75,7 @@ class Generator {
             }
         }
     }
-
+/*
     int difficultyLevel(int difficultyLevel) {
 
         if (difficultyLevel == 1)
@@ -85,8 +89,10 @@ class Generator {
         //return difficultyLevel;
     }
 
+ */
 
-    protected void fieldDeletion(int difficultyLevel) {
+
+    private void fieldDeletion(int difficultyLevel) {
 
             for(int row=0; row!=9; ++row) {
                 for (int i = 0; i <= difficultyLevel; ++i) {
