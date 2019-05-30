@@ -5,6 +5,9 @@ import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.*;
 import java.text.ParseException;
 import java.util.Scanner;
@@ -18,9 +21,6 @@ class GUI{
     private JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
     private File fileDirectory = new File("./saveFiles/");
     private String localisation = "./saveFiles/";
-    //TODO tworzenie folderu saveFiles jeśli już nie istnieje
-
-
     private int[][] tempBoard;
     static JFrame newGameOptionFrame;
     private final Action newGameAction = new newGameAction();
@@ -40,17 +40,16 @@ class GUI{
     private int userID = 1;
    // private String[] users = { "Domyślny", "Użytkownik "+userID};
 
-
     GUI()  {
         menuItSelf();
     }
-
 
     private void newGameOption(){
         newGameOptionFrame = new JFrame("Wybór trybu gry");
         newGameOptionFrame.setMaximumSize(new Dimension(450, 200));
         newGameOptionFrame.setMinimumSize(new Dimension(450, 200));
-        newGameOptionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        newGameOptionFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        newGameOptionFrame.addWindowListener(exitListener);
         newGameOptionFrame.setLocationRelativeTo(null);
         newGameOptionFrame.setVisible(true);
         JPanel rootPanel = new JPanel();
@@ -353,7 +352,6 @@ class GUI{
 
     }
 
-    //deklaracja i inicjalizacja panelu gry
     private void gameItSelf(int difficultyLevel, int userID, boolean load){
 
         frameGame = new JFrame("SUDOKU");
@@ -807,5 +805,11 @@ class GUI{
         }
     }
 
+    WindowListener exitListener = new WindowAdapter() {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            frameMenu.setVisible(true);
+        }
+    };
 }
 

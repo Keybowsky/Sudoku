@@ -14,7 +14,8 @@ public class Tutorial extends GUI {
         tutorialFrame = new JFrame("Wybór samouczka");
         tutorialFrame.setMaximumSize(new Dimension(450, 200));
         tutorialFrame.setMinimumSize(new Dimension(450, 200));
-        tutorialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        tutorialFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        tutorialFrame.addWindowListener(exitListener);
         tutorialFrame.setLocationRelativeTo(null);
         tutorialFrame.setVisible(true);
         newGameOptionFrame.setVisible(false);
