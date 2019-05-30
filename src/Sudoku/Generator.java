@@ -109,6 +109,7 @@ class Generator {
         generator.solve();
         generatedBoard = generator.getBoardToSolve();
 
+
         if(difficultyLevelFromGUI==1)
             fieldDeletion(5);
         if(difficultyLevelFromGUI==2)
@@ -117,5 +118,6 @@ class Generator {
             fieldDeletion(7);
 
     }
+
 
 }

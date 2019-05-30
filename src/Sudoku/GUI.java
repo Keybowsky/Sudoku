@@ -12,40 +12,43 @@ import java.util.Scanner;
 
 class GUI{
 
-    static JFrame frameMenu;
-    private static JFrame frameGame;
+    protected static JFrame frameMenu;
+    protected static JFrame frameGame;
     private static JFrame frameLoad;
-    private int userID = 1;
-    private JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+    private static int[][] solvedBoard;
 
-    private String localisation = "./saveFiles/gameSaveUser" +userID+".txt";
+    private JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+    private File fileDirectory = new File("./saveFiles/");
+    private String localisation = "./saveFiles/";
     //TODO tworzenie folderu saveFiles jeśli już nie istnieje
 
 
     private int[][] tempBoard;
-    private static JFrame newGameOptionFrame;
+    static JFrame newGameOptionFrame;
     private final Action newGameAction = new newGameAction();
     private final Action loadGameAction = new loadGameAction();
     private final Action settingsAction = new settingsAction();
     private final Action exitGameAction = new exitGameAction();
     private final Action menuItemBackMainAction = new menuItemBackMainAction();
-    private final Action checkGame = new checkGame();
+    private final Action checkGameAction = new checkGameAction();
     private final Action easyNewGame = new easyNewGame();
     private final Action mediumNewGame = new mediumNewGame();
     private final Action hardNewGame = new hardNewGame();
     private final Action tutorialAction = new tutorialAction();
     private final Action saveGameAction = new saveGameAction();
-    Generator generator = new Generator();
+    private Generator generator = new Generator();
+    private gameName gN = new gameName();
+    private messages mSG = new messages();
+    private int userID = 1;
+   // private String[] users = { "Domyślny", "Użytkownik "+userID};
 
-    gameName gN = new gameName();
-    messages mSG = new messages();
 
     GUI()  {
         menuItSelf();
     }
 
 
-    private JFrame newGameOption(){
+    protected void newGameOption(){
         newGameOptionFrame = new JFrame("Wybór trybu gry");
         newGameOptionFrame.setMaximumSize(new Dimension(450, 200));
         newGameOptionFrame.setMinimumSize(new Dimension(450, 200));
@@ -152,9 +155,8 @@ class GUI{
         tutorial.setText("Samouczek");
 
 
-        return newGameOptionFrame;
-    }
 
+    }
 
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
@@ -256,7 +258,37 @@ class GUI{
         JButton exitGame = new JButton("Wyjdź z gry");
 
 
+
+/*
+        JComboBox userList = new JComboBox(users);
+        JButton user = new JButton("Nowy użytkownik");
+
+
+ */
+
+
+
+
         JPanel buttonPanel = new JPanel();
+//        JPanel userMenu = new JPanel();
+
+        GridBagConstraints gbc = new GridBagConstraints();
+
+
+ /*
+        userMenu.setLayout(new GridBagLayout());
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        userMenu.add(userList,gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        userMenu.add(user,gbc);
+
+  */
+
+
         buttonPanel.setLayout(new GridLayout(4, 1));
         buttonPanel.add(newGame);
         buttonPanel.add(loadGame);
@@ -266,7 +298,6 @@ class GUI{
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
 
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -318,13 +349,15 @@ class GUI{
 
         rootPanel.add(mainPanel, BorderLayout.CENTER);
         rootPanel.add(gN.gameName(), BorderLayout.NORTH);
+ //       rootPanel.add(userMenu, BorderLayout.SOUTH);
+
         frameMenu.setContentPane(rootPanel);
 
 
     }
 
     //deklaracja i inicjalizacja panelu gry
-    private void gameItSelf(int difficultyLevel, int userID){
+    protected void gameItSelf(int difficultyLevel, int userID,boolean load){
 
         frameGame = new JFrame("SUDOKU");
         frameGame.setMaximumSize(new Dimension(630, 630));
@@ -347,7 +380,7 @@ class GUI{
         JButton buttonCheck = new JButton();
         buttonCheck.addActionListener(e -> {
         });
-        buttonCheck.setAction(checkGame);
+        buttonCheck.setAction(checkGameAction);
         buttonCheck.setText("Sprawdź");
 
 
@@ -468,7 +501,7 @@ class GUI{
         frameGame.setContentPane(rootPanel);
         frameGame.setJMenuBar(createMenuBar());
 
-    if(userID==0) {
+    if(load==false) {
     newGame(difficultyLevel);
             }
     else{
@@ -478,7 +511,6 @@ class GUI{
     }
 
     private void newGame(int difficultyLevel){
-
         //TODO-Everyone Uzupełnianie planszy według poziomu trudności
         generator.boardGeneration(difficultyLevel);
 
@@ -501,20 +533,35 @@ class GUI{
                     fields[i][j].setValue("");
             }
         }
+        solveTheBoard(tempBoard);
 
     }
 
     private void saveGame() throws IOException{
 
+        File fileName = new File(localisation+"gameSaveUser"+userID+".txt");
 
-        BufferedWriter saver = new BufferedWriter(new FileWriter(localisation));
+        if(!fileDirectory.exists()){
+            fileDirectory.mkdir();
+        }
+        if(!fileName.exists()){
+            try {
+                fileName.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+        BufferedWriter saver = new BufferedWriter(new FileWriter(fileName));
 
          System.out.print("\nPlansza aktualna:   ");
         for(int i = 0; i<Solver.SIZE; i++){
             for(int j = 0; j<Solver.SIZE; j++){
                 if(fields[i][j].getValue()=="") {
 
-                    saver.write(("0").toString());
+                    saver.write(("0"));
                     System.out.print("0");
                 }
                 else {
@@ -534,11 +581,11 @@ class GUI{
         //TODO-Everyone Tutaj wczytywanie
         int col = 9;
         int row = 9;
-        int loadBoard[][] = new int [row][col];
+        int[][] loadBoard = new int[row][col];
 
 
+        File file  = new File(localisation+"gameSaveUser"+userID+".txt");
 
-        File file = new File(localisation);
         try {
             Scanner reader = new Scanner(file);
 
@@ -550,6 +597,9 @@ class GUI{
                 }
 
             }
+
+
+
             reader.close();
         }
         catch (FileNotFoundException e) {
@@ -576,13 +626,60 @@ class GUI{
                     fields[i][j].setValue("");
             }
         }
+        solveTheBoard(tempBoard);
 
+    }
+
+    private void solveTheBoard(int[][] boardToSolve){
+       solvedBoard = Solver.solveTheBoard(boardToSolve);
     }
 
     private void checkGame(){
 
-    }
+        int[][] boardToCheck = new int[9][9];
+        int temp;
+        String tempS;
+        System.out.println("checkGame function");
+        for(int i = 0; i<9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (fields[i][j].getValue() == "") {
+                    boardToCheck[i][j] = 0;
+                    System.out.print("0");
+                } else {
+                    tempS = String.valueOf(fields[i][j].getValue());
+                    temp = Integer.parseInt(tempS);
+                    boardToCheck[i][j] = temp;
+                    System.out.print(temp);
+                }
+            }
+            System.out.println();
+        }
 
+        System.out.println();
+        System.out.println();
+        for(int i = 0; i<9; i++) {
+            for (int j = 0; j < 9; j++) {
+              System.out.print(solvedBoard[i][j]);
+            if(boardToCheck[i][j]==solvedBoard[i][j])
+            {
+                if(fields[i][j].isEditable()) {
+                    fields[i][j].setBackground(Color.green);
+                }
+            }
+            else{
+                fields[i][j].setBackground(Color.red);
+            }
+
+
+            }
+            System.out.println();
+        }
+
+
+        frameGame.repaint();
+
+
+    }
 
     private class newGameAction extends AbstractAction {
         public void actionPerformed(ActionEvent e) {
@@ -606,7 +703,7 @@ class GUI{
 
              */
             GUI.frameMenu.setVisible(false);
-            gameItSelf(0,userID);
+            gameItSelf(0,userID,true);
             GUI.frameGame.setVisible(true);
         }
     }
@@ -642,16 +739,17 @@ class GUI{
             mSG.gameNotSaved();
             GUI.frameGame.setVisible(false);
             GUI.frameGame.dispose();
-            GUI.newGameOptionFrame.setVisible(false);
+//            GUI.newGameOptionFrame.setVisible(false);
             GUI.frameMenu.setVisible(true);
         }
     }
 
-    private class checkGame extends AbstractAction {
-        checkGame() {
+    private class checkGameAction extends AbstractAction {
+        checkGameAction() {
         }
 
         public void actionPerformed(ActionEvent e) {
+            checkGame();
         }
     }
 
@@ -661,7 +759,7 @@ class GUI{
 
         public void actionPerformed(ActionEvent e) {
             //gameItSelf(generator.difficultyLevel(1));
-            gameItSelf(1,0);
+            gameItSelf(1,userID,false);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
@@ -672,7 +770,7 @@ class GUI{
         }
 
         public void actionPerformed(ActionEvent e) {
-            gameItSelf(2,0);
+            gameItSelf(2,userID,false);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
@@ -683,7 +781,7 @@ class GUI{
         }
 
         public void actionPerformed(ActionEvent e) {
-            gameItSelf(3,0);
+            gameItSelf(3,userID,false);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
@@ -694,7 +792,7 @@ class GUI{
         }
 
         public void actionPerformed(ActionEvent e) {
-
+            new Tutorial();
 
         }
     }
