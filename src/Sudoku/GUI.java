@@ -62,7 +62,7 @@ class GUI{
     static String[] actualLang=plLang;
     private Color checkGameTrue = new Color(60,195,131);
     private Color checkGameFalse = new Color(251,74,71);
-    private static Color mainBackGround = new Color(177, 181, 188);
+    static Color mainBackGround = new Color(177, 181, 188);
     private Color additionalColor = new Color(100,100,100);
     static Color buttonColor = new Color(210,70,100);
 
@@ -371,7 +371,6 @@ class GUI{
         mainPanel.setLayout(new GridBagLayout());
 
 
-        //gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 1;
         mainPanel.add(leftSpacer, gbc);
@@ -419,6 +418,7 @@ class GUI{
         exitGame.setText(actualLang[3]);
 
         rootPanel.add(mainPanel, BorderLayout.CENTER);
+        mainPanel.setMinimumSize(new Dimension(630,100));
         rootPanel.add(gN.gameName(), BorderLayout.NORTH);
  //       rootPanel.add(userMenu, BorderLayout.SOUTH);
 

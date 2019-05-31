@@ -13,14 +13,23 @@ public class subGUI extends GUI{
 }
 
 class gameName {
+    public String gameName;
+
     //To jest etykieta ktora pojawia sie w panelach menu i game
     JLabel gameName() {
-        JLabel name = new JLabel("SUDOKU 6000");
-        name.setFont(new Font("Arial", Font.BOLD, 70));
+
+        Icon ikonka = new ImageIcon("giff.gif");
+
+        JLabel name = new JLabel("Tutaj Bedzie Ładnie");
+        name.setIcon(ikonka);
+        name.setFont(new Font("Arial", Font.BOLD, 30));
         name.setHorizontalAlignment(SwingConstants.CENTER);
         name.setVerticalAlignment(SwingConstants.CENTER);
         name.setForeground(buttonColor);
+
+
         return name;
+
     }
 }
 

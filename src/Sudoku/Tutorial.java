@@ -25,7 +25,7 @@ public class Tutorial extends GUI {
         JLabel labelTop = new JLabel("Wybierz sposób rozwiązywania, który chcesz się nauczyć:");
         labelTop.setHorizontalAlignment(SwingConstants.CENTER);
         labelTop.setVerticalAlignment(SwingConstants.CENTER);
-
+        rootPanel.setBackground(mainBackGround);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -37,7 +37,7 @@ public class Tutorial extends GUI {
 
 
         JButton boxMethodBTN = new JButton();
-
+        boxMethodBTN.setBackground(buttonColor);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -52,7 +52,7 @@ public class Tutorial extends GUI {
 
 
         JButton diagonalMethodBTN = new JButton();
-
+        diagonalMethodBTN.setBackground(buttonColor);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 1;
         gbc.weightx = 1;
@@ -67,7 +67,7 @@ public class Tutorial extends GUI {
 
 
         JButton randomMethodBTN = new JButton();
-
+        randomMethodBTN.setBackground(buttonColor);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 2;
         gbc.weightx = 1;
