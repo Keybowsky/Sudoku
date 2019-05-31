@@ -1,16 +1,20 @@
 package Sudoku;
 
 
+import apple.laf.AquaLookAndFeel;
+
 import javax.swing.*;
+import javax.swing.plaf.ListUI;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.io.*;
 import java.text.ParseException;
+import java.util.Properties;
 import java.util.Scanner;
+
+import static Sudoku.LanguageBase.enLang;
+import static Sudoku.LanguageBase.plLang;
 
 
 class GUI{
@@ -43,6 +47,7 @@ class GUI{
    // private String[] users = { "Domyślny", "Użytkownik "+userID};
 
     //zmiennne dla ustawien gry
+
     private File fileDirectory = new File("./saveFiles/");
     private String localisation = "./saveFiles/";
     private Dimension largeMaximumWindow = new Dimension(630,630);
@@ -51,18 +56,34 @@ class GUI{
     private Dimension mediumMinimumWindow = new Dimension(400,300);
     private Dimension smallMaximumWindow = new Dimension(450, 200);
     private Dimension smallMinimumWindow = new Dimension(450, 200);
+    int themeID = 0;
+    int langID = 0;
+
+    static String[] actualLang=plLang;
     private Color checkGameTrue = new Color(60,195,131);
     private Color checkGameFalse = new Color(251,74,71);
-
+    private static Color mainBackGround = new Color(177, 181, 188);
+    private Color additionalColor = new Color(100,100,100);
+    static Color buttonColor = new Color(210,70,100);
 
 
     GUI()  {
+
+        System.setProperty("os.name", "Windows");
+        System.setProperty("os.version", "7");
+
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
+
         menuItSelf();
 
     }
 
     private void newGameOption(){
-        newGameOptionFrame = new JFrame("Wybór trybu gry");
+        newGameOptionFrame = new JFrame(actualLang[7]);
         newGameOptionFrame.setMaximumSize(smallMaximumWindow);
         newGameOptionFrame.setMinimumSize(smallMinimumWindow);
         newGameOptionFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -73,9 +94,12 @@ class GUI{
         rootPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        JLabel labelTop = new JLabel("Wybór poziomu trudności dla gry wolnej:");
+        JLabel labelTop = new JLabel(actualLang[8]);
        labelTop.setHorizontalAlignment(SwingConstants.CENTER);
         labelTop.setVerticalAlignment(SwingConstants.CENTER);
+
+
+
 
         gbc.fill= GridBagConstraints.BOTH;
         gbc.gridx = 0;
@@ -120,7 +144,7 @@ class GUI{
         gbc.ipady = 10;
         rootPanel.add(hardGame, gbc);
 
-        JLabel labelBottom = new JLabel("Inne opcje:");
+        JLabel labelBottom = new JLabel(actualLang[9]);
         labelBottom.setHorizontalAlignment(SwingConstants.CENTER);
         labelBottom.setVerticalAlignment(SwingConstants.CENTER);
         gbc.fill= GridBagConstraints.BOTH;
@@ -163,12 +187,16 @@ class GUI{
         tutorial.setAction(tutorialAction);
 
 
-        easyGame.setText("Łatwy");
-        mediumGame.setText("Średni");
-        hardGame.setText("Trudny");
-        tutorial.setText("Samouczek");
+        easyGame.setText(actualLang[10]);
+        mediumGame.setText(actualLang[11]);
+        hardGame.setText(actualLang[12]);
+        tutorial.setText(actualLang[13]);
 
-
+        rootPanel.setBackground(mainBackGround);
+        easyGame.setBackground(buttonColor);
+        mediumGame.setBackground(buttonColor);
+        hardGame.setBackground(buttonColor);
+        tutorial.setBackground(buttonColor);
 
     }
 
@@ -178,7 +206,7 @@ class GUI{
         JMenuItem menuItemCreators, menuItemBackMain,menuItemSaveGame;
 
         menuBar = new JMenuBar();
-        menu = new JMenu("Gra");
+        menu = new JMenu(actualLang[14]);
         menuBar.add(menu);
 
         menuItemBackMain = new JMenuItem();
@@ -195,59 +223,76 @@ class GUI{
         menuItemSaveGame.addActionListener(e -> {});
         menuItemSaveGame.setAction(saveGameAction);
         menu.add(menuItemSaveGame);
-
-
-
-        /*
-        submenuGameType = new JMenu("Typ gry");
-
-        submenuGameType.setMnemonic(KeyEvent.VK_S);
-        ButtonGroup gameTypeGroup = new ButtonGroup();
-        radioButtonGameNormal = new JRadioButtonMenuItem("Normalna gra");
-        radioButtonGameNormal.setSelected(true);
-        radioButtonGameNormal.setMnemonic(KeyEvent.VK_R);
-        gameTypeGroup.add(radioButtonGameNormal);
-        submenuGameType.add(radioButtonGameNormal);
-
-        radioButtonGameTutorial = new JRadioButtonMenuItem("Samouczek");
-        radioButtonGameTutorial.setMnemonic(KeyEvent.VK_O);
-        gameTypeGroup.add(radioButtonGameTutorial);
-        submenuGameType.add(radioButtonGameTutorial);
-
-
-        menu.add(submenuGameType);
-
-
-        radioButtonGameTutorial.addActionListener(e -> {
-        });
-        radioButtonGameTutorial.setAction(tutorialAction);
-
-        radioButtonGameNormal.addActionListener(e -> {
-            System.out.print("Cos");
-        });
-        //   radioButtonGameNormal.setAction();
-
-
-         */
-
-        //TODO-Franek Wypełnianie w zależności od wybranej trudności(z menubar)
-
-        menu = new JMenu("Info");
+        menu = new JMenu(actualLang[15]);
 
 
         menuBar.add(menu);
 
-        menuItemCreators = new JMenuItem("Twórcy gry");
+        menuItemCreators = new JMenuItem(actualLang[16]);
         menuItemCreators.addActionListener(e -> mSG.creatorsMessage());
 
 
-        menuItemBackMain.setText("Powrót do Menu Głównego");
-        menuItemSaveGame.setText("Zapisz grę");
-        //  radioButtonGameTutorial.setText("Samouczek");
-        //  radioButtonGameNormal.setText("Normalna gra");
+        menuItemBackMain.setText(actualLang[17]);
+        menuItemSaveGame.setText(actualLang[18]);
         menu.add(menuItemCreators);
 
         return menuBar;
+    }
+
+    private void settings(){
+
+        frameSettings = new JFrame(actualLang[2]);
+        frameSettings.setMaximumSize(mediumMaximumWindow);
+        frameSettings.setMinimumSize(mediumMinimumWindow);
+        frameSettings.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frameSettings.addWindowListener(exitListener);
+        frameSettings.setLocationRelativeTo(null);
+        JPanel rootPanel = new JPanel();
+
+        JButton applySettings = new JButton();
+        rootPanel.add(applySettings);
+
+        DefaultListModel<String> l1 = new DefaultListModel<>();
+        l1.addElement("Polski");
+        l1.addElement("English");
+        JList<String> list = new JList<>(l1);
+        list.setBounds(100,100, 75,75);
+        if(list.getSelectedIndex()!=-1){
+            if(list.getSelectedIndex()==0){
+                actualLang=plLang;
+                frameMenu.repaint();
+
+            }
+            if(list.getSelectedIndex()==1){
+                actualLang=enLang;
+                frameMenu.repaint();
+
+
+            }
+        }
+
+        //tutaj menu głowne jeszcze nie dziala ale reszta tak
+
+
+        frameSettings.add(list);
+
+/*
+        if(tutaj wybor jezyka){
+            actualLang=enLang;
+
+        }
+
+
+ */
+
+
+        applySettings.addActionListener(e -> {
+        });
+        applySettings.setAction(applySettingsAction);
+        applySettings.setText(actualLang[23]);
+
+
+        frameSettings.add(rootPanel);
     }
 
     private void menuItSelf() {
@@ -258,14 +303,28 @@ class GUI{
         frameMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMenu.setLocationRelativeTo(null);
 
+
         JPanel rootPanel = new JPanel(new BorderLayout(5, 50));
         JPanel leftSpacer = new JPanel(new BorderLayout());
         JPanel rightSpacer = new JPanel(new BorderLayout());
+        JPanel buttonPanel = new JPanel();
+        JPanel mainPanel = new JPanel();
 
-        JButton newGame = new JButton("Nowa gra");
-        JButton loadGame = new JButton("Wczytaj grę");
-        JButton settings = new JButton("Ustawienia");
-        JButton exitGame = new JButton("Wyjdź z gry");
+        JButton newGame = new JButton();
+        JButton loadGame = new JButton();
+        JButton settings = new JButton();
+        JButton exitGame = new JButton();
+
+
+
+        newGame.setBackground(buttonColor);
+        loadGame.setBackground(buttonColor);
+        settings.setBackground(buttonColor);
+        exitGame.setBackground(buttonColor);
+        rootPanel.setBackground(mainBackGround);
+        mainPanel.setBackground(mainBackGround);
+        buttonPanel.setBackground(mainBackGround);
+
 
 
 
@@ -279,11 +338,10 @@ class GUI{
 
 
 
-        JPanel buttonPanel = new JPanel();
+
 //        JPanel userMenu = new JPanel();
 
         GridBagConstraints gbc = new GridBagConstraints();
-
 
  /*
         userMenu.setLayout(new GridBagLayout());
@@ -298,19 +356,22 @@ class GUI{
 
   */
 
+        GridLayout gl = new GridLayout();
+        gl.setColumns(1);
+        gl.setRows(4);
 
-        buttonPanel.setLayout(new GridLayout(4, 1));
+        buttonPanel.setLayout(gl);
         buttonPanel.add(newGame);
         buttonPanel.add(loadGame);
         buttonPanel.add(settings);
         buttonPanel.add(exitGame);
 
 
-        JPanel mainPanel = new JPanel();
+
         mainPanel.setLayout(new GridBagLayout());
 
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        //gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 1;
         mainPanel.add(leftSpacer, gbc);
@@ -352,10 +413,10 @@ class GUI{
         settings.setAction(settingsAction);
 
 
-        newGame.setText("Nowa gra");
-        loadGame.setText("Wczytaj gre");
-        settings.setText("Ustawienia");
-        exitGame.setText("Wyjdź z gry");
+        newGame.setText(actualLang[0]);
+        loadGame.setText(actualLang[1]);
+        settings.setText(actualLang[2]);
+        exitGame.setText(actualLang[3]);
 
         rootPanel.add(mainPanel, BorderLayout.CENTER);
         rootPanel.add(gN.gameName(), BorderLayout.NORTH);
@@ -374,7 +435,7 @@ class GUI{
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameGame.setLocationRelativeTo(null);
 
-        MaskFormatter formatter = new MaskFormatter();  //Zmiana z null żeby nie wywalało NullPointerException
+        MaskFormatter formatter = new MaskFormatter();
         try {
             formatter = new MaskFormatter("#");
         } catch (ParseException e) {
@@ -390,7 +451,7 @@ class GUI{
         buttonCheck.addActionListener(e -> {
         });
         buttonCheck.setAction(checkGameAction);
-        buttonCheck.setText("Sprawdź");
+        buttonCheck.setText(actualLang[19]);
 
 
 
@@ -438,8 +499,14 @@ class GUI{
                     if (6 <= j)
                         buttonPanel[8].add(fields[i][j]);
                 }
+                fields[i][j].setCaretPosition(0);
+
             }
         }
+
+
+
+
 
         buttonPanel[0].setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
         buttonPanel[1].setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
@@ -505,7 +572,14 @@ class GUI{
 
 
         rootPanel.add(fieldsPanel, BorderLayout.CENTER);
-        rootPanel.add(gN.gameName(), BorderLayout.NORTH);
+        //rootPanel.add(gN.gameName(), BorderLayout.NORTH);
+
+        for(int i=0;i<9;i++){
+            buttonPanel[i].setBackground(mainBackGround);
+        }
+        fieldsPanel.setBackground(mainBackGround);
+        gN.gameName().setBackground(mainBackGround);
+
 
         frameGame.setContentPane(rootPanel);
         frameGame.setJMenuBar(createMenuBar());
@@ -518,29 +592,6 @@ class GUI{
             loadGame(userID);
     }
 
-    }
-
-    private void settings(){
-
-        frameSettings = new JFrame("Ustawienia");
-        frameSettings.setMaximumSize(mediumMaximumWindow);
-        frameSettings.setMinimumSize(mediumMinimumWindow);
-        frameSettings.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frameSettings.addWindowListener(exitListener);
-        frameSettings.setLocationRelativeTo(null);
-        JPanel rootPanel = new JPanel();
-
-        JButton applySettings = new JButton();
-        rootPanel.add(applySettings);
-
-
-        applySettings.addActionListener(e -> {
-        });
-        applySettings.setAction(applySettingsAction);
-        applySettings.setText("Zapisz ustawienia");
-
-
-        frameSettings.add(rootPanel);
     }
 
     private void newGame(int difficultyLevel){
@@ -566,6 +617,7 @@ class GUI{
             }
         }
         firstGenerationBoard=tempBoard;
+        solveTheBoard(firstGenerationBoard);
     }
 
     private void saveGame() throws IOException{
@@ -643,7 +695,7 @@ class GUI{
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("Błąd odczytu");
+            System.out.println(actualLang[6]);
         }
         solveTheBoard(firstGenerationBoard);
     }
@@ -834,6 +886,7 @@ class GUI{
         }
 
         public void actionPerformed(ActionEvent e) {
+
             GUI.frameMenu.repaint();
             GUI.frameMenu.setVisible(true);
             GUI.frameSettings.setVisible(false);
