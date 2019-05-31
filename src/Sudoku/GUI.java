@@ -18,10 +18,9 @@ class GUI{
     static JFrame frameMenu;
     private static JFrame frameGame;
     private static int[][] solvedBoard;
-    private JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
-    private File fileDirectory = new File("./saveFiles/");
-    private String localisation = "./saveFiles/";
+    private static int[][] firstGenerationBoard = new int[9][9];
     private int[][] tempBoard;
+    private JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
     static JFrame newGameOptionFrame;
     private final Action newGameAction = new newGameAction();
     private final Action loadGameAction = new loadGameAction();
@@ -39,6 +38,16 @@ class GUI{
     private messages mSG = new messages();
     private int userID = 1;
    // private String[] users = { "Domyślny", "Użytkownik "+userID};
+
+    //zmiennne dla ustawien gry
+    private File fileDirectory = new File("./saveFiles/");
+    private String localisation = "./saveFiles/";
+    private Dimension largeMaximumWindow = new Dimension(630,630);
+    private Dimension largeMinimumWindow = new Dimension(630,630);
+    private Color checkGameTrue = new Color(60,195,131);
+    private Color checkGameFalse = new Color(251,74,71);
+
+
 
     GUI()  {
         menuItSelf();
@@ -236,13 +245,10 @@ class GUI{
     private void menuItSelf() {
 
         frameMenu = new JFrame("SUDOKU");
-        frameMenu.setMaximumSize(new Dimension(630, 630));
-        frameMenu.setMinimumSize(new Dimension(630, 630));
+        frameMenu.setMaximumSize(largeMaximumWindow);
+        frameMenu.setMinimumSize(largeMinimumWindow);
         frameMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMenu.setLocationRelativeTo(null);
-
-
-
 
         JPanel rootPanel = new JPanel(new BorderLayout(5, 50));
         JPanel leftSpacer = new JPanel(new BorderLayout());
@@ -355,8 +361,8 @@ class GUI{
     private void gameItSelf(int difficultyLevel, int userID, boolean load){
 
         frameGame = new JFrame("SUDOKU");
-        frameGame.setMaximumSize(new Dimension(630, 630));
-        frameGame.setMinimumSize(new Dimension(630, 630));
+        frameGame.setMaximumSize(largeMaximumWindow);
+        frameGame.setMinimumSize(largeMinimumWindow);
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameGame.setLocationRelativeTo(null);
 
@@ -528,8 +534,7 @@ class GUI{
                     fields[i][j].setValue("");
             }
         }
-        solveTheBoard(tempBoard);
-
+        firstGenerationBoard=tempBoard;
     }
 
     private void saveGame() throws IOException{
@@ -551,6 +556,7 @@ class GUI{
 
         BufferedWriter saver = new BufferedWriter(new FileWriter(fileName));
 
+
          System.out.print("\nPlansza aktualna:   ");
         for(int i = 0; i<Solver.SIZE; i++){
             for(int j = 0; j<Solver.SIZE; j++){
@@ -564,12 +570,11 @@ class GUI{
                     saver.write((fields[i][j].getValue()).toString());
                 }
                 saver.write("\n");
+                saver.write(Integer.toString(firstGenerationBoard[i][j]));
+                saver.write("\n");
             }
-            //
         }
         saver.close();
-
-
     }
 
     private void loadGame(int userID){
@@ -577,6 +582,7 @@ class GUI{
         int col = 9;
         int row = 9;
         int[][] loadBoard = new int[row][col];
+
 
 
         File file  = new File(localisation+"gameSaveUser"+userID+".txt");
@@ -588,41 +594,27 @@ class GUI{
                 for(int i=0; i<row;i++) {
                     for (int j = 0; j < col; j++) {
                         loadBoard[i][j] =  Integer.parseInt(reader.nextLine());
+                        firstGenerationBoard[i][j] =  Integer.parseInt(reader.nextLine());
+                        if(firstGenerationBoard[i][j]!=0){
+                            fields[i][j].setEditable(false);
+                        }
+
+                        if(loadBoard[i][j]==0){
+                            fields[i][j].setValue("");
+                        }
+                        else {
+                            fields[i][j].setValue(loadBoard[i][j]);
+                        }
                     }
                 }
-
             }
-
-
-
             reader.close();
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Błąd odczytu");
         }
-
-        tempBoard = loadBoard;
-
-        for (int i = 0; i < Solver.SIZE; i++) {
-            System.out.println();
-            for (int j = 0; j < Solver.SIZE; j++) {
-                System.out.print(tempBoard[i][j] + " / ");
-            }
-        }
-
-
-        for (int i = 0; i < Solver.SIZE; i++) {
-            for (int j = 0; j < Solver.SIZE; j++) {
-                fields[i][j].setValue(tempBoard[i][j]);
-                if (tempBoard[i][j] != 0) {     //pętla if else robi tak: jeśli liczba jest inna niż zero (czyli dana z góry) to blokuje edycje, jeśli jest zero (brak danej - do wpisu) to wstawia puste zamiast zera
-                    fields[i][j].setEditable(false);
-                } else
-                    fields[i][j].setValue("");
-            }
-        }
-        solveTheBoard(tempBoard);
-
+        solveTheBoard(firstGenerationBoard);
     }
 
     private void solveTheBoard(int[][] boardToSolve){
@@ -660,11 +652,11 @@ class GUI{
             if(boardToCheck[i][j]==solvedBoard[i][j])
             {
                 if(fields[i][j].isEditable()) {
-                    fields[i][j].setBackground(Color.green);
+                    fields[i][j].setBackground(checkGameTrue);
                 }
             }
             else{
-                fields[i][j].setBackground(Color.red);
+                fields[i][j].setBackground(checkGameFalse);
             }
             }
             System.out.println();
