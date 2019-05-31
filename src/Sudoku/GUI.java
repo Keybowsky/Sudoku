@@ -17,6 +17,7 @@ class GUI{
 
     static JFrame frameMenu;
     private static JFrame frameGame;
+    private static JFrame frameSettings;
     private static int[][] solvedBoard;
     private static int[][] firstGenerationBoard = new int[9][9];
     private int[][] tempBoard;
@@ -33,6 +34,8 @@ class GUI{
     private final Action hardNewGame = new hardNewGame();
     private final Action tutorialAction = new tutorialAction();
     private final Action saveGameAction = new saveGameAction();
+    private final Action applySettingsAction = new applySettings();
+
     private Generator generator = new Generator();
     private gameName gN = new gameName();
     private messages mSG = new messages();
@@ -44,6 +47,10 @@ class GUI{
     private String localisation = "./saveFiles/";
     private Dimension largeMaximumWindow = new Dimension(630,630);
     private Dimension largeMinimumWindow = new Dimension(630,630);
+    private Dimension mediumMaximumWindow = new Dimension(400,300);
+    private Dimension mediumMinimumWindow = new Dimension(400,300);
+    private Dimension smallMaximumWindow = new Dimension(450, 200);
+    private Dimension smallMinimumWindow = new Dimension(450, 200);
     private Color checkGameTrue = new Color(60,195,131);
     private Color checkGameFalse = new Color(251,74,71);
 
@@ -51,12 +58,13 @@ class GUI{
 
     GUI()  {
         menuItSelf();
+
     }
 
     private void newGameOption(){
         newGameOptionFrame = new JFrame("Wybór trybu gry");
-        newGameOptionFrame.setMaximumSize(new Dimension(450, 200));
-        newGameOptionFrame.setMinimumSize(new Dimension(450, 200));
+        newGameOptionFrame.setMaximumSize(smallMaximumWindow);
+        newGameOptionFrame.setMinimumSize(smallMinimumWindow);
         newGameOptionFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         newGameOptionFrame.addWindowListener(exitListener);
         newGameOptionFrame.setLocationRelativeTo(null);
@@ -512,6 +520,29 @@ class GUI{
 
     }
 
+    private void settings(){
+
+        frameSettings = new JFrame("Ustawienia");
+        frameSettings.setMaximumSize(mediumMaximumWindow);
+        frameSettings.setMinimumSize(mediumMinimumWindow);
+        frameSettings.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frameSettings.addWindowListener(exitListener);
+        frameSettings.setLocationRelativeTo(null);
+        JPanel rootPanel = new JPanel();
+
+        JButton applySettings = new JButton();
+        rootPanel.add(applySettings);
+
+
+        applySettings.addActionListener(e -> {
+        });
+        applySettings.setAction(applySettingsAction);
+        applySettings.setText("Zapisz ustawienia");
+
+
+        frameSettings.add(rootPanel);
+    }
+
     private void newGame(int difficultyLevel){
         //TODO-Everyone Uzupełnianie planszy według poziomu trudności
         generator.boardGeneration(difficultyLevel);
@@ -698,7 +729,8 @@ class GUI{
 
         public void actionPerformed(ActionEvent e) {
             GUI.frameMenu.setVisible(false);
-            //GUI.frameSettings.setVisible(true);
+            settings();
+            GUI.frameSettings.setVisible(true);
         }
     }
 
@@ -794,6 +826,17 @@ class GUI{
             frameGame.dispose();
             frameGame.setVisible(false);
             frameMenu.setVisible(true);
+        }
+    }
+
+    private class applySettings extends AbstractAction {
+        applySettings() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            GUI.frameMenu.repaint();
+            GUI.frameMenu.setVisible(true);
+            GUI.frameSettings.setVisible(false);
         }
     }
 
