@@ -39,11 +39,13 @@ class GUI{
     private final Action tutorialAction = new tutorialAction();
     private final Action saveGameAction = new saveGameAction();
     private final Action applySettingsAction = new applySettings();
-
     private Generator generator = new Generator();
     private gameName gN = new gameName();
     private messages mSG = new messages();
     private int userID = 1;
+    private int goodAnsw = 0;
+    JComboBox c;
+    int cValue;
    // private String[] users = { "Domyślny", "Użytkownik "+userID};
 
     //zmiennne dla ustawien gry
@@ -78,8 +80,8 @@ class GUI{
             e.printStackTrace();
         }
 
-        menuItSelf();
-
+        settings();
+        menuItSelf(langID);
     }
 
     private void newGameOption(){
@@ -252,38 +254,37 @@ class GUI{
         JButton applySettings = new JButton();
         rootPanel.add(applySettings);
 
-        DefaultListModel<String> l1 = new DefaultListModel<>();
-        l1.addElement("Polski");
-        l1.addElement("English");
-        JList<String> list = new JList<>(l1);
-        list.setBounds(100,100, 75,75);
-        if(list.getSelectedIndex()!=-1){
-            if(list.getSelectedIndex()==0){
-                actualLang=plLang;
-                frameMenu.repaint();
-
-            }
-            if(list.getSelectedIndex()==1){
-                actualLang=enLang;
-                frameMenu.repaint();
 
 
-            }
-        }
+        String[] languages = {"Polski", "English"};
+        /*
+        langC = new JComboBox<>(languages);
+        rootPanel.add(langC);
+
+ */
 
         //tutaj menu głowne jeszcze nie dziala ale reszta tak
 
 
-        frameSettings.add(list);
-
+        c = new JComboBox();
+        c.addItem(languages[0]);
+        c.addItem(languages[1]);
+        rootPanel.add(c);
 /*
-        if(tutaj wybor jezyka){
-            actualLang=enLang;
-
-        }
-
+        c.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //t.setText(c.getSelectedIndex()+" "+((JComboBox)e.getSource()).getSelectedItem());
+                //t.setText(c.getSelectedIndex()+"");
+                cValue=c.getSelectedIndex();
+            }
+        });
 
  */
+
+
+
+
 
 
         applySettings.addActionListener(e -> {
@@ -295,14 +296,20 @@ class GUI{
         frameSettings.add(rootPanel);
     }
 
-    private void menuItSelf() {
+
+
+    private void menuItSelf(int langID) {
 
         frameMenu = new JFrame("SUDOKU");
         frameMenu.setMaximumSize(largeMaximumWindow);
         frameMenu.setMinimumSize(largeMinimumWindow);
         frameMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMenu.setLocationRelativeTo(null);
+        if(langID==0){actualLang=plLang;}
+        if(langID==1){actualLang=enLang;}
 
+
+        frameMenu.repaint();
 
         JPanel rootPanel = new JPanel(new BorderLayout(5, 50));
         JPanel leftSpacer = new JPanel(new BorderLayout());
@@ -451,6 +458,7 @@ class GUI{
         buttonCheck.addActionListener(e -> {
         });
         buttonCheck.setAction(checkGameAction);
+
         buttonCheck.setText(actualLang[19]);
 
 
@@ -505,9 +513,6 @@ class GUI{
         }
 
 
-
-
-
         buttonPanel[0].setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
         buttonPanel[1].setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
         buttonPanel[2].setBorder(BorderFactory.createMatteBorder(0, 1, 1, 0, Color.BLACK));
@@ -526,6 +531,7 @@ class GUI{
         rootPanel.setLayout(new BorderLayout());
         fieldsPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
@@ -565,13 +571,27 @@ class GUI{
         fieldsPanel.add(buttonPanel[8], gbc);
 
 
-        gbc.gridx = 3;
-        gbc.gridy = 0;
+        gbc.gridx = 2;
+        gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         fieldsPanel.add(buttonCheck, gbc);
+        buttonCheck.setBackground(buttonColor);
 
+/*
+        JLabel stats = new JLabel();
+        stats.setBackground(additionalColor);
+        gbc.gridx = 3;
+        gbc.gridy = 1;
+        fieldsPanel.add(stats,gbc);
 
+        if(goodAnsw>0){
+            stats.setText(String.valueOf(goodAnsw));
+        }
+
+*/
         rootPanel.add(fieldsPanel, BorderLayout.CENTER);
+
+
         //rootPanel.add(gN.gameName(), BorderLayout.NORTH);
 
         for(int i=0;i<9;i++){
@@ -736,6 +756,7 @@ class GUI{
             {
                 if(fields[i][j].isEditable()) {
                     fields[i][j].setBackground(checkGameTrue);
+                    goodAnsw++;
                 }
             }
             else{
@@ -886,10 +907,12 @@ class GUI{
         }
 
         public void actionPerformed(ActionEvent e) {
-
-            GUI.frameMenu.repaint();
+            langID=c.getSelectedIndex();
+            menuItSelf(langID);
+            //GUI.frameMenu.repaint();
             GUI.frameMenu.setVisible(true);
             GUI.frameSettings.setVisible(false);
+
         }
     }
 
