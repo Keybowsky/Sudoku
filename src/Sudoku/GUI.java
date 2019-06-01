@@ -909,7 +909,6 @@ class GUI{
         public void actionPerformed(ActionEvent e) {
             langID=c.getSelectedIndex();
             menuItSelf(langID);
-            //GUI.frameMenu.repaint();
             GUI.frameMenu.setVisible(true);
             GUI.frameSettings.setVisible(false);
 
