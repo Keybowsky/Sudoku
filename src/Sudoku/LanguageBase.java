@@ -26,7 +26,10 @@ public class LanguageBase {
             "Gra nie została zapisana. Powrót do menu głównego",
             "Gra została zapisana. Powrót do menu głównego",
             "Błąd wczytywania gry. Plik nie istnieje",
-            "Zapisz"
+            "Zapisz",
+            "Różowy",
+            "Niebieski",
+            "Szary"
     };
     static String[] enLang = {
             "New game",
@@ -52,7 +55,10 @@ public class LanguageBase {
             "Game hasn't been saved. Back to main menu",
             "Game has been saved, Back to main menu",
             "Error during loading. File doesn't exist",
-            "Save"
+            "Save",
+            "Pink",
+            "Blue",
+            "Grey"
     };
 
 

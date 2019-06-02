@@ -1,16 +1,12 @@
 package Sudoku;
 
 
-import apple.laf.AquaLookAndFeel;
-
 import javax.swing.*;
-import javax.swing.plaf.ListUI;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.text.ParseException;
-import java.util.Properties;
 import java.util.Scanner;
 
 import static Sudoku.LanguageBase.enLang;
@@ -24,7 +20,6 @@ class GUI{
     private static JFrame frameSettings;
     private static int[][] solvedBoard;
     private static int[][] firstGenerationBoard = new int[9][9];
-    private int[][] tempBoard;
     private JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
     static JFrame newGameOptionFrame;
     private final Action newGameAction = new newGameAction();
@@ -40,14 +35,12 @@ class GUI{
     private final Action saveGameAction = new saveGameAction();
     private final Action applySettingsAction = new applySettings();
     private Generator generator = new Generator();
-    private gameName gN = new gameName();
-    private messages mSG = new messages();
+    private GameName gN = new GameName();
+    private Messages mSG = new Messages();
     private int userID = 1;
     private int goodAnsw = 0;
-    JComboBox c;
-    int cValue;
-   // private String[] users = { "Domyślny", "Użytkownik "+userID};
-
+    private JComboBox<String> colorSelect;
+    private JComboBox<String> themeSelect;
     //zmiennne dla ustawien gry
 
     private File fileDirectory = new File("./saveFiles/");
@@ -58,19 +51,16 @@ class GUI{
     private Dimension mediumMinimumWindow = new Dimension(400,300);
     private Dimension smallMaximumWindow = new Dimension(450, 200);
     private Dimension smallMinimumWindow = new Dimension(450, 200);
-    int themeID = 0;
-    int langID = 0;
+    private int themeID = 0;
+    private int langID = 0;
 
     static String[] actualLang=plLang;
-    private Color checkGameTrue = new Color(60,195,131);
-    private Color checkGameFalse = new Color(251,74,71);
-    static Color mainBackGround = new Color(177, 181, 188);
-    private Color additionalColor = new Color(100,100,100);
-    static Color buttonColor = new Color(210,70,100);
+
+   static Color[] actualColor = new Color[5];
 
 
     GUI()  {
-
+        changeColor(themeID);
         System.setProperty("os.name", "Windows");
         System.setProperty("os.version", "7");
 
@@ -82,6 +72,23 @@ class GUI{
 
         settings();
         menuItSelf(langID);
+    }
+
+    private void changeColor(int themeID){
+        if(themeID==0) {
+            actualColor[0] = new Color(60, 195, 131);
+            actualColor[1] = new Color(251, 74, 71);
+            actualColor[2] = new Color(177, 181, 188);
+            actualColor[3] = new Color(100, 100, 100);
+            actualColor[4] = new Color(210, 70, 100);
+        }
+        if(themeID==1){
+            actualColor[0] = new Color(60, 195, 131);
+            actualColor[1] = new Color(251, 74, 71);
+            actualColor[2] = new Color(177, 181, 188);
+            actualColor[3] = new Color(100, 100, 100);
+            actualColor[4] = new Color(50, 90, 210);
+        }
     }
 
     private void newGameOption(){
@@ -194,11 +201,11 @@ class GUI{
         hardGame.setText(actualLang[12]);
         tutorial.setText(actualLang[13]);
 
-        rootPanel.setBackground(mainBackGround);
-        easyGame.setBackground(buttonColor);
-        mediumGame.setBackground(buttonColor);
-        hardGame.setBackground(buttonColor);
-        tutorial.setBackground(buttonColor);
+        rootPanel.setBackground(actualColor[2]);
+        easyGame.setBackground(actualColor[4]);
+        mediumGame.setBackground(actualColor[4]);
+        hardGame.setBackground(actualColor[4]);
+        tutorial.setBackground(actualColor[4]);
 
     }
 
@@ -254,37 +261,20 @@ class GUI{
         JButton applySettings = new JButton();
         rootPanel.add(applySettings);
 
-
-
         String[] languages = {"Polski", "English"};
-        /*
-        langC = new JComboBox<>(languages);
-        rootPanel.add(langC);
+        String[] themes = {actualLang[24],actualLang[25]};
 
- */
+        colorSelect = new JComboBox<>();
+        colorSelect.addItem(languages[0]);
+        colorSelect.addItem(languages[1]);
+        colorSelect.setSelectedIndex(langID);
+        rootPanel.add(colorSelect);
 
-        //tutaj menu głowne jeszcze nie dziala ale reszta tak
-
-
-        c = new JComboBox();
-        c.addItem(languages[0]);
-        c.addItem(languages[1]);
-        rootPanel.add(c);
-/*
-        c.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //t.setText(c.getSelectedIndex()+" "+((JComboBox)e.getSource()).getSelectedItem());
-                //t.setText(c.getSelectedIndex()+"");
-                cValue=c.getSelectedIndex();
-            }
-        });
-
- */
-
-
-
-
+        themeSelect = new JComboBox<>();
+        themeSelect.addItem(themes[0]);
+        themeSelect.addItem(themes[1]);
+        themeSelect.setSelectedIndex(themeID);
+        rootPanel.add(themeSelect);
 
 
         applySettings.addActionListener(e -> {
@@ -295,8 +285,6 @@ class GUI{
 
         frameSettings.add(rootPanel);
     }
-
-
 
     private void menuItSelf(int langID) {
 
@@ -324,13 +312,13 @@ class GUI{
 
 
 
-        newGame.setBackground(buttonColor);
-        loadGame.setBackground(buttonColor);
-        settings.setBackground(buttonColor);
-        exitGame.setBackground(buttonColor);
-        rootPanel.setBackground(mainBackGround);
-        mainPanel.setBackground(mainBackGround);
-        buttonPanel.setBackground(mainBackGround);
+        newGame.setBackground(actualColor[4]);
+        loadGame.setBackground(actualColor[4]);
+        settings.setBackground(actualColor[4]);
+        exitGame.setBackground(actualColor[4]);
+        rootPanel.setBackground(actualColor[2]);
+        mainPanel.setBackground(actualColor[2]);
+        buttonPanel.setBackground(actualColor[2]);
 
 
 
@@ -575,7 +563,7 @@ class GUI{
         gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         fieldsPanel.add(buttonCheck, gbc);
-        buttonCheck.setBackground(buttonColor);
+        buttonCheck.setBackground(actualColor[4]);
 
 /*
         JLabel stats = new JLabel();
@@ -595,10 +583,10 @@ class GUI{
         //rootPanel.add(gN.gameName(), BorderLayout.NORTH);
 
         for(int i=0;i<9;i++){
-            buttonPanel[i].setBackground(mainBackGround);
+            buttonPanel[i].setBackground(actualColor[2]);
         }
-        fieldsPanel.setBackground(mainBackGround);
-        gN.gameName().setBackground(mainBackGround);
+        fieldsPanel.setBackground(actualColor[2]);
+        gN.gameName().setBackground(actualColor[2]);
 
 
         frameGame.setContentPane(rootPanel);
@@ -615,10 +603,9 @@ class GUI{
     }
 
     private void newGame(int difficultyLevel){
-        //TODO-Everyone Uzupełnianie planszy według poziomu trudności
         generator.boardGeneration(difficultyLevel);
 
-        tempBoard = generator.getGeneratedBoard();
+        int[][] tempBoard = generator.getGeneratedBoard();
 
         for (int i = 0; i < Solver.SIZE; i++) {
             System.out.println();
@@ -630,13 +617,13 @@ class GUI{
         for (int i = 0; i < Solver.SIZE; i++) {
             for (int j = 0; j < Solver.SIZE; j++) {
                 fields[i][j].setValue(tempBoard[i][j]);
-                if (tempBoard[i][j] != 0) {     //pętla if else robi tak: jeśli liczba jest inna niż zero (czyli dana z góry) to blokuje edycje, jeśli jest zero (brak danej - do wpisu) to wstawia puste zamiast zera
+                if (tempBoard[i][j] != 0) {
                     fields[i][j].setEditable(false);
                 } else
                     fields[i][j].setValue("");
             }
         }
-        firstGenerationBoard=tempBoard;
+        firstGenerationBoard= tempBoard;
         solveTheBoard(firstGenerationBoard);
     }
 
@@ -681,7 +668,6 @@ class GUI{
     }
 
     private void loadGame(int userID){
-        //TODO-Everyone Tutaj wczytywanie
         int col = 9;
         int row = 9;
         int[][] loadBoard = new int[row][col];
@@ -716,6 +702,7 @@ class GUI{
         catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println(actualLang[6]);
+            Messages.loadError();
         }
         solveTheBoard(firstGenerationBoard);
     }
@@ -755,12 +742,12 @@ class GUI{
             if(boardToCheck[i][j]==solvedBoard[i][j])
             {
                 if(fields[i][j].isEditable()) {
-                    fields[i][j].setBackground(checkGameTrue);
+                    fields[i][j].setBackground(actualColor[0]);
                     goodAnsw++;
                 }
             }
             else{
-                fields[i][j].setBackground(checkGameFalse);
+                fields[i][j].setBackground(actualColor[1]);
             }
             }
             System.out.println();
@@ -779,16 +766,6 @@ class GUI{
     private class loadGameAction extends AbstractAction {
         loadGameAction() { }
         public void actionPerformed(ActionEvent e) {
-         //   GUI.frameMenu.setVisible(false);
-//            GUI.frameGame.dispose();
-            /*
-            try {
-                loadGame(userID);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-             */
             GUI.frameMenu.setVisible(false);
             gameItSelf(0,userID,true);
             GUI.frameGame.setVisible(true);
@@ -907,7 +884,9 @@ class GUI{
         }
 
         public void actionPerformed(ActionEvent e) {
-            langID=c.getSelectedIndex();
+            langID=colorSelect.getSelectedIndex();
+            changeColor(themeSelect.getSelectedIndex());
+            themeID=themeSelect.getSelectedIndex();
             menuItSelf(langID);
             GUI.frameMenu.setVisible(true);
             GUI.frameSettings.setVisible(false);

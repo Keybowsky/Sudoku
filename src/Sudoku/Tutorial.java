@@ -4,10 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class Tutorial extends GUI {
-    private final Action DiagonalMethodAction = new DiagonalMethodAction();
-    private final Action RandomMethodAction = new RandomMethodAction();
-    private final Action BoxMethodAction = new BoxMethodAction();
+class Tutorial extends GUI {
     private JFrame tutorialFrame;
 
     Tutorial() {
@@ -25,7 +22,7 @@ public class Tutorial extends GUI {
         JLabel labelTop = new JLabel("Wybierz sposób rozwiązywania, który chcesz się nauczyć:");
         labelTop.setHorizontalAlignment(SwingConstants.CENTER);
         labelTop.setVerticalAlignment(SwingConstants.CENTER);
-        rootPanel.setBackground(mainBackGround);
+        rootPanel.setBackground(actualColor[2]);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -37,7 +34,7 @@ public class Tutorial extends GUI {
 
 
         JButton boxMethodBTN = new JButton();
-        boxMethodBTN.setBackground(buttonColor);
+        boxMethodBTN.setBackground(actualColor[4]);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -52,7 +49,7 @@ public class Tutorial extends GUI {
 
 
         JButton diagonalMethodBTN = new JButton();
-        diagonalMethodBTN.setBackground(buttonColor);
+        diagonalMethodBTN.setBackground(actualColor[4]);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 1;
         gbc.weightx = 1;
@@ -67,7 +64,7 @@ public class Tutorial extends GUI {
 
 
         JButton randomMethodBTN = new JButton();
-        randomMethodBTN.setBackground(buttonColor);
+        randomMethodBTN.setBackground(actualColor[4]);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 2;
         gbc.weightx = 1;
@@ -81,6 +78,11 @@ public class Tutorial extends GUI {
         rootPanel.add(randomMethodBTN, gbc);
 
         tutorialFrame.add(rootPanel);
+
+
+         final Action DiagonalMethodAction = new DiagonalMethodAction();
+         final Action RandomMethodAction = new RandomMethodAction();
+         final Action BoxMethodAction = new BoxMethodAction();
 
         boxMethodBTN.addActionListener(e -> {
         });
