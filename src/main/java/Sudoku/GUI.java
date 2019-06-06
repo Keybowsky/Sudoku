@@ -602,6 +602,19 @@ class GUI{
         frameGame.setJMenuBar(createMenuBar());
 
     if(!load) {
+
+/* tutaj zamiast bool load powinność być int opcja, pisze na tele dlatego może wyjść średnio ddx
+if(load==1)
+newGame(difficultyLevel);
+if(load==2)
+loadGame(userID);
+if(load==3)
+i tutaj tutorial 1
+if(load==4)
+i tutaj tutorial 2
+if(load==5)
+i tutaj tutorial 3
+*/
     newGame(difficultyLevel);
             }
     else{
