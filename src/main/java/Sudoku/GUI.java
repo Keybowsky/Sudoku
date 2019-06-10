@@ -18,7 +18,7 @@ import static Sudoku.LanguageBase.plLang;
 class GUI{
 
     static JFrame frameMenu;
-    private static JFrame frameGame;
+    static JFrame frameGame;
     private static JFrame frameSettings;
     private static int[][] solvedBoard;
     private static int[][] firstGenerationBoard = new int[9][9];
@@ -39,7 +39,7 @@ class GUI{
     private Generator generator = new Generator();
     private GameName gN = new GameName();
     private Messages mSG = new Messages();
-    private int userID = 1;
+    int userID = 1;
     private int goodAnsw = 0;
     private JComboBox<String> colorSelect;
     private JComboBox<String> themeSelect;
@@ -55,7 +55,7 @@ class GUI{
     private Dimension smallMaximumWindow = new Dimension(450, 200);
     private Dimension smallMinimumWindow = new Dimension(450, 200);
      int themeID = 0;
-     int langID = 0;
+     char langID = 'p';
 
     static String[] actualLang=plLang;
 
@@ -63,7 +63,7 @@ class GUI{
 
 
     GUI()  {
-        changeColor(themeID);
+        changeVisuals(themeID);
         System.setProperty("os.name", "Windows");
         System.setProperty("os.version", "7");
 
@@ -77,15 +77,15 @@ class GUI{
         menuItSelf(langID,themeID);
     }
 
-     static void changeColor(int themeID){
-        if(themeID==0) {
+     static void changeVisuals(int input){
+        if(input==0) {
             actualColor[0] = new Color(60, 195, 131);
             actualColor[1] = new Color(251, 74, 71);
             actualColor[2] = new Color(177, 181, 188);
             actualColor[3] = new Color(100, 100, 100);
             actualColor[4] = new Color(210, 70, 100);
         }
-        if(themeID==1){
+        if(input==1){
             actualColor[0] = new Color(60, 195, 131);
             actualColor[1] = new Color(251, 74, 71);
             actualColor[2] = new Color(177, 181, 188);
@@ -94,9 +94,9 @@ class GUI{
         }
     }
 
-     static void changeLanguage(int langID){
-        if(langID==0){actualLang=plLang;}
-        if(langID==1){actualLang=enLang;}
+     static void changeVisuals(char input){
+        if(input=='p'){actualLang=plLang;}
+        if(input=='e'){actualLang=enLang;}
     }
 
     private void newGameOption(){
@@ -275,7 +275,7 @@ class GUI{
         colorSelect = new JComboBox<>();
         colorSelect.addItem(languages[0]);
         colorSelect.addItem(languages[1]);
-        colorSelect.setSelectedIndex(langID);
+        //colorSelect.setSelectedIndex(langID);
         rootPanel.add(colorSelect);
 
         themeSelect = new JComboBox<>();
@@ -295,15 +295,15 @@ class GUI{
         frameSettings.add(rootPanel);
     }
 
-    private void menuItSelf(int langID, int themeID) {
+    private void menuItSelf(char langID, int themeID) {
 
         frameMenu = new JFrame("SUDOKU");
         frameMenu.setMaximumSize(largeMaximumWindow);
         frameMenu.setMinimumSize(largeMinimumWindow);
         frameMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMenu.setLocationRelativeTo(null);
-        if(langID==0){actualLang=plLang;}
-        if(langID==1){actualLang=enLang;}
+        changeVisuals(langID);
+        changeVisuals(themeID);
 
 
         frameMenu.repaint();
@@ -431,7 +431,7 @@ class GUI{
 
     }
 
-    private void gameItSelf(int difficultyLevel, int userID, boolean load){
+    void gameItSelf(int difficultyLevel, int userID, int load){
 
         frameGame = new JFrame("SUDOKU");
         frameGame.setMaximumSize(largeMaximumWindow);
@@ -601,9 +601,19 @@ class GUI{
         frameGame.setContentPane(rootPanel);
         frameGame.setJMenuBar(createMenuBar());
 
-    if(!load) {
 
-/* tutaj zamiast bool load powinność być int opcja, pisze na tele dlatego może wyjść średnio ddx
+
+        if(load==0) {loadGame(userID);}
+        if(load==1){ newGame(difficultyLevel); }
+
+        if(load==2){
+            //tutaj kod wizualny do tutoriala któregoś
+
+
+
+        }
+
+/* 
 if(load==1)
 newGame(difficultyLevel);
 if(load==2)
@@ -615,12 +625,8 @@ i tutaj tutorial 2
 if(load==5)
 i tutaj tutorial 3
 */
-    newGame(difficultyLevel);
-            }
-    else{
 
-            loadGame(userID);
-    }
+
 
     }
 
@@ -792,7 +798,7 @@ i tutaj tutorial 3
         loadGameAction() { }
         public void actionPerformed(ActionEvent e) {
             GUI.frameMenu.setVisible(false);
-            gameItSelf(0,userID,true);
+            gameItSelf(0,userID,0);
             if(!error){ GUI.frameGame.setVisible(true);}
             else{GUI.frameMenu.setVisible(true);}
             error=false;
@@ -851,7 +857,7 @@ i tutaj tutorial 3
 
         public void actionPerformed(ActionEvent e) {
             //gameItSelf(generator.difficultyLevel(1));
-            gameItSelf(1,userID,false);
+            gameItSelf(1,userID,1);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
@@ -862,7 +868,7 @@ i tutaj tutorial 3
         }
 
         public void actionPerformed(ActionEvent e) {
-            gameItSelf(2,userID,false);
+            gameItSelf(2,userID,1);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
@@ -873,7 +879,7 @@ i tutaj tutorial 3
         }
 
         public void actionPerformed(ActionEvent e) {
-            gameItSelf(3,userID,false);
+            gameItSelf(3,userID,1);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
@@ -911,8 +917,13 @@ i tutaj tutorial 3
         }
 
         public void actionPerformed(ActionEvent e) {
-            langID=colorSelect.getSelectedIndex();
-            changeColor(themeSelect.getSelectedIndex());
+
+            int temp = colorSelect.getSelectedIndex();
+            if(temp==0){langID='p';}
+            if(temp==1){langID='e';}
+
+
+            changeVisuals(themeSelect.getSelectedIndex());
             themeID=themeSelect.getSelectedIndex();
             menuItSelf(langID,themeID);
             GUI.frameMenu.setVisible(true);

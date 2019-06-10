@@ -7,9 +7,9 @@ import java.awt.event.ActionEvent;
 class Tutorial extends GUI {
     private JFrame tutorialFrame;
 
-    Tutorial(int langID, int themeID) {
-        changeColor(themeID);
-        changeLanguage(langID);
+    Tutorial(char langID, int themeID) {
+        changeVisuals(themeID);
+        changeVisuals(langID);
 
         tutorialFrame = new JFrame("Wybór samouczka");
         tutorialFrame.setMaximumSize(new Dimension(450, 200));
