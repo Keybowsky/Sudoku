@@ -12,7 +12,7 @@ class Messages{
         showMessageDialog(creators, "Adrian Chabowski\nAleksander Matłok\nFranciszek Przewoźny\n", actualLang[4], JOptionPane.PLAIN_MESSAGE);
     }
     //Wiadomosc ktora pojawia sie po powrocie do menu z menu gry
-    void gameNotSaved() {
+    static void gameNotSaved() {
 
         JOptionPane gameNotSaved = new JOptionPane();
         showMessageDialog(gameNotSaved, actualLang[20], actualLang[5], JOptionPane.PLAIN_MESSAGE);
@@ -29,4 +29,11 @@ class Messages{
         showMessageDialog(loadError, actualLang[22], actualLang[6], JOptionPane.PLAIN_MESSAGE);
 
     }
+
+    void saveError() {
+
+        JOptionPane gameNotSaved = new JOptionPane();
+        showMessageDialog(gameNotSaved, actualLang[28], actualLang[6], JOptionPane.PLAIN_MESSAGE);
+    }
+
 }

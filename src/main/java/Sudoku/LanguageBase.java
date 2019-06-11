@@ -30,7 +30,8 @@ class LanguageBase {
             "Różowy",
             "Niebieski",
             "Szary",
-            "Wybierz sposób rozwiązywania, który chcesz się nauczyć:"
+            "Wybierz sposób rozwiązywania, który chcesz się nauczyć:",
+            "Błąd podczas zapisywania gry. Nie można utworzyć pliku"
     };
     static final String[] enLang = {
             "New game",
@@ -60,7 +61,8 @@ class LanguageBase {
             "Pink",
             "Blue",
             "Grey",
-            "Choose the method, you want to learn"
+            "Choose the method, you want to learn",
+            "Error during saving. Cannot create file"
     };
 
 

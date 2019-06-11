@@ -48,6 +48,8 @@ class GUI{
 
     private File fileDirectory = new File("./src/main/resources/saveFiles/");
     private String localisation = "./src/main/resources/saveFiles/";
+   // private File fileDirectory = new File("./src/main/java/Sudoku/resources/saveFiles/");
+   // private String localisation = "./src/main/java/Sudoku/resources/saveFiles/";
     private Dimension largeMaximumWindow = new Dimension(630,630);
     private Dimension largeMinimumWindow = new Dimension(630,630);
     private Dimension mediumMaximumWindow = new Dimension(400,300);
@@ -83,14 +85,14 @@ class GUI{
             actualColor[1] = new Color(251, 74, 71);
             actualColor[2] = new Color(177, 181, 188);
             actualColor[3] = new Color(100, 100, 100);
-            actualColor[4] = new Color(210, 70, 100);
+            actualColor[4] = new Color(210, 62, 130);
         }
         if(input==1){
             actualColor[0] = new Color(60, 195, 131);
             actualColor[1] = new Color(251, 74, 71);
             actualColor[2] = new Color(177, 181, 188);
             actualColor[3] = new Color(100, 100, 100);
-            actualColor[4] = new Color(50, 90, 210);
+            actualColor[4] = new Color(63, 160, 210);
         }
     }
 
@@ -607,6 +609,8 @@ class GUI{
         if(load==1){ newGame(difficultyLevel); }
 
         if(load==2){
+
+
             //tutaj kod wizualny do tutoriala któregoś
 
 
@@ -658,6 +662,7 @@ i tutaj tutorial 3
     private void saveGame() throws IOException{
 
         File fileName = new File(localisation+"gameSaveUser"+userID+".txt");
+        boolean filegeneration=true;
 
         if(!fileDirectory.exists()){
             fileDirectory.mkdir();
@@ -666,33 +671,35 @@ i tutaj tutorial 3
             try {
                 fileName.createNewFile();
             } catch (IOException e) {
+                filegeneration=false;
+                mSG.saveError();
                 e.printStackTrace();
             }
         }
 
 
+        if(filegeneration) {
+            BufferedWriter saver = new BufferedWriter(new FileWriter(fileName));
+            System.out.print("\nPlansza aktualna:   ");
+            for (int i = 0; i < Solver.SIZE; i++) {
+                for (int j = 0; j < Solver.SIZE; j++) {
+                    if (fields[i][j].getValue() == "") {
 
-        BufferedWriter saver = new BufferedWriter(new FileWriter(fileName));
-
-
-         System.out.print("\nPlansza aktualna:   ");
-        for(int i = 0; i<Solver.SIZE; i++){
-            for(int j = 0; j<Solver.SIZE; j++){
-                if(fields[i][j].getValue()=="") {
-
-                    saver.write(("0"));
-                    System.out.print("0");
+                        saver.write(("0"));
+                        System.out.print("0");
+                    } else {
+                        System.out.print(fields[i][j].getValue());
+                        saver.write((fields[i][j].getValue()).toString());
+                    }
+                    saver.write("\n");
+                    saver.write(Integer.toString(firstGenerationBoard[i][j]));
+                    saver.write("\n");
                 }
-                else {
-                    System.out.print(fields[i][j].getValue());
-                    saver.write((fields[i][j].getValue()).toString());
-                }
-                saver.write("\n");
-                saver.write(Integer.toString(firstGenerationBoard[i][j]));
-                saver.write("\n");
             }
+            saver.close();
+            mSG.gameSaved();
         }
-        saver.close();
+
     }
 
     private void loadGame(int userID){
@@ -905,7 +912,7 @@ i tutaj tutorial 3
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            mSG.gameSaved();
+            //mSG.gameSaved();
             frameGame.dispose();
             frameGame.setVisible(false);
             frameMenu.setVisible(true);
