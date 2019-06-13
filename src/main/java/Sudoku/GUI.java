@@ -612,24 +612,13 @@ class GUI{
             JTextField solvingMethod = new JTextField();
             solvingMethod.setText(BoxMethod.BoxMethodCom1());
             rootPanel.add(solvingMethod, BorderLayout.WEST);
-
             fields[BoxMethod.actualMoveFieldX()][BoxMethod.actualMoveFieldY()].setBackground(BoxMethod.actualMove);
 
             //tutaj kod wizualny do tutoriala któregoś
-        }
 
-/* 
-if(load==1)
-newGame(difficultyLevel);
-if(load==2)
-loadGame(userID);
-if(load==3)
-i tutaj tutorial 1
-if(load==4)
-i tutaj tutorial 2
-if(load==5)
-i tutaj tutorial 3
-*/
+
+
+        }
 
     }
 
