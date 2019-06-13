@@ -110,7 +110,9 @@ class Tutorial extends GUI {
         @Override
         public void actionPerformed(ActionEvent e) {
          new BoxMethod(langID,themeID);
-         tutorialFrame.setVisible(false);
+            tutorialFrame.setVisible(false);
+            gameItSelf(0,1,2);
+            frameGame.setVisible(true);
         }
     }
     private class DiagonalMethodAction extends AbstractAction{

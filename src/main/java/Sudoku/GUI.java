@@ -1,6 +1,5 @@
 package Sudoku;
 
-
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
@@ -11,9 +10,6 @@ import java.util.Scanner;
 
 import static Sudoku.LanguageBase.enLang;
 import static Sudoku.LanguageBase.plLang;
-
-//polimorfizm
-
 
 class GUI{
 
@@ -44,12 +40,12 @@ class GUI{
     private JComboBox<String> colorSelect;
     private JComboBox<String> themeSelect;
     private boolean error=false; //błąd który wyrzuca niepoprawne wczytanie gry
+
+
     //zmiennne dla ustawien gry
 
     private File fileDirectory = new File("./src/main/resources/saveFiles/");
     private String localisation = "./src/main/resources/saveFiles/";
-   // private File fileDirectory = new File("./src/main/java/Sudoku/resources/saveFiles/");
-   // private String localisation = "./src/main/java/Sudoku/resources/saveFiles/";
     private Dimension largeMaximumWindow = new Dimension(630,630);
     private Dimension largeMinimumWindow = new Dimension(630,630);
     private Dimension mediumMaximumWindow = new Dimension(400,300);
@@ -609,12 +605,17 @@ class GUI{
         if(load==1){ newGame(difficultyLevel); }
 
         if(load==2){
+            //pobierz dane na temat komunikatu z prawej
 
+            //pobierz dane na temat podswietlania pol
+
+            JTextField solvingMethod = new JTextField();
+            solvingMethod.setText(BoxMethod.BoxMethodCom1());
+            rootPanel.add(solvingMethod, BorderLayout.WEST);
+
+            fields[BoxMethod.actualMoveFieldX()][BoxMethod.actualMoveFieldY()].setBackground(BoxMethod.actualMove);
 
             //tutaj kod wizualny do tutoriala któregoś
-
-
-
         }
 
 /* 
@@ -629,8 +630,6 @@ i tutaj tutorial 2
 if(load==5)
 i tutaj tutorial 3
 */
-
-
 
     }
 
@@ -841,7 +840,7 @@ i tutaj tutorial 3
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            mSG.gameNotSaved();
+            Messages.gameNotSaved();
             GUI.frameGame.setVisible(false);
             GUI.frameGame.dispose();
 //            GUI.newGameOptionFrame.setVisible(false);
