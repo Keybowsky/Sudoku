@@ -1,5 +1,7 @@
 package Sudoku;
 
+import com.sun.glass.ui.Size;
+
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
@@ -605,16 +607,12 @@ class GUI{
         if(load==1){ newGame(difficultyLevel); }
 
         if(load==2){
-            //pobierz dane na temat komunikatu z prawej
+            BoxMethod boxMethodPanel = new BoxMethod(langID, themeID);
+            JPanel solvingMethodPanel = new JPanel();
+            solvingMethodPanel.add(boxMethodPanel.boxSolvingMethodPanel);
+            solvingMethodPanel.setPreferredSize(new Dimension(200,630));
+            rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
 
-            //pobierz dane na temat podswietlania pol
-
-            JTextField solvingMethod = new JTextField();
-            solvingMethod.setText(BoxMethod.BoxMethodCom1());
-            rootPanel.add(solvingMethod, BorderLayout.WEST);
-            fields[BoxMethod.actualMoveFieldX()][BoxMethod.actualMoveFieldY()].setBackground(BoxMethod.actualMove);
-
-            //tutaj kod wizualny do tutoriala któregoś
 
 
 
