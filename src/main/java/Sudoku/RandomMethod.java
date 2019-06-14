@@ -6,7 +6,7 @@ class RandomMethod extends Tutorial{
 
     final JPanel randomSolvingMethodPanel = new JPanel();
 
-    public int[][] tutorialFieldsValue = {
+    public static int[][] tutorialFieldsValue = {
             {1,2,3,4,5,6,7,8,9},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},

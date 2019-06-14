@@ -563,10 +563,7 @@ class GUI{
             solvingMethodPanel.add(boxMethodPanel.boxSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
-            fillTutorialBoard(1);
-
-            //BoxMethod box = new BoxMethod(langID, themeID);
-            //boxMethodPanel.boxMethodItSelf();
+            fillTutorialBoard(load);
 
         }
 
@@ -576,6 +573,7 @@ class GUI{
             solvingMethodPanel.add(diagonalMethodPanel.diagonalSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
+            fillTutorialBoard(load);
         }
 
         if(load==4){
@@ -584,19 +582,61 @@ class GUI{
             solvingMethodPanel.add(randomMethodPanel.randomSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
+            fillTutorialBoard(load);
         }
     }
 
-    private void fillTutorialBoard(int tutorial){
-        int[][] boxMethodBoard = BoxMethod.tutorialFieldsValue;
-        if(tutorial==1) {
+    private void fillTutorialBoard(int load){
+
+        if(load==2) {
+            int[][] boxMethodBoard = BoxMethod.tutorialFieldsValue;
             for (int i = 0; i < Solver.SIZE; i++) {
                 for (int j = 0; j < Solver.SIZE; j++) {
-                    fields[i][j].setText(String.valueOf(boxMethodBoard[i][j]));
+                    if(boxMethodBoard[i][j]!=0)
+                    {fields[i][j].setText(String.valueOf(boxMethodBoard[i][j]));}
+                }
+            }
+
+            for (int i = 0; i < Solver.SIZE; i++) {
+                for (int j = 0; j < Solver.SIZE; j++) {
+                    if(boxMethodBoard[i][j]!=0)
+                    {fields[i][j].setEditable(false);}
+                    else fields[i][j].setValue("");
                 }
             }
         }
-
+        if(load==3) {
+            int[][] diagonalMethodBoard = DiagonalMethod.tutorialFieldsValue;
+            for (int i = 0; i < Solver.SIZE; i++) {
+                for (int j = 0; j < Solver.SIZE; j++) {
+                    if(diagonalMethodBoard[i][j]!=0)
+                    fields[i][j].setText(String.valueOf(diagonalMethodBoard[i][j]));
+                }
+            }
+            for (int i = 0; i < Solver.SIZE; i++) {
+                for (int j = 0; j < Solver.SIZE; j++) {
+                    if(diagonalMethodBoard[i][j]!=0)
+                    {fields[i][j].setEditable(false);}
+                    else fields[i][j].setValue("");
+                }
+            }
+        }
+        if(load==4) {
+            int[][] randomMethodBoard = RandomMethod.tutorialFieldsValue;
+            for (int i = 0; i < Solver.SIZE; i++) {
+                for (int j = 0; j < Solver.SIZE; j++) {
+                    if(randomMethodBoard[i][j]!=0)
+                    fields[i][j].setText(String.valueOf(randomMethodBoard[i][j]));
+                }
+            }
+            for (int i = 0; i < Solver.SIZE; i++) {
+                for (int j = 0; j < Solver.SIZE; j++) {
+                    if(randomMethodBoard[i][j]!=0)
+                    {fields[i][j].setEditable(false);}
+                    else fields[i][j].setValue("");
+                }
+            }
+        }
 
     }
 
@@ -684,15 +724,16 @@ class GUI{
                     for (int j = 0; j < col; j++) {
                         loadBoard[i][j] =  Integer.parseInt(reader.nextLine());
                         firstGenerationBoard[i][j] =  Integer.parseInt(reader.nextLine());
-                        if(firstGenerationBoard[i][j]!=0){
-                            fields[i][j].setEditable(false);
-                        }
+
 
                         if(loadBoard[i][j]==0){
                             fields[i][j].setValue("");
                         }
                         else {
                             fields[i][j].setValue(loadBoard[i][j]);
+                        }
+                        if(loadBoard[i][j]!=0){
+                            fields[i][j].setEditable(false);
                         }
                     }
                 }
