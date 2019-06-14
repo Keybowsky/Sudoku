@@ -50,8 +50,8 @@ class GUI{
     private Dimension largeMinimumWindow = new Dimension(630,630);
     private Dimension mediumMaximumWindow = new Dimension(400,300);
     private Dimension mediumMinimumWindow = new Dimension(400,300);
-    private Dimension smallMaximumWindow = new Dimension(450, 200);
-    private Dimension smallMinimumWindow = new Dimension(450, 200);
+     static Dimension smallMaximumWindow = new Dimension(450, 200);
+     static Dimension smallMinimumWindow = new Dimension(450, 200);
      int themeID = 0;
      char langID = 'p';
 
@@ -758,6 +758,7 @@ class GUI{
 
         int[][] boardToCheck = new int[9][9];
         int temp;
+        int wrongAnsw=0;
         String tempS;
         System.out.println("checkGame function");
 
@@ -786,16 +787,29 @@ class GUI{
             {
                 if(fields[i][j].isEditable()) {
                     fields[i][j].setBackground(actualColor[0]);
-                    goodAnsw++;
                 }
             }
             else{
                 fields[i][j].setBackground(actualColor[1]);
+                wrongAnsw++;
             }
             }
             System.out.println();
         }
+
+
         frameGame.repaint();
+
+
+        EndGame wonGame = new EndGame(langID,themeID);
+        if(wrongAnsw==0){
+            EndGame.endGame.repaint();
+            wonGame.endGame.setVisible(true);
+            frameGame.setEnabled(false); //freeze okna
+
+            //tu musi tak byc zeby działało
+        }
+
     }
 
 /*

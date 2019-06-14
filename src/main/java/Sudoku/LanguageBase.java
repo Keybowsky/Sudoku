@@ -36,7 +36,9 @@ class LanguageBase {
             "Błąd podczas zapisywania gry. Nie można utworzyć pliku",
             "Metoda kwadratów",
             "Metoda diagonalna",
-            "Metoda losowa"
+            "Metoda losowa",
+            "Wygrana!",
+            "Gratulacje! Udało ci się ukończyć grę!"
     };
 
     /** Angielska wersja językowa. */
@@ -72,7 +74,9 @@ class LanguageBase {
             "Error during saving. Cannot create file",
             "Box Method",
             "Diagonal Method",
-            "Random Method"
+            "Random Method",
+            "Game won!",
+            "Congratulations! You managed to finish the game!"
     };
 
 
