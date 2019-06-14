@@ -2,27 +2,31 @@ package Sudoku;
 
 import java.util.Random;
 
+/**
+ * Klasa służy do generowania tablic do rozwiązania dla użytkownika.
+ * */
+
 class Generator {
 
+    /** Pusta tablica z której generujemy. */
     private int[][] generationBoard;
 
+    /** Wygenerowana tablica. */
     private int[][] generatedBoard;
+
+    /** Losowa liczba. */
     private final Random rand = new Random();
 
-
-    private int numberOfFieldsToBeDeleted;
-
-
-    int[][] getGenerationBoard() {
-        return generationBoard;
-    }
-
-
-
+    /** Zwraca wygenerowaną tablicę.
+     *
+     * @return Wygenerowana tablica.
+     *
+     * */
     int[][] getGeneratedBoard() {
         return generatedBoard;
     }
 
+    /** Zwraca tablicę wypełnioną zerami. */
     private int[][] cleanBoard() {
         return new int[][]{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -37,6 +41,14 @@ class Generator {
         };
     }
 
+    /** Sprawdza czy w ramach jednej sekcji zadana liczba się nie powtarza.
+     *
+     * @param row Rząd sekcji którą chcemy sprawdzić.
+     * @param column Kolumna sekcji którą chcemy sprawdzić.
+     * @param checkedNumber Sprawdzana liczba.
+     * @return true jeżeli liczba się nie powtarza.
+     *
+     * */
     private boolean diagonalSectionCheck(int row, int column, int checkedNumber) {
 
         int sectionRow = row - row % 3;
@@ -51,6 +63,7 @@ class Generator {
         return true;
     }
 
+    /** Zapełnia losowymi liczbami w zakresie od 1 do 9 sekcje znajdujące się na głównej przekątnej. * */
     private void diagonalSectionGeneration() {
         for (int section = 0; section < 7; section = section + 3) {
             for (int row = section; row < section + 3; row++) {
@@ -61,7 +74,6 @@ class Generator {
                     else
                         column--;
                 }
-
             }
         }
     }
@@ -81,7 +93,11 @@ class Generator {
 
  */
 
-
+    /** Usuwa pola w ilości zależnej od wybranego poziomu trudności.
+     *
+     * @param difficultyLevel Wybrany przez użytkownika poziom trudności.
+     *
+     * */
     private void fieldDeletion(int difficultyLevel) {
 
             for(int row=0; row!=9; ++row) {
@@ -90,14 +106,16 @@ class Generator {
                     if (generatedBoard[row][randColumn] != 0) {
                         //System.out.print(randColumn+" ");
                         generatedBoard[row][randColumn] = 0;
-                        numberOfFieldsToBeDeleted--;
-                    } else
-                        numberOfFieldsToBeDeleted++;
+                    }
                 }
             }
     }
 
-
+    /** Generuje tablicę do rozwiązania przez użytkownika.
+     *
+     * @param difficultyLevelFromGUI Wybrany przez użytkownika poziom trudności.
+     *
+     * */
     void boardGeneration(int difficultyLevelFromGUI) {
         generationBoard = cleanBoard();
         diagonalSectionGeneration();
@@ -114,6 +132,4 @@ class Generator {
             fieldDeletion(7);
 
     }
-
-
 }
