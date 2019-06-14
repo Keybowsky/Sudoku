@@ -1,7 +1,6 @@
 package Sudoku;
 
 import javax.swing.*;
-import java.awt.*;
 
 class BoxMethod extends Tutorial {
 

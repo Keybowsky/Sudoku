@@ -2,8 +2,6 @@ package Sudoku;
 
 import javax.swing.*;
 
-import java.awt.*;
-
 import static Sudoku.GUI.actualLang;
 import static javax.swing.JOptionPane.showMessageDialog;
 
