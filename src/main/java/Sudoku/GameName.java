@@ -8,7 +8,15 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import static Sudoku.GUI.actualColor;
 
+/** Klasa służy do ustawienia nazwy gry. */
+
 class GameName {
+
+    /** Kostruktor który zwraca panel z nazwą gry.
+     *
+     * @return name
+     *
+     * */
     JLabel gameName() {
 
         //Icon ikonka = new ImageIcon("./src/main/resources/giff.gif");

@@ -862,7 +862,6 @@ class GUI{
             if(temp==0){langID='p';}
             if(temp==1){langID='e';}
 
-
             changeVisuals(themeSelect.getSelectedIndex());
             themeID=themeSelect.getSelectedIndex();
             menuItSelf(langID,themeID);

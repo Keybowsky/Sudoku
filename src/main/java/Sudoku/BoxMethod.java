@@ -36,7 +36,7 @@ class BoxMethod extends Tutorial {
     //wywalić themeID
 
         boxSolvingMethodPanel.setBackground(actualColor[2]);
-        boxSolvingMethodPanel.setPreferredSize(tutorialPanelSize);
+       // boxSolvingMethodPanel.setPreferredSize(tutorialPanelSize);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(BoxMethod.BoxMethodCom1());
         boxSolvingMethodPanel.add(solvingMethod);
