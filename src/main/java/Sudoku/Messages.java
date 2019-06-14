@@ -2,6 +2,8 @@ package Sudoku;
 
 import javax.swing.*;
 
+import java.awt.*;
+
 import static Sudoku.GUI.actualLang;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -16,6 +18,7 @@ class Messages{
 
         JOptionPane gameNotSaved = new JOptionPane();
         showMessageDialog(gameNotSaved, actualLang[20], actualLang[5], JOptionPane.PLAIN_MESSAGE);
+
     }
 
     void gameSaved() {

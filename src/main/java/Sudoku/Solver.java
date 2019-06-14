@@ -76,12 +76,13 @@ class Solver {
                 }
         return true;
     }
+
     static int[][] solveTheBoard(int[][] boardToSolve){
        Solver boardSolver = new Solver(boardToSolve);
        boardSolver.solve();
        int[][] solvedBoard;
        solvedBoard = boardSolver.getBoardToSolve();
-        return solvedBoard;
+       return solvedBoard;
     }
 }
 

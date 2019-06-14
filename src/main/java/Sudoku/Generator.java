@@ -4,23 +4,14 @@ import java.util.Random;
 
 class Generator {
 
-    private int[][] generationBoard = {
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-    };
+    private int[][] generationBoard;
 
     private int[][] generatedBoard;
     private final Random rand = new Random();
 
 
     private int numberOfFieldsToBeDeleted;
+
 
     int[][] getGenerationBoard() {
         return generationBoard;
