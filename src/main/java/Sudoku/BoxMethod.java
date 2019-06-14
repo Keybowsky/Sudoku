@@ -7,7 +7,7 @@ class BoxMethod extends Tutorial {
 
     final JPanel boxSolvingMethodPanel = new JPanel();
 
-    public static int[][] tutorialFieldsValue = {
+    public static final int[][] tutorialFieldsValue = {
             {0, 9, 4, 0, 3, 0, 1, 5, 0},
             {8, 1, 2, 7, 0, 0, 0, 9, 6},
             {3, 0, 0, 1, 9, 0, 0, 8, 0},

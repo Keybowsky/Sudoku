@@ -626,8 +626,14 @@ class GUI{
         String tempS;
 
         if (fields[7][8].isEditable()){
-            System.out.println("s");
-            return;
+            tempS = String.valueOf(fields[7][8].getValue());
+            temp = Integer.parseInt(tempS);
+            if(temp==3)
+            {EndGame wonGame = new EndGame(langID,themeID);
+            EndGame.endGame.repaint();
+            wonGame.endGame.setVisible(true);
+            frameGame.setEnabled(false);}
+            else{fields[7][8].setBackground(actualColor[4]);}
         }
 
         if (fields[7][2].isEditable())
