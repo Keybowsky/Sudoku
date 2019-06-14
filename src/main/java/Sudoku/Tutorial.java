@@ -4,8 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+
 class Tutorial extends GUI {
     private JFrame tutorialFrame;
+
 
     Tutorial(char langID, int themeID) {
         changeVisuals(themeID);
@@ -97,14 +99,15 @@ class Tutorial extends GUI {
         randomMethodBTN.setAction(RandomMethodAction);
 
 
-        boxMethodBTN.setText("boxMethodBTN");
-        diagonalMethodBTN.setText("diagonalMethodBTN");
-        randomMethodBTN.setText("randomMethodBTN");
+        boxMethodBTN.setText(actualLang[29]);
+        diagonalMethodBTN.setText(actualLang[30]);
+        randomMethodBTN.setText(actualLang[31]);
 
     }
 
     Tutorial() {
     }
+
 
     private class BoxMethodAction extends AbstractAction {
         @Override
@@ -113,20 +116,26 @@ class Tutorial extends GUI {
             tutorialFrame.setVisible(false);
             gameItSelf(0,1,2);
             frameGame.setVisible(true);
+            //BoxMethod box = new BoxMethod(langID,themeID);
+            //box.fillTutorialBoard();
         }
     }
     private class DiagonalMethodAction extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
         new DiagonalMethod(langID,themeID);
-        tutorialFrame.setVisible(false);
+            tutorialFrame.setVisible(false);
+            gameItSelf(0,1,3);
+            frameGame.setVisible(true);
         }
     }
     private class RandomMethodAction extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
         new RandomMethod(langID,themeID);
-        tutorialFrame.setVisible(false);
+            tutorialFrame.setVisible(false);
+            gameItSelf(0,1,4);
+            frameGame.setVisible(true);
         }
     }
 

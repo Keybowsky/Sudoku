@@ -20,7 +20,7 @@ class GUI{
     private static JFrame frameSettings;
     private static int[][] solvedBoard;
     private static int[][] firstGenerationBoard = new int[9][9];
-    private JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+    JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
     static JFrame newGameOptionFrame;
     private final Action newGameAction = new newGameAction();
     private final Action loadGameAction = new loadGameAction();
@@ -77,7 +77,7 @@ class GUI{
         menuItSelf(langID,themeID);
     }
 
-     static void changeVisuals(int input){
+    static void changeVisuals(int input){
         if(input==0) {
             actualColor[0] = new Color(60, 195, 131);
             actualColor[1] = new Color(251, 74, 71);
@@ -94,7 +94,7 @@ class GUI{
         }
     }
 
-     static void changeVisuals(char input){
+    static void changeVisuals(char input){
         if(input=='p'){actualLang=plLang;}
         if(input=='e'){actualLang=enLang;}
     }
@@ -565,8 +565,26 @@ class GUI{
             solvingMethodPanel.add(boxMethodPanel.boxSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
+            //BoxMethod box = new BoxMethod(langID, themeID);
+            //boxMethodPanel.boxMethodItSelf();
+
         }
 
+        if(load==3){
+            DiagonalMethod diagonalMethodPanel = new DiagonalMethod(langID, themeID);
+            JPanel solvingMethodPanel = new JPanel();
+            solvingMethodPanel.add(diagonalMethodPanel.diagonalSolvingMethodPanel);
+            solvingMethodPanel.setPreferredSize(new Dimension(200,630));
+            rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
+        }
+
+        if(load==4){
+            RandomMethod randomMethodPanel = new RandomMethod(langID, themeID);
+            JPanel solvingMethodPanel = new JPanel();
+            solvingMethodPanel.add(randomMethodPanel.randomSolvingMethodPanel);
+            solvingMethodPanel.setPreferredSize(new Dimension(200,630));
+            rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
+        }
     }
 
     private void newGame(int difficultyLevel){
@@ -724,6 +742,21 @@ class GUI{
             System.out.println();
         }
         frameGame.repaint();
+    }
+
+    void fillTutorialBoard() {
+
+        generator.boardGeneration(1);
+        int tempBoard[][] = generator.getGeneratedBoard();
+        for (int i = 0; i < Solver.SIZE; i++) {
+            for (int j = 0; j < Solver.SIZE; j++) {
+                fields[i][j].setValue(tempBoard[i][j]);
+                if (tempBoard[i][j] != 0) {
+                    fields[i][j].setEditable(false);
+                } else
+                    fields[i][j].setValue("");
+            }
+        }
     }
 
     private class newGameAction extends AbstractAction {

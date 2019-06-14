@@ -33,7 +33,10 @@ class LanguageBase {
             "Niebieski",
             "Szary",
             "Wybierz sposób rozwiązywania, który chcesz się nauczyć:",
-            "Błąd podczas zapisywania gry. Nie można utworzyć pliku"
+            "Błąd podczas zapisywania gry. Nie można utworzyć pliku",
+            "Metoda kwadratów",
+            "Metoda diagonalna",
+            "Metoda losowa"
     };
 
     /** Angielska wersja językowa. */
@@ -66,7 +69,10 @@ class LanguageBase {
             "Blue",
             "Grey",
             "Choose the method, you want to learn",
-            "Error during saving. Cannot create file"
+            "Error during saving. Cannot create file",
+            "Box Method",
+            "Diagonal Method",
+            "Random Method"
     };
 
 
