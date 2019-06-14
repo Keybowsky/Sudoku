@@ -5,30 +5,49 @@ import java.awt.*;
 
 class BoxMethod extends Tutorial {
 
-    public static Color actualMove = new Color(20,20,250);
 
-    JPanel boxSolvingMethodPanel = new JPanel();
+    final JPanel boxSolvingMethodPanel = new JPanel();
+
+    public int[][] tutorialFieldsValue = {
+            {1,2,3,4,5,6,7,8,9},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+    };
+
+    public int[][] fieldsToColor = {
+            {1, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0},
+    };
 
     BoxMethod(int langID, int themeID){
     //wywalić themeID
 
-
+        boxSolvingMethodPanel.setBackground(actualColor[2]);
+        boxSolvingMethodPanel.setPreferredSize(tutorialPanelSize);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(BoxMethod.BoxMethodCom1());
         boxSolvingMethodPanel.add(solvingMethod);
-       // ramka.add(solvingMethod,BorderLayout.CENTER);
+
     }
+
 
     static String BoxMethodCom1(){
         return "Tutaj dajesz tekst który chcesz żeby był wskazówką";
     }
 
-    static int actualMoveFieldX(){
-        return 1;
-    }
-    static int actualMoveFieldY(){
-        return 1;
-    }
 
 
 }

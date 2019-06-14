@@ -1,7 +1,5 @@
 package Sudoku;
 
-import com.sun.glass.ui.Size;
-
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
@@ -54,12 +52,13 @@ class GUI{
     private Dimension mediumMinimumWindow = new Dimension(400,300);
     private Dimension smallMaximumWindow = new Dimension(450, 200);
     private Dimension smallMinimumWindow = new Dimension(450, 200);
+    Dimension tutorialPanelSize = new Dimension(200,630);
      int themeID = 0;
      char langID = 'p';
 
     static String[] actualLang=plLang;
 
-   static Color[] actualColor = new Color[5];
+   static Color[] actualColor = new Color[6];
 
 
     GUI()  {
@@ -84,6 +83,8 @@ class GUI{
             actualColor[2] = new Color(177, 181, 188);
             actualColor[3] = new Color(100, 100, 100);
             actualColor[4] = new Color(210, 62, 130);
+            actualColor[5] = new Color(93,151,241);
+
         }
         if(input==1){
             actualColor[0] = new Color(60, 195, 131);
@@ -91,6 +92,7 @@ class GUI{
             actualColor[2] = new Color(177, 181, 188);
             actualColor[3] = new Color(100, 100, 100);
             actualColor[4] = new Color(63, 160, 210);
+            actualColor[5] = new Color(93,151,241);
         }
     }
 
@@ -610,8 +612,25 @@ class GUI{
             BoxMethod boxMethodPanel = new BoxMethod(langID, themeID);
             JPanel solvingMethodPanel = new JPanel();
             solvingMethodPanel.add(boxMethodPanel.boxSolvingMethodPanel);
-            solvingMethodPanel.setPreferredSize(new Dimension(200,630));
+            solvingMethodPanel.setPreferredSize(tutorialPanelSize);
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
+
+            for(int i=0;i<9;i++){
+                for(int j=0;j<9;j++){
+                    if(boxMethodPanel.fieldsToColor[i][j]==1)
+                        fields[i][j].setBackground(actualColor[5]);
+                    fields[i][j].setText(String.valueOf(boxMethodPanel.tutorialFieldsValue[i][j]));
+                    //nie wypełnia ostatniego pola, nie wiem dla czego
+                }
+            }
+
+         //praktycznie wszystko teraz jest budowane z BoxMethod ( tutaj już jest
+            // importowanie całego Panelu utworzonego tam (można zrobić kilka okienek z guzikami nic tutaj nie ruszajac
+            // i tutaj się kolorują pola względem danej tam tablicy, jedyne co trzeba poprawić to wypisywanie
+            // ostatniego pola i zrobienie żeby przycisk sprawdzania działał (trzeba daną tablicę narzuconą graczowi
+            // wrzucić w metodę rozwiązującą (żeby nie przechowywać dwóch prawie identycznych tablic)
+
+
 
 
 
