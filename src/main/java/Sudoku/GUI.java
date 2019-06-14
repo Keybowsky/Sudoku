@@ -1,7 +1,5 @@
 package Sudoku;
 
-import com.sun.glass.ui.Size;
-
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
@@ -565,6 +563,8 @@ class GUI{
             solvingMethodPanel.add(boxMethodPanel.boxSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
+            fillTutorialBoard(1);
+
             //BoxMethod box = new BoxMethod(langID, themeID);
             //boxMethodPanel.boxMethodItSelf();
 
@@ -585,6 +585,19 @@ class GUI{
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
         }
+    }
+
+    private void fillTutorialBoard(int tutorial){
+        int[][] boxMethodBoard = BoxMethod.tutorialFieldsValue;
+        if(tutorial==1) {
+            for (int i = 0; i < Solver.SIZE; i++) {
+                for (int j = 0; j < Solver.SIZE; j++) {
+                    fields[i][j].setText(String.valueOf(boxMethodBoard[i][j]));
+                }
+            }
+        }
+
+
     }
 
     private void newGame(int difficultyLevel){
@@ -744,6 +757,7 @@ class GUI{
         frameGame.repaint();
     }
 
+/*
     void fillTutorialBoard() {
 
         generator.boardGeneration(1);
@@ -758,6 +772,10 @@ class GUI{
             }
         }
     }
+
+ */
+
+
 
     private class newGameAction extends AbstractAction {
         public void actionPerformed(ActionEvent e) {

@@ -8,7 +8,7 @@ class BoxMethod extends Tutorial {
 
     final JPanel boxSolvingMethodPanel = new JPanel();
 
-    public int[][] tutorialFieldsValue = {
+    public static int[][] tutorialFieldsValue = {
             {1,2,3,4,5,6,7,8,9},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -45,11 +45,13 @@ class BoxMethod extends Tutorial {
 
     }
 
-    void boxMethodItSelf(){
+   /* void boxMethodItSelf(){
         fillTutorialBoard();
     }
 
 
+
+    */
 
     static String BoxMethodCom1(){
         return "Tutaj dajesz tekst który chcesz żeby był wskazówką";
