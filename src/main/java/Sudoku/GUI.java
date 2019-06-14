@@ -112,12 +112,8 @@ class GUI{
         GridBagConstraints gbc = new GridBagConstraints();
 
         JLabel labelTop = new JLabel(actualLang[8]);
-       labelTop.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTop.setHorizontalAlignment(SwingConstants.CENTER);
         labelTop.setVerticalAlignment(SwingConstants.CENTER);
-
-
-
-
         gbc.fill= GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -183,26 +179,12 @@ class GUI{
         gbc.ipady = 10;
         rootPanel.add(tutorial, gbc);
 
-
         newGameOptionFrame.add(rootPanel);
 
-
-
-        easyGame.addActionListener(e -> {
-        });
-        easyGame.setAction(easyNewGame);
-
-        mediumGame.addActionListener(e -> {
-        });
-        mediumGame.setAction(mediumNewGame);
-
-        hardGame.addActionListener(e -> {
-        });
-        hardGame.setAction(hardNewGame);
-        tutorial.addActionListener(e -> {
-        });
-        tutorial.setAction(tutorialAction);
-
+        addListenerAction(easyGame, easyNewGame);
+        addListenerAction(mediumGame, mediumNewGame);
+        addListenerAction(hardGame, hardNewGame);
+        addListenerAction(tutorial, tutorialAction);
 
         easyGame.setText(actualLang[10]);
         mediumGame.setText(actualLang[11]);
@@ -284,13 +266,9 @@ class GUI{
         themeSelect.setSelectedIndex(themeID);
         rootPanel.add(themeSelect);
 
-
-        applySettings.addActionListener(e -> {
-        });
-        applySettings.setAction(applySettingsAction);
+        addListenerAction(applySettings, applySettingsAction);
         applySettings.setText(actualLang[23]);
         applySettings.setBackground(actualColor[4]);
-
 
         frameSettings.add(rootPanel);
     }
@@ -305,7 +283,6 @@ class GUI{
         changeVisuals(langID);
         changeVisuals(themeID);
 
-
         frameMenu.repaint();
 
         JPanel rootPanel = new JPanel(new BorderLayout(5, 50));
@@ -318,8 +295,6 @@ class GUI{
         JButton loadGame = new JButton();
         JButton settings = new JButton();
         JButton exitGame = new JButton();
-
-
 
         newGame.setBackground(actualColor[4]);
         loadGame.setBackground(actualColor[4]);
@@ -338,9 +313,6 @@ class GUI{
 
 
  */
-
-
-
 
 
 //        JPanel userMenu = new JPanel();
@@ -370,10 +342,7 @@ class GUI{
         buttonPanel.add(settings);
         buttonPanel.add(exitGame);
 
-
-
         mainPanel.setLayout(new GridBagLayout());
-
 
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -398,23 +367,10 @@ class GUI{
         exitGame.setMinimumSize(buttonSize);
         exitGame.setPreferredSize(buttonSize);
 
-
-        newGame.addActionListener(e -> {
-        });
-        newGame.setAction(newGameAction);
-
-        exitGame.addActionListener(e -> {
-        });
-        exitGame.setAction(exitGameAction);
-
-        loadGame.addActionListener(e -> {
-        });
-        loadGame.setAction(loadGameAction);
-
-        settings.addActionListener(e -> {
-        });
-        settings.setAction(settingsAction);
-
+        addListenerAction(newGame, newGameAction);
+        addListenerAction(exitGame, exitGameAction);
+        addListenerAction(loadGame, loadGameAction);
+        addListenerAction(settings, settingsAction);
 
         newGame.setText(actualLang[0]);
         loadGame.setText(actualLang[1]);
@@ -424,7 +380,7 @@ class GUI{
         rootPanel.add(mainPanel, BorderLayout.CENTER);
         mainPanel.setMinimumSize(new Dimension(630,100));
         rootPanel.add(gN.gameName(), BorderLayout.NORTH);
- //       rootPanel.add(userMenu, BorderLayout.SOUTH);
+ //     rootPanel.add(userMenu, BorderLayout.SOUTH);
 
         frameMenu.setContentPane(rootPanel);
 
@@ -452,12 +408,9 @@ class GUI{
         int fieldBoxSize = 30;
 
         JButton buttonCheck = new JButton();
-        buttonCheck.addActionListener(e -> {
-        });
-        buttonCheck.setAction(checkGameAction);
+        addListenerAction(buttonCheck,checkGameAction);
 
         buttonCheck.setText(actualLang[19]);
-
 
 
         for (int i = 0; i < Solver.SIZE; i++) {
@@ -612,10 +565,6 @@ class GUI{
             solvingMethodPanel.add(boxMethodPanel.boxSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
-
-
-
-
         }
 
     }
@@ -685,7 +634,6 @@ class GUI{
             saver.close();
             mSG.gameSaved();
         }
-
     }
 
     private void loadGame(int userID){
@@ -728,7 +676,6 @@ class GUI{
             Messages.loadError();
             error=true;
         }
-
     }
 
     private void solveTheBoard(int[][] boardToSolve){
@@ -925,11 +872,20 @@ class GUI{
         }
     }
 
-    WindowListener exitListener = new WindowAdapter() {
+    private WindowListener exitListener = new WindowAdapter() {
         @Override
         public void windowClosing(WindowEvent e) {
             frameMenu.setVisible(true);
         }
     };
+
+    private void addListenerAction(JButton buttonName, Action actionName){
+
+        buttonName.addActionListener(e -> {
+        });
+        buttonName.setAction(actionName);
+    }
 }
+
+
 
