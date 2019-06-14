@@ -6,7 +6,7 @@ class DiagonalMethod extends Tutorial {
 
     final JPanel diagonalSolvingMethodPanel = new JPanel();
 
-    public static int[][] tutorialFieldsValue = {
+    public static final int[][] tutorialFieldsValue = {
             {1,2,3,4,5,6,7,8,9},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},

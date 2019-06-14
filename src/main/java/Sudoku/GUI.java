@@ -18,7 +18,7 @@ class GUI{
     private static JFrame frameSettings;
     private static int[][] solvedBoard;
     private static int[][] firstGenerationBoard = new int[9][9];
-    JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+    final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
     static JFrame newGameOptionFrame;
     private final Action newGameAction = new newGameAction();
     private final Action loadGameAction = new loadGameAction();
@@ -32,10 +32,10 @@ class GUI{
     private final Action tutorialAction = new tutorialAction();
     private final Action saveGameAction = new saveGameAction();
     private final Action applySettingsAction = new applySettings();
-    private Generator generator = new Generator();
-    private GameName gN = new GameName();
-    private Messages mSG = new Messages();
-    int userID = 1;
+    private final Generator generator = new Generator();
+    private final GameName gN = new GameName();
+    private final Messages mSG = new Messages();
+    final int userID = 1;
     private int goodAnsw = 0;
     private JComboBox<String> colorSelect;
     private JComboBox<String> themeSelect;
@@ -44,20 +44,20 @@ class GUI{
 
     //zmiennne dla ustawien gry
 
-    private File fileDirectory = new File("./src/main/resources/saveFiles/");
-    private String localisation = "./src/main/resources/saveFiles/";
-    private Dimension largeMaximumWindow = new Dimension(630,630);
-    private Dimension largeMinimumWindow = new Dimension(630,630);
-    private Dimension mediumMaximumWindow = new Dimension(400,300);
-    private Dimension mediumMinimumWindow = new Dimension(400,300);
-     static Dimension smallMaximumWindow = new Dimension(450, 200);
-     static Dimension smallMinimumWindow = new Dimension(450, 200);
+    private final File fileDirectory = new File("./src/main/resources/saveFiles/");
+    private final String localisation = "./src/main/resources/saveFiles/";
+    private final Dimension largeMaximumWindow = new Dimension(630,630);
+    private final Dimension largeMinimumWindow = new Dimension(630,630);
+    private final Dimension mediumMaximumWindow = new Dimension(400,300);
+    private final Dimension mediumMinimumWindow = new Dimension(400,300);
+     static final Dimension smallMaximumWindow = new Dimension(450, 200);
+     static final Dimension smallMinimumWindow = new Dimension(450, 200);
      int themeID = 0;
      char langID = 'p';
 
     static String[] actualLang=plLang;
 
-   static Color[] actualColor = new Color[5];
+   static final Color[] actualColor = new Color[6];
 
 
     GUI()  {
@@ -82,6 +82,8 @@ class GUI{
             actualColor[2] = new Color(177, 181, 188);
             actualColor[3] = new Color(100, 100, 100);
             actualColor[4] = new Color(210, 62, 130);
+            actualColor[5] = new Color(97,178,249);
+
         }
         if(input==1){
             actualColor[0] = new Color(60, 195, 131);
@@ -89,6 +91,7 @@ class GUI{
             actualColor[2] = new Color(177, 181, 188);
             actualColor[3] = new Color(100, 100, 100);
             actualColor[4] = new Color(63, 160, 210);
+            actualColor[5] = new Color(97,178,249);
         }
     }
 
@@ -977,7 +980,7 @@ class GUI{
         }
     }
 
-    private WindowListener exitListener = new WindowAdapter() {
+    private final WindowListener exitListener = new WindowAdapter() {
         @Override
         public void windowClosing(WindowEvent e) {
             frameMenu.setVisible(true);
