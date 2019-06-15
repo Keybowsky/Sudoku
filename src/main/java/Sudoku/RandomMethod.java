@@ -6,34 +6,12 @@ class RandomMethod extends Tutorial{
 
     final JPanel randomSolvingMethodPanel = new JPanel();
 
-    public static final int[][] tutorialFieldsValue = {
-            {0, 9, 4, 0, 3, 0, 1, 5, 0},
-            {8, 1, 2, 7, 0, 0, 0, 9, 6},
-            {3, 0, 0, 1, 9, 0, 0, 8, 0},
-            {0, 3, 0, 9, 0, 4, 6, 7, 0},
-            {0, 0, 8, 6, 1, 3, 0, 4, 9},
-            {0, 0, 6, 2, 0, 0, 0, 3, 1},
-            {4, 0, 3, 5, 0, 0, 0, 0, 8},
-            {5, 0, 0, 0, 2, 0, 7, 0, 0},
-            {0, 6, 0, 0, 0, 8, 4, 1, 5},
-    };
 
-    public int[][] fieldsToColor = {
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-    };
+
 
     RandomMethod(int langID, int themeID){
 
         randomSolvingMethodPanel.setBackground(actualColor[2]);
-        //boxSolvingMethodPanel.setPreferredSize(tutorialPanelSize);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(RandomMethod.RandomMethodCom1());
         randomSolvingMethodPanel.add(solvingMethod);
@@ -41,6 +19,21 @@ class RandomMethod extends Tutorial{
     }
 
     static String RandomMethodCom1(){
-        return "Tutaj dajesz tekst który chcesz żeby był wskazówką";
+        return  "<html><body><br><br><br>" +
+                "Metoda - <br>" +
+                "pojedyncza cyfra w polu<br><br><br>"+
+                "Analizujemy planszę<br>" +
+                "pole po polu,<br>"+
+                "sprawdzając czy pole<br>"+
+                "może zawierać nie więcej<br>" +
+                "niż jedną cyfrę.<br>"+
+                "<br><br><br><br><br><br>" +
+                "Wpisz prawidłową cyfrę<br>" +
+                "w zaznaczone pole<br>" +
+                "i naciśnij przycisk sprawdź<br><br>" +
+                "Krok 1: W zaznaczonym polu<br> " +
+                "możemy wpisać 5<br>" +
+                "Krok 2: Sam spróbuj znaleźć <br>" +
+                "liczbę pasującą do pola<br><br></body></html>";
     }
 }

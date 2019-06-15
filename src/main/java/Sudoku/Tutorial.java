@@ -108,6 +108,18 @@ class Tutorial extends GUI {
     Tutorial() {
     }
 
+    public static final int[][] tutorialFieldsValue = {
+            {0, 9, 4, 0, 3, 0, 1, 5, 0},
+            {8, 1, 2, 7, 0, 0, 0, 9, 6},
+            {3, 0, 0, 1, 9, 0, 0, 8, 0},
+            {0, 3, 0, 9, 0, 4, 6, 7, 0},
+            {0, 0, 8, 6, 1, 3, 0, 4, 9},
+            {0, 0, 6, 2, 0, 0, 0, 3, 1},
+            {4, 0, 3, 5, 0, 0, 0, 0, 8},
+            {5, 0, 0, 0, 2, 0, 7, 0, 0},
+            {0, 6, 0, 0, 0, 8, 4, 1, 5},
+    };
+
 
     private class BoxMethodAction extends AbstractAction {
         @Override
@@ -116,8 +128,7 @@ class Tutorial extends GUI {
             tutorialFrame.setVisible(false);
             gameItSelf(0,1,2);
             frameGame.setVisible(true);
-            //BoxMethod box = new BoxMethod(langID,themeID);
-            //box.fillTutorialBoard();
+
         }
     }
     private class DiagonalMethodAction extends AbstractAction{

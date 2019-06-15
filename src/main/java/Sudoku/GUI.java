@@ -27,6 +27,8 @@ class GUI{
     private final Action menuItemBackMainAction = new menuItemBackMainAction();
     private final Action checkGameAction = new checkGameAction();
     private final Action checkBoxAction = new checkBoxAction();
+    private final Action checkDiagonalAction = new checkDiagonalAction();
+    private final Action checkRandomAction = new checkRandomAction();
     private final Action easyNewGame = new easyNewGame();
     private final Action mediumNewGame = new mediumNewGame();
     private final Action hardNewGame = new hardNewGame();
@@ -102,102 +104,83 @@ class GUI{
     }
 
     private void newGameOption(){
-        newGameOptionFrame = new JFrame(actualLang[7]);
-        newGameOptionFrame.setMaximumSize(smallMaximumWindow);
-        newGameOptionFrame.setMinimumSize(smallMinimumWindow);
-        newGameOptionFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        newGameOptionFrame.addWindowListener(exitListener);
-        newGameOptionFrame.setLocationRelativeTo(null);
-        newGameOptionFrame.setVisible(true);
-        JPanel rootPanel = new JPanel();
-        rootPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
 
-        JLabel labelTop = new JLabel(actualLang[8]);
-        labelTop.setHorizontalAlignment(SwingConstants.CENTER);
-        labelTop.setVerticalAlignment(SwingConstants.CENTER);
-        gbc.fill= GridBagConstraints.BOTH;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 3;
-       // gbc.ipady = 20;
-        //gbc.ipadx = 3;
-        rootPanel.add(labelTop, gbc);
+            newGameOptionFrame = new JFrame(actualLang[7]);
+            newGameOptionFrame.setMaximumSize(smallMaximumWindow);
+            newGameOptionFrame.setMinimumSize(smallMinimumWindow);
+            newGameOptionFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            newGameOptionFrame.addWindowListener(exitListener);
+            newGameOptionFrame.setLocationRelativeTo(null);
+            newGameOptionFrame.setVisible(true);
+            JPanel rootPanel = new JPanel();
+            rootPanel.setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
 
-        JButton easyGame = new JButton();
-        gbc.fill= GridBagConstraints.BOTH;
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.weightx = 1;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.ipadx = 5;
-        gbc.ipady = 10;
-        rootPanel.add(easyGame, gbc);
+            JLabel labelTop = new JLabel(actualLang[8]);
+            labelTop.setHorizontalAlignment(SwingConstants.CENTER);
+            labelTop.setVerticalAlignment(SwingConstants.CENTER);
+            gbc.fill= GridBagConstraints.BOTH;
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            gbc.gridwidth = 3;
+            rootPanel.add(labelTop, gbc);
 
-
-        JButton mediumGame = new JButton();
-        gbc.fill= GridBagConstraints.BOTH;
-        gbc.gridx = 1;
-        gbc.weightx = 1;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.gridy = 1;
-        gbc.ipadx = 5;
-        gbc.ipady = 10;
-        rootPanel.add(mediumGame, gbc);
+            JButton easyGame = new JButton();
+            gbc.fill= GridBagConstraints.BOTH;
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            gbc.weightx = 1;
+            gbc.gridwidth = 1;
+            gbc.gridheight = 1;
+            gbc.ipadx = 5;
+            gbc.ipady = 10;
+            rootPanel.add(easyGame, gbc);
 
 
-        JButton hardGame = new JButton();
-        gbc.fill= GridBagConstraints.BOTH;
-        gbc.gridx = 2;
-        gbc.weightx = 1;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.gridy = 1;
-        gbc.ipadx = 5;
-        gbc.ipady = 10;
-        rootPanel.add(hardGame, gbc);
+            JButton mediumGame = new JButton();
+            gbc.fill= GridBagConstraints.BOTH;
+            gbc.gridx = 1;
+            rootPanel.add(mediumGame, gbc);
 
-        JLabel labelBottom = new JLabel(actualLang[9]);
-        labelBottom.setHorizontalAlignment(SwingConstants.CENTER);
-        labelBottom.setVerticalAlignment(SwingConstants.CENTER);
-        gbc.fill= GridBagConstraints.BOTH;
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 3;
-       // gbc.ipady = 20;
 
-        //gbc.ipadx = 3;
-        rootPanel.add(labelBottom, gbc);
+            JButton hardGame = new JButton();
+            gbc.fill= GridBagConstraints.BOTH;
+            gbc.gridx = 2;
+            rootPanel.add(hardGame, gbc);
 
-        JButton tutorial = new JButton();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = 1;
-        gbc.weightx = 1;
-        gbc.gridwidth = 1;
-        gbc.gridy = 3;
-        gbc.ipadx = 5;
-        gbc.ipady = 10;
-        rootPanel.add(tutorial, gbc);
+            JLabel labelBottom = new JLabel(actualLang[9]);
+            labelBottom.setHorizontalAlignment(SwingConstants.CENTER);
+            labelBottom.setVerticalAlignment(SwingConstants.CENTER);
+            gbc.fill= GridBagConstraints.BOTH;
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            gbc.gridwidth = 3;
+            rootPanel.add(labelBottom, gbc);
 
-        newGameOptionFrame.add(rootPanel);
+            JButton tutorial = new JButton();
+            gbc.fill = GridBagConstraints.BOTH;
+            gbc.gridx = 1;
+            gbc.gridwidth = 1;
+            gbc.gridy = 3;
+            rootPanel.add(tutorial, gbc);
 
-        addListenerAction(easyGame, easyNewGame);
-        addListenerAction(mediumGame, mediumNewGame);
-        addListenerAction(hardGame, hardNewGame);
-        addListenerAction(tutorial, tutorialAction);
+            newGameOptionFrame.add(rootPanel);
 
-        easyGame.setText(actualLang[10]);
-        mediumGame.setText(actualLang[11]);
-        hardGame.setText(actualLang[12]);
-        tutorial.setText(actualLang[13]);
+            addListenerAction(easyGame, easyNewGame);
+            addListenerAction(mediumGame, mediumNewGame);
+            addListenerAction(hardGame, hardNewGame);
+            addListenerAction(tutorial, tutorialAction);
 
-        rootPanel.setBackground(actualColor[2]);
-        easyGame.setBackground(actualColor[4]);
-        mediumGame.setBackground(actualColor[4]);
-        hardGame.setBackground(actualColor[4]);
-        tutorial.setBackground(actualColor[4]);
+            easyGame.setText(actualLang[10]);
+            mediumGame.setText(actualLang[11]);
+            hardGame.setText(actualLang[12]);
+            tutorial.setText(actualLang[13]);
+
+            rootPanel.setBackground(actualColor[2]);
+            easyGame.setBackground(actualColor[4]);
+            mediumGame.setBackground(actualColor[4]);
+            hardGame.setBackground(actualColor[4]);
+            tutorial.setBackground(actualColor[4]);
 
     }
 
@@ -419,6 +402,15 @@ class GUI{
 
         buttonBoxCheck.setText(actualLang[19]);
 
+        JButton buttonDiagonalCheck = new JButton();
+        addListenerAction(buttonDiagonalCheck,checkDiagonalAction);
+
+        buttonDiagonalCheck.setText(actualLang[19]);
+
+        JButton buttonRandomCheck = new JButton();
+        addListenerAction(buttonRandomCheck,checkRandomAction);
+
+        buttonRandomCheck.setText(actualLang[19]);
 
 
         for (int i = 0; i < Solver.SIZE; i++) {
@@ -535,13 +527,19 @@ class GUI{
         fieldsPanel.add(buttonCheck, gbc);
         buttonCheck.setBackground(actualColor[4]);
 
-        gbc.gridx = 2;
-        gbc.gridy = 4;
-        gbc.anchor = GridBagConstraints.CENTER;
+
         fieldsPanel.add(buttonBoxCheck, gbc);
         buttonBoxCheck.setBackground(actualColor[4]);
         buttonBoxCheck.setVisible(false);
 
+
+        fieldsPanel.add(buttonDiagonalCheck, gbc);
+        buttonDiagonalCheck.setBackground(actualColor[4]);
+        buttonDiagonalCheck.setVisible(false);
+
+        fieldsPanel.add(buttonRandomCheck, gbc);
+        buttonRandomCheck.setBackground(actualColor[4]);
+        buttonRandomCheck.setVisible(false);
 
 
 /*
@@ -582,7 +580,7 @@ class GUI{
             solvingMethodPanel.add(boxMethodPanel.boxSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
-            fillTutorialBoard(load);
+            fillTutorialBoard();
             firstStepTutorial(load);
             buttonCheck.setVisible(false);
             buttonBoxCheck.setVisible(true);
@@ -594,7 +592,10 @@ class GUI{
             solvingMethodPanel.add(diagonalMethodPanel.diagonalSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
-            fillTutorialBoard(load);
+            fillTutorialBoard();
+            firstStepTutorial(load);
+            buttonCheck.setVisible(false);
+            buttonDiagonalCheck.setVisible(true);
         }
 
         if(load==4){
@@ -603,7 +604,10 @@ class GUI{
             solvingMethodPanel.add(randomMethodPanel.randomSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
-            fillTutorialBoard(load);
+            fillTutorialBoard();
+            firstStepTutorial(load);
+            buttonCheck.setVisible(false);
+            buttonRandomCheck.setVisible(true);
         }
     }
 
@@ -619,24 +623,30 @@ class GUI{
             fields[7][2].setEditable(true);
             fields[8][7].setBackground(actualColor[0]);
             fields[1][1].setBackground(actualColor[0]);}
-    }
 
-    private void checkBoxMethod(){
-        int temp;
-        String tempS;
+        if (load==3){
+            for (int i= 0; i<9; ++i){
+                fields[i][7].setBackground(actualColor[1]);
+            }
+            for (int j= 0; j<9; ++j){
+                fields[7][j].setBackground(actualColor[1]);
+            }
 
-        if (fields[7][8].isEditable()){
-            System.out.println("s");
-            return;
+            fields[6][7].setBackground(actualColor[0]);
+            fields[6][7].setEditable(true);
+            fields[7][4].setBackground(actualColor[0]);
         }
+        if (load==4){
+            for (int i= 0; i<9; ++i){
+                fields[i][5].setBackground(actualColor[1]);
+            }
+            for (int j= 0; j<9; ++j){
+                fields[1][j].setBackground(actualColor[1]);
+            }
 
-        if (fields[7][2].isEditable())
-        {tempS = String.valueOf(fields[7][2].getValue());
-        temp = Integer.parseInt(tempS);
-
-        if (temp==1) {
-            nextStep(2);
-        }else{fields[7][2].setBackground(actualColor[4]);}}
+            fields[1][5].setBackground(actualColor[0]);
+            fields[1][5].setEditable(true);
+        }
 
     }
 
@@ -659,59 +669,125 @@ class GUI{
             fields[7][8].setEditable(true);
 
         }
+        if (load==3){
+            for (int i= 0; i<9; ++i){
+                fields[i][7].setBackground(actualColor[5]);
+            }
+            for (int j= 0; j<9; ++j){
+                fields[7][j].setBackground(actualColor[5]);
+            }
+
+            fields[6][7].setBackground(actualColor[5]);
+            fields[6][7].setEditable(false);
+            fields[7][4].setBackground(actualColor[5]);
+
+            fields[1][6].setBackground(actualColor[0]);
+            fields[1][6].setEditable(true);
+        }
+
+        if (load==4){
+            for (int i= 0; i<9; ++i){
+                fields[i][5].setBackground(actualColor[5]);
+            }
+            for (int j= 0; j<9; ++j){
+                fields[1][j].setBackground(actualColor[5]);
+            }
+
+            fields[1][5].setBackground(actualColor[5]);
+            fields[1][5].setEditable(false);
+
+            fields[8][3].setBackground(actualColor[0]);
+            fields[8][3].setEditable(true);
+        }
     }
 
-    private void fillTutorialBoard(int load){
+    private void checkBoxMethod(){
+        int temp;
+        String tempS;
 
-        if(load==2) {
-            int[][] boxMethodBoard = BoxMethod.tutorialFieldsValue;
-            for (int i = 0; i < Solver.SIZE; i++) {
-                for (int j = 0; j < Solver.SIZE; j++) {
-                    if(boxMethodBoard[i][j]!=0)
-                    {fields[i][j].setText(String.valueOf(boxMethodBoard[i][j]));}
-                }
-            }
-
-            for (int i = 0; i < Solver.SIZE; i++) {
-                for (int j = 0; j < Solver.SIZE; j++) {
-                    //if(boxMethodBoard[i][j]!=0)
-                    {fields[i][j].setEditable(false);}
-                    //else fields[i][j].setValue("");
-                }
-            }
-
-
+        if (fields[7][8].isEditable()){
+            tempS = String.valueOf(fields[7][8].getValue());
+            temp = Integer.parseInt(tempS);
+            if(temp==3)
+            {EndGame wonGame = new EndGame(langID,themeID);
+            EndGame.endGame.repaint();
+            wonGame.endGame.setVisible(true);
+            frameGame.setEnabled(false);}
+            else{fields[7][8].setBackground(actualColor[4]);}
         }
-        if(load==3) {
-            int[][] diagonalMethodBoard = DiagonalMethod.tutorialFieldsValue;
-            for (int i = 0; i < Solver.SIZE; i++) {
-                for (int j = 0; j < Solver.SIZE; j++) {
-                    if(diagonalMethodBoard[i][j]!=0)
-                    fields[i][j].setText(String.valueOf(diagonalMethodBoard[i][j]));
-                }
-            }
-            for (int i = 0; i < Solver.SIZE; i++) {
-                for (int j = 0; j < Solver.SIZE; j++) {
-                    if(diagonalMethodBoard[i][j]!=0)
-                    {fields[i][j].setEditable(false);}
-                    else fields[i][j].setValue("");
-                }
-            }
+
+        if (fields[7][2].isEditable())
+        {tempS = String.valueOf(fields[7][2].getValue());
+        temp = Integer.parseInt(tempS);
+
+        if (temp==1) {
+            nextStep(2);
+        }else{fields[7][2].setBackground(actualColor[4]);}}
+
+    }
+
+    private void checkDiagonalMethod(){
+        int temp;
+        String tempS;
+
+        if (fields[1][6].isEditable()){
+            tempS = String.valueOf(fields[1][6].getValue());
+            temp = Integer.parseInt(tempS);
+            if(temp==3)
+            {EndGame wonGame = new EndGame(langID,themeID);
+                EndGame.endGame.repaint();
+                wonGame.endGame.setVisible(true);
+                frameGame.setEnabled(false);}
+            else{fields[1][6].setBackground(actualColor[4]);}
         }
-        if(load==4) {
-            int[][] randomMethodBoard = RandomMethod.tutorialFieldsValue;
+
+        if (fields[6][7].isEditable())
+        {   tempS = String.valueOf(fields[6][7].getValue());
+            temp = Integer.parseInt(tempS);
+
+            if (temp==2) {
+                nextStep(3);}
+            else{fields[6][7].setBackground(actualColor[4]);}}
+
+    }
+
+    private void checkRandomMethod(){
+        int temp;
+        String tempS;
+
+        if (fields[8][3].isEditable()){
+            tempS = String.valueOf(fields[8][3].getValue());
+            temp = Integer.parseInt(tempS);
+            if(temp==3)
+            {EndGame wonGame = new EndGame(langID,themeID);
+                EndGame.endGame.repaint();
+                wonGame.endGame.setVisible(true);
+                frameGame.setEnabled(false);}
+            else{fields[8][3].setBackground(actualColor[4]);}
+        }
+
+        if (fields[1][5].isEditable())
+        {   tempS = String.valueOf(fields[1][5].getValue());
+            temp = Integer.parseInt(tempS);
+
+            if (temp==5) {
+                nextStep(4);}
+            else{fields[1][5].setBackground(actualColor[4]);}}
+    }
+
+    private void fillTutorialBoard(){
+
+        int[][] tutorialBoard = Tutorial.tutorialFieldsValue;
             for (int i = 0; i < Solver.SIZE; i++) {
                 for (int j = 0; j < Solver.SIZE; j++) {
-                    if(randomMethodBoard[i][j]!=0)
-                    fields[i][j].setText(String.valueOf(randomMethodBoard[i][j]));
+                    if(tutorialBoard[i][j]!=0)
+                    {fields[i][j].setText(String.valueOf(tutorialBoard[i][j]));}
                 }
             }
-            for (int i = 0; i < Solver.SIZE; i++) {
-                for (int j = 0; j < Solver.SIZE; j++) {
-                    if(randomMethodBoard[i][j]!=0)
-                    {fields[i][j].setEditable(false);}
-                    else fields[i][j].setValue("");
-                }
+
+        for (int i = 0; i < Solver.SIZE; i++) {
+            for (int j = 0; j < Solver.SIZE; j++) {
+                {fields[i][j].setEditable(false);}
             }
         }
 
@@ -889,8 +965,6 @@ class GUI{
 
     }
 
-
-
     private class newGameAction extends AbstractAction {
         public void actionPerformed(ActionEvent e) {
             newGameOption();
@@ -965,6 +1039,23 @@ class GUI{
         }
     }
 
+    private class checkDiagonalAction extends AbstractAction {
+        checkDiagonalAction() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            checkDiagonalMethod();
+        }
+    }
+
+    private class checkRandomAction extends AbstractAction {
+        checkRandomAction() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            checkRandomMethod();
+        }
+    }
 
     private class easyNewGame extends AbstractAction {
         easyNewGame() {
