@@ -739,7 +739,7 @@ class GUI{
 
     }
 
-    /** Ponowne ustawienie kolorów w planszy samouczka i zmiana ustawień edycki pól.
+    /** Ponowne ustawienie kolorów w planszy samouczka i zmiana ustawień edycji pól.
      *
      * @param load 2
      * */
@@ -802,32 +802,47 @@ class GUI{
         int temp;
         String tempS;
 
-        if (fields[7][8].isEditable()){
+        if (fields[7][8].isEditable()&&fields[7][8].getValue()==null){
+            fields[7][8].setBackground(actualColor[4]);
+        }
+        else if(fields[7][8].isEditable()){
+
             tempS = String.valueOf(fields[7][8].getValue());
             temp = Integer.parseInt(tempS);
             if(temp==3)
             {EndGame wonGame = new EndGame(langID,themeID);
-            EndGame.endGame.repaint();
-            wonGame.endGame.setVisible(true);
-            frameGame.setEnabled(false);}
+                EndGame.endGame.repaint();
+                wonGame.endGame.setVisible(true);
+                frameGame.setEnabled(false);}
             else{fields[7][8].setBackground(actualColor[4]);}
         }
 
-        if (fields[7][2].isEditable()){
-        tempS = String.valueOf(fields[7][2].getValue());
-        temp = Integer.parseInt(tempS);
+        if (fields[7][2].isEditable()&&fields[7][2].getValue()==null)
+        {   fields[7][2].setBackground(actualColor[4]);
+        }
+        else if (fields[7][2].isEditable()){
+            tempS = String.valueOf(fields[7][2].getValue());
+            temp = Integer.parseInt(tempS);
 
-        if (temp==1) {
-            nextStep(2);
-        }else{fields[7][2].setBackground(actualColor[4]);}}
-
+            if (temp==1) {
+                nextStep(2);}
+            else{fields[7][2].setBackground(actualColor[4]);}
+        }
     }
 
+    /** Sprawdza poprawność wprowadzonej cyfry w samouczku,
+     * jeżeli jest poprawna kończy samouczek.
+     *
+     * */
     private void checkDiagonalMethod(){
         int temp;
         String tempS;
 
-        if (fields[1][6].isEditable()){
+        if (fields[1][6].isEditable()&&fields[1][6].getValue()==null){
+            fields[1][6].setBackground(actualColor[4]);
+        }
+        else if(fields[1][6].isEditable()){
+
             tempS = String.valueOf(fields[1][6].getValue());
             temp = Integer.parseInt(tempS);
             if(temp==3)
@@ -838,21 +853,33 @@ class GUI{
             else{fields[1][6].setBackground(actualColor[4]);}
         }
 
-        if (fields[6][7].isEditable())
-        {   tempS = String.valueOf(fields[6][7].getValue());
+        if (fields[6][7].isEditable()&&fields[6][7].getValue()==null)
+        {   fields[6][7].setBackground(actualColor[4]);
+        }
+        else if (fields[6][7].isEditable()){
+            tempS = String.valueOf(fields[6][7].getValue());
             temp = Integer.parseInt(tempS);
 
             if (temp==2) {
                 nextStep(3);}
-            else{fields[6][7].setBackground(actualColor[4]);}}
+            else{fields[6][7].setBackground(actualColor[4]);}
+        }
 
     }
 
+    /** Sprawdza poprawność wprowadzonej cyfry w samouczku,
+     * jeżeli jest poprawna kończy samouczek.
+     *
+     * */
     private void checkRandomMethod(){
         int temp;
         String tempS;
 
-        if (fields[8][3].isEditable()){
+        if (fields[8][3].isEditable()&&fields[8][3].getValue()==null){
+            fields[8][3].setBackground(actualColor[4]);
+        }
+        else if(fields[8][3].isEditable()){
+
             tempS = String.valueOf(fields[8][3].getValue());
             temp = Integer.parseInt(tempS);
             if(temp==3)
@@ -863,18 +890,20 @@ class GUI{
             else{fields[8][3].setBackground(actualColor[4]);}
         }
 
-        if (fields[1][5].isEditable())
-        {   tempS = String.valueOf(fields[1][5].getValue());
+        if (fields[1][5].isEditable()&&fields[1][5].getValue()==null)
+        {   fields[1][5].setBackground(actualColor[4]);
+        }
+        else if (fields[1][5].isEditable()){
+            tempS = String.valueOf(fields[1][5].getValue());
             temp = Integer.parseInt(tempS);
 
             if (temp==5) {
                 nextStep(4);}
-            else{fields[1][5].setBackground(actualColor[4]);}}
+            else{fields[1][5].setBackground(actualColor[4]);}
+        }
     }
 
-    /** Wypełnienie Tablicy samouczka w zależności od wybranej metody.
-     *
-     * @param load wybrana metoda.
+    /** Wypełnienie Tablicy samouczka
      *
      * */
     private void fillTutorialBoard(){
