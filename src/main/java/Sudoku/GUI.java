@@ -159,7 +159,7 @@ class GUI{
      * @param input parametr ustawiający schemat kolorów.
      *
      * */
-    void changeVisuals(int input){
+    static void changeVisuals(int input){
         if(input==0) {
             actualColor[0] = new Color(60, 195, 131);
             actualColor[1] = new Color(251, 74, 71);
@@ -184,11 +184,16 @@ class GUI{
      * @param input parametr ustawiający język.
      *
      * */
-    void changeVisuals(char input){
+    static void changeVisuals(char input){
         if(input=='p'){actualLang=plLang;}
         if(input=='e'){actualLang=enLang;}
     }
 
+    /** Okno odpowiedzialne za wybór rodzaju nowej gry.
+     * Wyświetla możliwe opcje i wywołuje funkcje odpowiedzialne
+     * za obsługę tych przycisków.
+     *
+     * */
     private void newGameOption(){
         newGameOptionFrame = new JFrame(actualLang[7]);
         newGameOptionFrame.setMaximumSize(smallMaximumWindow);
@@ -208,8 +213,6 @@ class GUI{
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 3;
-       // gbc.ipady = 20;
-        //gbc.ipadx = 3;
         rootPanel.add(labelTop, gbc);
 
         JButton easyGame = new JButton();
@@ -227,24 +230,12 @@ class GUI{
         JButton mediumGame = new JButton();
         gbc.fill= GridBagConstraints.BOTH;
         gbc.gridx = 1;
-        gbc.weightx = 1;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.gridy = 1;
-        gbc.ipadx = 5;
-        gbc.ipady = 10;
         rootPanel.add(mediumGame, gbc);
 
 
         JButton hardGame = new JButton();
         gbc.fill= GridBagConstraints.BOTH;
         gbc.gridx = 2;
-        gbc.weightx = 1;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.gridy = 1;
-        gbc.ipadx = 5;
-        gbc.ipady = 10;
         rootPanel.add(hardGame, gbc);
 
         JLabel labelBottom = new JLabel(actualLang[9]);
@@ -254,19 +245,13 @@ class GUI{
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 3;
-       // gbc.ipady = 20;
-
-        //gbc.ipadx = 3;
         rootPanel.add(labelBottom, gbc);
 
         JButton tutorial = new JButton();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 1;
-        gbc.weightx = 1;
         gbc.gridwidth = 1;
         gbc.gridy = 3;
-        gbc.ipadx = 5;
-        gbc.ipady = 10;
         rootPanel.add(tutorial, gbc);
 
         newGameOptionFrame.add(rootPanel);
@@ -289,6 +274,9 @@ class GUI{
 
     }
 
+    /** Odpowiada za górny pasek z ustawieniami który pokazuje się w trakcie gry.
+     * Pozwala na zapis gry, powrót do menu głównego i wyświetlenie informacji o twórcach gry.
+     * */
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menu;
@@ -314,13 +302,10 @@ class GUI{
         menu.add(menuItemSaveGame);
         menu = new JMenu(actualLang[15]);
 
-
         menuBar.add(menu);
 
         menuItemCreators = new JMenuItem(actualLang[16]);
         menuItemCreators.addActionListener(e -> mSG.creatorsMessage());
-
-
         menuItemBackMain.setText(actualLang[17]);
         menuItemSaveGame.setText(actualLang[18]);
         menu.add(menuItemCreators);
