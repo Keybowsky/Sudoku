@@ -7,26 +7,12 @@ class BoxMethod extends Tutorial {
 
     final JPanel boxSolvingMethodPanel = new JPanel();
 
-    static final int[][] tutorialFieldsValue = {
-            {0, 9, 4, 0, 3, 0, 1, 5, 0},
-            {8, 1, 2, 7, 0, 0, 0, 9, 6},
-            {3, 0, 0, 1, 9, 0, 0, 8, 0},
-            {0, 3, 0, 9, 0, 4, 6, 7, 0},
-            {0, 0, 8, 6, 1, 3, 0, 4, 9},
-            {0, 0, 6, 2, 0, 0, 0, 3, 1},
-            {4, 0, 3, 5, 0, 0, 0, 0, 8},
-            {5, 0, 0, 0, 2, 0, 7, 0, 0},
-            {0, 6, 0, 0, 0, 8, 4, 1, 5},
-    };
-
-
 
     BoxMethod(int langID, int themeID){
     //wywalić themeID
 
 
         boxSolvingMethodPanel.setBackground(actualColor[2]);
-        //boxSolvingMethodPanel.setPreferredSize(tutorialPanelSize);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(BoxMethod.BoxMethodCom1());
         boxSolvingMethodPanel.add(solvingMethod);
@@ -36,8 +22,9 @@ class BoxMethod extends Tutorial {
 
 
     static String BoxMethodCom1(){
-        return "<html><body><br><br><br><br><br>Metoda - jedyne pole<br>" +
-                "na cyfrę w kwadracie <br><br>" +
+        return "<html><body><br><br><br>" +
+                "Metoda - jedyne pole<br>" +
+                "na cyfrę w kwadracie <br><br><br>" +
                 "Analizujemy planszę <br>" +
                 "badając cyfra po cyfrze <br>" +
                 "w obrębie kwadratu,<br>" +

@@ -29,8 +29,12 @@ class GUI{
     /** Wygenerowana tablica. */
     private static int[][] firstGenerationBoard = new int[9][9];
 
+
+
+    private int[][] setEditableGenerationBoard = new int[9][9];
+
     /** Tablica komórek. */
-    private final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+    final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
 
     /** Ramka wyboru poziomu trudności nowej gry. */
     static JFrame newGameOptionFrame;
@@ -55,6 +59,10 @@ class GUI{
 
     /** Akcja odpowiedzialna za sprawdzenie poprawności w pojedynczej sekcji. */
     private final Action checkBoxAction = new checkBoxAction();
+
+    private final Action checkDiagonalAction = new checkDiagonalAction();
+
+    private final Action checkRandomAction = new checkRandomAction();
 
     /** Akcja odpowiedzialna za ustawienie poziomu trodności na łatwy. */
     private final Action easyNewGame = new easyNewGame();
@@ -485,6 +493,17 @@ class GUI{
 
         buttonBoxCheck.setText(actualLang[19]);
 
+        JButton buttonDiagonalCheck = new JButton();
+        addListenerAction(buttonDiagonalCheck,checkDiagonalAction);
+
+        buttonDiagonalCheck.setText(actualLang[19]);
+
+        JButton buttonRandomCheck = new JButton();
+        addListenerAction(buttonRandomCheck,checkRandomAction);
+
+        buttonRandomCheck.setText(actualLang[19]);
+
+
         for (int i = 0; i < Solver.SIZE; i++) {
             for (int j = 0; j < Solver.SIZE; j++) {
                 fields[i][j] = new JFormattedTextField(formatter);
@@ -530,6 +549,7 @@ class GUI{
                         buttonPanel[8].add(fields[i][j]);
                 }
                 fields[i][j].setCaretPosition(0);
+
             }
         }
 
@@ -595,13 +615,19 @@ class GUI{
         fieldsPanel.add(buttonCheck, gbc);
         buttonCheck.setBackground(actualColor[4]);
 
-        gbc.gridx = 2;
-        gbc.gridy = 4;
-        gbc.anchor = GridBagConstraints.CENTER;
+
         fieldsPanel.add(buttonBoxCheck, gbc);
         buttonBoxCheck.setBackground(actualColor[4]);
         buttonBoxCheck.setVisible(false);
 
+
+        fieldsPanel.add(buttonDiagonalCheck, gbc);
+        buttonDiagonalCheck.setBackground(actualColor[4]);
+        buttonDiagonalCheck.setVisible(false);
+
+        fieldsPanel.add(buttonRandomCheck, gbc);
+        buttonRandomCheck.setBackground(actualColor[4]);
+        buttonRandomCheck.setVisible(false);
 
 
 /*
@@ -642,7 +668,7 @@ class GUI{
             solvingMethodPanel.add(boxMethodPanel.boxSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
-            fillTutorialBoard(load);
+            fillTutorialBoard();
             firstStepTutorial(load);
             buttonCheck.setVisible(false);
             buttonBoxCheck.setVisible(true);
@@ -654,7 +680,10 @@ class GUI{
             solvingMethodPanel.add(diagonalMethodPanel.diagonalSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
-            fillTutorialBoard(load);
+            fillTutorialBoard();
+            firstStepTutorial(load);
+            buttonCheck.setVisible(false);
+            buttonDiagonalCheck.setVisible(true);
         }
 
         if(load==4){
@@ -663,7 +692,10 @@ class GUI{
             solvingMethodPanel.add(randomMethodPanel.randomSolvingMethodPanel);
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
-            fillTutorialBoard(load);
+            fillTutorialBoard();
+            firstStepTutorial(load);
+            buttonCheck.setVisible(false);
+            buttonRandomCheck.setVisible(true);
         }
     }
 
@@ -679,17 +711,77 @@ class GUI{
             }
             for (int i= 0; i<9; ++i){
                 fields[i][1].setBackground(actualColor[1]);
-                }
+            }
             fields[7][2].setBackground(actualColor[0]);
             fields[7][2].setEditable(true);
             fields[8][7].setBackground(actualColor[0]);
             fields[1][1].setBackground(actualColor[0]);}
+
+        if (load==3){
+            for (int i= 0; i<9; ++i){
+                fields[i][7].setBackground(actualColor[1]);
+            }
+            for (int j= 0; j<9; ++j){
+                fields[7][j].setBackground(actualColor[1]);
+            }
+
+            fields[6][7].setBackground(actualColor[0]);
+            fields[6][7].setEditable(true);
+            fields[7][4].setBackground(actualColor[0]);
+        }
+        if (load==4){
+            for (int i= 0; i<9; ++i){
+                fields[i][5].setBackground(actualColor[1]);
+            }
+            for (int j= 0; j<9; ++j){
+                fields[1][j].setBackground(actualColor[1]);
+            }
+
+            fields[1][5].setBackground(actualColor[0]);
+            fields[1][5].setEditable(true);
+        }
+
     }
 
-    /** Sprawdza poprawność wprowadzonej cyfry w samouczku,
-     * jeżeli jest poprawna kończy samouczek.
+    /** Ponowne ustawienie kolorów w planszy samouczka i zmiana ustawień edycki pól.
      *
+     * @param load 2
      * */
+    private void nextStep(int load) {
+        if (load == 2) {
+
+            for (int j = 0; j < 9; ++j) {
+                fields[8][j].setBackground(actualColor[5]);
+            }
+            for (int i = 0; i < 9; ++i) {
+                fields[i][1].setBackground(actualColor[5]);
+            }
+            fields[7][2].setBackground(actualColor[5]);
+            fields[7][2].setEditable(false);
+            fields[8][7].setBackground(actualColor[5]);
+            fields[1][1].setBackground(actualColor[5]);
+
+
+            fields[7][8].setBackground(actualColor[0]);
+            fields[7][8].setEditable(true);
+
+        }
+        if (load == 3) {
+            for (int i = 0; i < 9; ++i) {
+                fields[i][7].setBackground(actualColor[5]);
+            }
+            for (int j = 0; j < 9; ++j) {
+                fields[7][j].setBackground(actualColor[5]);
+            }
+
+            fields[6][7].setBackground(actualColor[5]);
+            fields[6][7].setEditable(false);
+            fields[7][4].setBackground(actualColor[5]);
+
+            fields[1][6].setBackground(actualColor[0]);
+            fields[1][6].setEditable(true);
+        }
+    }
     private void checkBoxMethod(){
         int temp;
         String tempS;
@@ -699,9 +791,9 @@ class GUI{
             temp = Integer.parseInt(tempS);
             if(temp==3)
             {EndGame wonGame = new EndGame(langID,themeID);
-            EndGame.endGame.repaint();
-            wonGame.endGame.setVisible(true);
-            frameGame.setEnabled(false);}
+                EndGame.endGame.repaint();
+                wonGame.endGame.setVisible(true);
+                frameGame.setEnabled(false);}
             else{fields[7][8].setBackground(actualColor[4]);}
         }
 
@@ -709,90 +801,81 @@ class GUI{
         tempS = String.valueOf(fields[7][2].getValue());
         temp = Integer.parseInt(tempS);
 
-        if (temp==1) {
-            nextStep(2);
-        }else{fields[7][2].setBackground(actualColor[4]);}}
+            if (temp==1) {
+                nextStep(2);
+            }else{fields[7][2].setBackground(actualColor[4]);}}
 
     }
 
-    /** Ponowne ustawienie kolorów w planszy samouczka i zmiana ustawień edycki pól.
-     *
-     * @param load 2
-     * */
-    private void nextStep(int load){
-        if (load==2){
+    private void checkDiagonalMethod(){
+        int temp;
+        String tempS;
 
-            for (int j=0; j<9; ++j){
-                fields[8][j].setBackground(actualColor[5]);
-            }
-            for (int i= 0; i<9; ++i){
-                fields[i][1].setBackground(actualColor[5]);
-            }
-            fields[7][2].setBackground(actualColor[5]);
-            fields[7][2].setEditable(false);
-            fields[8][7].setBackground(actualColor[5]);
-            fields[1][1].setBackground(actualColor[5]);
-            fields[7][8].setBackground(actualColor[0]);
-            fields[7][8].setEditable(true);
+        if (fields[1][6].isEditable()){
+            tempS = String.valueOf(fields[1][6].getValue());
+            temp = Integer.parseInt(tempS);
+            if(temp==3)
+            {EndGame wonGame = new EndGame(langID,themeID);
+                EndGame.endGame.repaint();
+                wonGame.endGame.setVisible(true);
+                frameGame.setEnabled(false);}
+            else{fields[1][6].setBackground(actualColor[4]);}
         }
+
+        if (fields[6][7].isEditable())
+        {   tempS = String.valueOf(fields[6][7].getValue());
+            temp = Integer.parseInt(tempS);
+
+            if (temp==2) {
+                nextStep(3);}
+            else{fields[6][7].setBackground(actualColor[4]);}}
+
+        }
+
+
+    private void checkRandomMethod(){
+        int temp;
+        String tempS;
+
+        if (fields[8][3].isEditable()){
+            tempS = String.valueOf(fields[8][3].getValue());
+            temp = Integer.parseInt(tempS);
+            if(temp==3)
+            {EndGame wonGame = new EndGame(langID,themeID);
+                EndGame.endGame.repaint();
+                wonGame.endGame.setVisible(true);
+                frameGame.setEnabled(false);}
+            else{fields[8][3].setBackground(actualColor[4]);}
+        }
+
+        if (fields[1][5].isEditable())
+        {   tempS = String.valueOf(fields[1][5].getValue());
+            temp = Integer.parseInt(tempS);
+
+            if (temp==5) {
+                nextStep(4);}
+            else{fields[1][5].setBackground(actualColor[4]);}}
     }
 
     /** Wypełnienie Tablicy samouczka w zależności od wybranej metody.
      *
-     * @param load wybrana metoda.
+     *
      *
      * */
-    private void fillTutorialBoard(int load){
+    private void fillTutorialBoard(){
 
-        if(load==2) {
-            int[][] boxMethodBoard = BoxMethod.tutorialFieldsValue;
+
+        int[][] tutorialBoard = Tutorial.tutorialFieldsValue;
             for (int i = 0; i < Solver.SIZE; i++) {
                 for (int j = 0; j < Solver.SIZE; j++) {
-                    if(boxMethodBoard[i][j]!=0)
-                    {fields[i][j].setText(String.valueOf(boxMethodBoard[i][j]));}
-                }
-            }
-
-            for (int i = 0; i < Solver.SIZE; i++) {
-                for (int j = 0; j < Solver.SIZE; j++) {
-                    //if(boxMethodBoard[i][j]!=0)
-                    {fields[i][j].setEditable(false);}
-                    //else fields[i][j].setValue("");
+                    if(tutorialBoard[i][j]!=0)
+                    {fields[i][j].setText(String.valueOf(tutorialBoard[i][j]));}
                 }
             }
 
-
-        }
-        if(load==3) {
-            int[][] diagonalMethodBoard = DiagonalMethod.tutorialFieldsValue;
-            for (int i = 0; i < Solver.SIZE; i++) {
-                for (int j = 0; j < Solver.SIZE; j++) {
-                    if(diagonalMethodBoard[i][j]!=0)
-                    fields[i][j].setText(String.valueOf(diagonalMethodBoard[i][j]));
-                }
-            }
-            for (int i = 0; i < Solver.SIZE; i++) {
-                for (int j = 0; j < Solver.SIZE; j++) {
-                    if(diagonalMethodBoard[i][j]!=0)
-                    {fields[i][j].setEditable(false);}
-                    else fields[i][j].setValue("");
-                }
-            }
-        }
-        if(load==4) {
-            int[][] randomMethodBoard = RandomMethod.tutorialFieldsValue;
-            for (int i = 0; i < Solver.SIZE; i++) {
-                for (int j = 0; j < Solver.SIZE; j++) {
-                    if(randomMethodBoard[i][j]!=0)
-                    fields[i][j].setText(String.valueOf(randomMethodBoard[i][j]));
-                }
-            }
-            for (int i = 0; i < Solver.SIZE; i++) {
-                for (int j = 0; j < Solver.SIZE; j++) {
-                    if(randomMethodBoard[i][j]!=0)
-                    {fields[i][j].setEditable(false);}
-                    else fields[i][j].setValue("");
-                }
+        for (int i = 0; i < Solver.SIZE; i++) {
+            for (int j = 0; j < Solver.SIZE; j++) {
+                {fields[i][j].setEditable(false);}
             }
         }
 
@@ -803,7 +886,7 @@ class GUI{
         generator.boardGeneration(difficultyLevel);
 
         int[][] tempBoard = generator.getGeneratedBoard();
-
+        firstGenerationBoard=tempBoard;
         for (int i = 0; i < Solver.SIZE; i++) {
             System.out.println();
             for (int j = 0; j < Solver.SIZE; j++) {
@@ -816,18 +899,22 @@ class GUI{
                 fields[i][j].setValue(tempBoard[i][j]);
                 if (tempBoard[i][j] != 0) {
                     fields[i][j].setEditable(false);
-                } else
+                    setEditableGenerationBoard[i][j]=tempBoard[i][j];
+                    fields[i][j].setBackground(actualColor[5]);
+                } else {
                     fields[i][j].setValue("");
+                    setEditableGenerationBoard[i][j] = 0;
+                }
             }
         }
-        firstGenerationBoard= tempBoard;
+
         solveTheBoard(firstGenerationBoard);
     }
 
     /** Zapisuje grę. */
     private void saveGame() throws IOException{
 
-        File fileName = new File(localisation+"gameSaveUser"+1+".txt");
+        File fileName = new File(localisation+"gameSave.txt");
         boolean filegeneration=true;
 
         if(!fileDirectory.exists()){
@@ -849,7 +936,6 @@ class GUI{
             for (int i = 0; i < Solver.SIZE; i++) {
                 for (int j = 0; j < Solver.SIZE; j++) {
                     if (fields[i][j].getValue() == "") {
-
                         saver.write(("0"));
                         System.out.print("0");
                     } else {
@@ -857,7 +943,7 @@ class GUI{
                         saver.write((fields[i][j].getValue()).toString());
                     }
                     saver.write("\n");
-                    saver.write(Integer.toString(firstGenerationBoard[i][j]));
+                    saver.write(Integer.toString(setEditableGenerationBoard[i][j]));
                     saver.write("\n");
                 }
             }
@@ -872,7 +958,8 @@ class GUI{
         int row = 9;
         int[][] loadBoard = new int[row][col];
 
-        File file  = new File(localisation+"gameSaveUser"+1+".txt");
+
+        File file  = new File(localisation+"gameSave.txt");
 
         try {
             Scanner reader = new Scanner(file);
@@ -890,8 +977,9 @@ class GUI{
                         else {
                             fields[i][j].setValue(loadBoard[i][j]);
                         }
-                        if(loadBoard[i][j]!=0){
+                        if(firstGenerationBoard[i][j]!=0){
                             fields[i][j].setEditable(false);
+                            fields[i][j].setBackground(actualColor[5]);
                         }
                     }
                 }
@@ -914,7 +1002,7 @@ class GUI{
      *
      * */
     private void solveTheBoard(int[][] boardToSolve){
-       solvedBoard = Solver.solveTheBoard(boardToSolve);
+        solvedBoard = Solver.solveTheBoard(boardToSolve);
     }
 
     /** Prównuje tablice wypełnioną przez gracza do rozwiązanej tablicy i koloruje
@@ -928,6 +1016,7 @@ class GUI{
         int wrongAnsw=0;
         String tempS;
         System.out.println("checkGame function");
+
 
         for(int i = 0; i<9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -948,17 +1037,17 @@ class GUI{
         System.out.println();
         for(int i = 0; i<9; i++) {
             for (int j = 0; j < 9; j++) {
-              System.out.print(solvedBoard[i][j]);
-            if(boardToCheck[i][j]==solvedBoard[i][j])
-            {
-                if(fields[i][j].isEditable()) {
-                    fields[i][j].setBackground(actualColor[0]);
+                System.out.print(solvedBoard[i][j]);
+                if(boardToCheck[i][j]==solvedBoard[i][j])
+                {
+                    if(fields[i][j].isEditable()) {
+                        fields[i][j].setBackground(actualColor[0]);
+                    }
                 }
-            }
-            else{
-                fields[i][j].setBackground(actualColor[1]);
-                wrongAnsw++;
-            }
+                else{
+                    fields[i][j].setBackground(actualColor[1]);
+                    wrongAnsw++;
+                }
             }
             System.out.println();
         }
@@ -969,9 +1058,7 @@ class GUI{
         if(wrongAnsw==0){
             EndGame.endGame.repaint();
             wonGame.endGame.setVisible(true);
-            frameGame.setEnabled(false); //freeze okna
-
-            //tu musi tak byc zeby działało
+            frameGame.setEnabled(false);
         }
     }
 
@@ -1026,7 +1113,7 @@ class GUI{
             Messages.gameNotSaved();
             GUI.frameGame.setVisible(false);
             GUI.frameGame.dispose();
-            //GUI.newGameOptionFrame.setVisible(false);
+//            GUI.newGameOptionFrame.setVisible(false);
             GUI.frameMenu.setVisible(true);
         }
     }
@@ -1049,7 +1136,24 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wywołanie funkcji gameItSelf i wyświetlenia ramki gry.*/
+    private class checkDiagonalAction extends AbstractAction {
+        checkDiagonalAction() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            checkDiagonalMethod();
+        }
+    }
+
+    private class checkRandomAction extends AbstractAction {
+        checkRandomAction() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            checkRandomMethod();
+        }
+    }
+
     private class easyNewGame extends AbstractAction {
         easyNewGame() {}
 
