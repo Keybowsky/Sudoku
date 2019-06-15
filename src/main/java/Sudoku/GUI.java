@@ -11,56 +11,135 @@ import java.util.Scanner;
 import static Sudoku.LanguageBase.enLang;
 import static Sudoku.LanguageBase.plLang;
 
+/** Klasa odpowiedzialna za wyświetlanie i obsługę interfejsu graficznego. */
 class GUI{
 
+    /** Ramka głównego menu. */
     static JFrame frameMenu;
+
+    /** Ramka gry. */
     static JFrame frameGame;
+
+    /** Ramka ustawień. */
     private static JFrame frameSettings;
+
+    /** Rozwiązana tablica. */
     private static int[][] solvedBoard;
+
+    /** Wygenerowana tablica. */
     private static int[][] firstGenerationBoard = new int[9][9];
-    final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+
+    /** Tablica komórek. */
+    private final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+
+    /** Ramka wyboru poziomu trudności nowej gry. */
     static JFrame newGameOptionFrame;
+
+    /** Akcja odpowiedzialna za utworzenie nowej gry. */
     private final Action newGameAction = new newGameAction();
+
+    /** Akcja odpowiedzialna za wczytanie zapisanego stanu gry. */
     private final Action loadGameAction = new loadGameAction();
+
+    /** Akcja odpowiedzialna za zmianę ustawień. */
     private final Action settingsAction = new settingsAction();
+
+    /** Akcja odpowiedzialna za wyjście z gry. */
     private final Action exitGameAction = new exitGameAction();
+
+    /** Akcja odpowiedzialna za powrót do głónego menu. */
     private final Action menuItemBackMainAction = new menuItemBackMainAction();
+
+    /** Akcja odpowiedzialna za sprawdzenie poprawności wpisanych liczb. */
     private final Action checkGameAction = new checkGameAction();
+
+    /** Akcja odpowiedzialna za sprawdzenie poprawności w pojedynczej sekcji. */
     private final Action checkBoxAction = new checkBoxAction();
+
+    /** Akcja odpowiedzialna za ustawienie poziomu trodności na łatwy. */
     private final Action easyNewGame = new easyNewGame();
+
+    /** Akcja odpowiedzialna za ustawienie poziomu trodności na średni. */
     private final Action mediumNewGame = new mediumNewGame();
+
+    /** Akcja odpowiedzialna za ustawienie poziomu trodności na trudny. */
     private final Action hardNewGame = new hardNewGame();
+
+    /** Akcja odpowiedzialna za utworzenie gry będącej samouczkiem. */
     private final Action tutorialAction = new tutorialAction();
+
+    /** Akcja odpowiedzialna za zapisanie stanu gry. */
     private final Action saveGameAction = new saveGameAction();
+
+    /** Akcja odpowiedzialna za zapisanie zmienionych ustawień. */
     private final Action applySettingsAction = new applySettings();
+
+    /** Instancja klasy generator. */
     private final Generator generator = new Generator();
+
+    /** Instancja klasy GameName. */
     private final GameName gN = new GameName();
+
+    /** Instancja klasy Messages. */
     private final Messages mSG = new Messages();
     //final int userID = 1;
     private int goodAnsw = 0;
+
+    /** Wybór koloru. */
     private JComboBox<String> colorSelect;
+
+    /** Wybór motywu. */
     private JComboBox<String> themeSelect;
+
+    /** Błąd kóry pokazuje niepoprawne wczytanie gry. */
     private boolean error=false; //błąd który wyrzuca niepoprawne wczytanie gry
 
 
     //zmiennne dla ustawien gry
 
+    /** Miejsce gdzie są przechowywane zapisane stany gry. */
     private final File fileDirectory = new File("./src/main/resources/saveFiles/");
-    private final String localisation = "./src/main/resources/saveFiles/";
-    private final Dimension largeMaximumWindow = new Dimension(630,630);
-    private final Dimension largeMinimumWindow = new Dimension(630,630);
-    private final Dimension mediumMaximumWindow = new Dimension(400,300);
-    private final Dimension mediumMinimumWindow = new Dimension(400,300);
-     static final Dimension smallMaximumWindow = new Dimension(450, 200);
-     static final Dimension smallMinimumWindow = new Dimension(450, 200);
-     int themeID = 0;
-     char langID = 'p';
 
+    /** Miejsce gdzie są przechowywane zapisane stany gry. */
+    private final String localisation = "./src/main/resources/saveFiles/";
+
+    /** Wielkość dużego okna. */
+    private final Dimension largeMaximumWindow = new Dimension(630,630);
+
+    /** Wielkość dużego okna. */
+    private final Dimension largeMinimumWindow = new Dimension(630,630);
+
+    /** Wielkość średniego okna. */
+    private final Dimension mediumMaximumWindow = new Dimension(400,300);
+
+    /** Wielkość średniego okna. */
+    private final Dimension mediumMinimumWindow = new Dimension(400,300);
+
+    /** Wielkość małego okna. */
+    static final Dimension smallMaximumWindow = new Dimension(450, 200);
+
+    /** Wielkość małego okna. */
+    static final Dimension smallMinimumWindow = new Dimension(450, 200);
+
+    /** Domyślne ustawienie kolorów. */
+    int themeID = 0;
+
+    /** Domyślne ustawienie języka. */
+    char langID = 'p';
+
+    /** Domyślne ustawienie języka. */
     static String[] actualLang=plLang;
 
-   static final Color[] actualColor = new Color[6];
+    /** Domyślne ustawienie kolorów. */
+    static final Color[] actualColor = new Color[6];
 
 
+    /** Konstruktor  ustawiający domyślny motyw graficzny jak i
+     * domyślny system operacyjny. Uruchamia możliwości interakcji
+     * z przyciskami, ustawia domyślne ustawienia i uruchamia okno
+     * głównego menu.
+     *
+     * */
     GUI()  {
         changeVisuals(themeID);
         System.setProperty("os.name", "Windows");
