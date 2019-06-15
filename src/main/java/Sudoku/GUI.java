@@ -29,12 +29,11 @@ class GUI{
     /** Wygenerowana tablica. */
     private static int[][] firstGenerationBoard = new int[9][9];
 
-
-
+    /** Tablica ktora przechowuje pola wygenerowane przez generator i blokuje ich edycje. */
     private int[][] setEditableGenerationBoard = new int[9][9];
 
     /** Tablica komorek. */
-    final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+    private final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
 
     /** Ramka wyboru poziomu trudnosci nowej gry. */
     static JFrame newGameOptionFrame;
@@ -116,7 +115,7 @@ class GUI{
     /** Wielkosc duzego okna. */
     private final Dimension largeMaximumWindow = new Dimension(630,630);
 
-    /** Wielkosc dueego okna. */
+    /** Wielkosc duzego okna. */
     private final Dimension largeMinimumWindow = new Dimension(630,630);
 
     /** Wielkosc sredniego okna. */
@@ -285,7 +284,7 @@ class GUI{
     }
 
     /** Odpowiada za gorny pasek z ustawieniami ktory pokazuje sie w trakcie gry.
-     * Pozwala na zapis gry, powrct do menu glownego i wyswietlenie informacji o tworcach gry.
+     * Pozwala na zapis gry, powrot do menu glownego i wyswietlenie informacji o tworcach gry.
      *
      * */
     private JMenuBar createMenuBar() {
@@ -1268,7 +1267,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za powrct do menu glownego. */
+    /** Odpowiada za powrot do menu glownego. */
     private final WindowListener exitListener = new WindowAdapter() {
         @Override
         public void windowClosing(WindowEvent e) {
