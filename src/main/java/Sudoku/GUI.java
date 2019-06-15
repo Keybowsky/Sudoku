@@ -133,7 +133,6 @@ class GUI{
     /** Domyślne ustawienie kolorów. */
     static final Color[] actualColor = new Color[6];
 
-
     /** Konstruktor  ustawiający domyślny motyw graficzny jak i
      * domyślny system operacyjny. Uruchamia możliwości interakcji
      * z przyciskami, ustawia domyślne ustawienia i uruchamia okno
@@ -155,7 +154,12 @@ class GUI{
         menuItSelf(langID,themeID);
     }
 
-    static void changeVisuals(int input){
+    /** Ustawia schemat kolorów w zależności od parametru.
+     *
+     * @param input parametr ustawiający schemat kolorów.
+     *
+     * */
+    void changeVisuals(int input){
         if(input==0) {
             actualColor[0] = new Color(60, 195, 131);
             actualColor[1] = new Color(251, 74, 71);
@@ -175,7 +179,12 @@ class GUI{
         }
     }
 
-    static void changeVisuals(char input){
+    /** Ustawia język w zależności od parametru.
+     *
+     * @param input parametr ustawiający język.
+     *
+     * */
+    void changeVisuals(char input){
         if(input=='p'){actualLang=plLang;}
         if(input=='e'){actualLang=enLang;}
     }
@@ -523,7 +532,6 @@ class GUI{
             }
         }
 
-
         buttonPanel[0].setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
         buttonPanel[1].setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
         buttonPanel[2].setBorder(BorderFactory.createMatteBorder(0, 1, 1, 0, Color.BLACK));
@@ -535,7 +543,6 @@ class GUI{
         buttonPanel[6].setBorder(BorderFactory.createMatteBorder(1, 0, 0, 1, Color.BLACK));
         buttonPanel[7].setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.BLACK));
         buttonPanel[8].setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, Color.BLACK));
-
 
         JPanel rootPanel = new JPanel();
         JPanel fieldsPanel = new JPanel();
@@ -580,7 +587,6 @@ class GUI{
         gbc.gridx = 2;
         gbc.gridy = 2;
         fieldsPanel.add(buttonPanel[8], gbc);
-
 
         gbc.gridx = 2;
         gbc.gridy = 4;
