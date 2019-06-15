@@ -313,6 +313,9 @@ class GUI{
         return menuBar;
     }
 
+    /** Okno odpowiedzialne za ustawienia gry.
+     * Umożliwia zmianę języka i wersji kolorystycznej.
+     * */
     private void settings(){
 
         frameSettings = new JFrame(actualLang[2]);
@@ -348,6 +351,10 @@ class GUI{
         frameSettings.add(rootPanel);
     }
 
+    /** Okno głównego menu, umożliwia rozpowczęcie nowej gry,
+     * wczytanie ostatniego zapisu gry, wejście do panelu ustawień
+     * i wyjście z gry.
+     * */
     private void menuItSelf(char langID, int themeID) {
 
         frameMenu = new JFrame("SUDOKU");
@@ -436,6 +443,17 @@ class GUI{
 
     }
 
+    /** Okno samej gry. Formatuje komórki, i przypisuje im dozwolone wartości.
+     * Ustawia komórki w odpowiednich miejscach i przypisuje je do odpowiadającym
+     * tym miejscom sekcji. Ustawia granicę między sekcjami. Pozwala na sprawdzenie
+     * usupełnionych komórek. Jeżeli gra jest samouczkiem, pozwala na wyświetlanie komunikatów.
+     * Tworzy tablicę do uzupełnienia w zależności od wybranego wcześniej poziomu trudności.
+     * Pozwala na wczytanie poprzedniej gry jak i na grę w trybie samouczku.
+     *
+     * @param difficultyLevel poziom trudności.
+     * @param load parametr informujący o rodzaju gry (wczytana, nowa, tutorial).
+     *
+     * */
     void gameItSelf(int difficultyLevel, int load){
 
         frameGame = new JFrame("SUDOKU");
@@ -617,8 +635,10 @@ class GUI{
 
 
 
-        if(load==0) {loadGame();}
-        if(load==1){ newGame(difficultyLevel); }
+        if(load==0)
+            loadGame();
+        if(load==1)
+            newGame(difficultyLevel);
 
         if(load==2){
             BoxMethod boxMethodPanel = new BoxMethod(langID, themeID);
