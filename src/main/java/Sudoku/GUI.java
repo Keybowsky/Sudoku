@@ -29,8 +29,12 @@ class GUI{
     /** Wygenerowana tablica. */
     private static int[][] firstGenerationBoard = new int[9][9];
 
+
+
+    private int[][] setEditableGenerationBoard = new int[9][9];
+
     /** Tablica komórek. */
-    private final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+    final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
 
     /** Ramka wyboru poziomu trudności nowej gry. */
     static JFrame newGameOptionFrame;
@@ -55,7 +59,9 @@ class GUI{
 
     /** Akcja odpowiedzialna za sprawdzenie poprawności w pojedynczej sekcji. */
     private final Action checkBoxAction = new checkBoxAction();
+
     private final Action checkDiagonalAction = new checkDiagonalAction();
+
     private final Action checkRandomAction = new checkRandomAction();
 
     /** Akcja odpowiedzialna za ustawienie poziomu trodności na łatwy. */
@@ -305,13 +311,10 @@ class GUI{
         menu.add(menuItemSaveGame);
         menu = new JMenu(actualLang[15]);
 
-
         menuBar.add(menu);
 
         menuItemCreators = new JMenuItem(actualLang[16]);
         menuItemCreators.addActionListener(e -> mSG.creatorsMessage());
-
-
         menuItemBackMain.setText(actualLang[17]);
         menuItemSaveGame.setText(actualLang[18]);
         menu.add(menuItemCreators);
@@ -546,6 +549,7 @@ class GUI{
                         buttonPanel[8].add(fields[i][j]);
                 }
                 fields[i][j].setCaretPosition(0);
+
             }
         }
 
@@ -707,7 +711,7 @@ class GUI{
             }
             for (int i= 0; i<9; ++i){
                 fields[i][1].setBackground(actualColor[1]);
-                }
+            }
             fields[7][2].setBackground(actualColor[0]);
             fields[7][2].setEditable(true);
             fields[8][7].setBackground(actualColor[0]);
@@ -743,13 +747,13 @@ class GUI{
      *
      * @param load 2
      * */
-    private void nextStep(int load){
-        if (load==2){
+    private void nextStep(int load) {
+        if (load == 2) {
 
-            for (int j=0; j<9; ++j){
+            for (int j = 0; j < 9; ++j) {
                 fields[8][j].setBackground(actualColor[5]);
             }
-            for (int i= 0; i<9; ++i){
+            for (int i = 0; i < 9; ++i) {
                 fields[i][1].setBackground(actualColor[5]);
             }
             fields[7][2].setBackground(actualColor[5]);
@@ -762,11 +766,11 @@ class GUI{
             fields[7][8].setEditable(true);
 
         }
-        if (load==3){
-            for (int i= 0; i<9; ++i){
+        if (load == 3) {
+            for (int i = 0; i < 9; ++i) {
                 fields[i][7].setBackground(actualColor[5]);
             }
-            for (int j= 0; j<9; ++j){
+            for (int j = 0; j < 9; ++j) {
                 fields[7][j].setBackground(actualColor[5]);
             }
 
@@ -777,27 +781,7 @@ class GUI{
             fields[1][6].setBackground(actualColor[0]);
             fields[1][6].setEditable(true);
         }
-
-        if (load==4){
-            for (int i= 0; i<9; ++i){
-                fields[i][5].setBackground(actualColor[5]);
-            }
-            for (int j= 0; j<9; ++j){
-                fields[1][j].setBackground(actualColor[5]);
-            }
-
-            fields[1][5].setBackground(actualColor[5]);
-            fields[1][5].setEditable(false);
-
-            fields[8][3].setBackground(actualColor[0]);
-            fields[8][3].setEditable(true);
-        }
     }
-
-    /** Sprawdza poprawność wprowadzonej cyfry w samouczku,
-     * jeżeli jest poprawna kończy samouczek.
-     *
-     * */
     private void checkBoxMethod(){
         int temp;
         String tempS;
@@ -807,9 +791,9 @@ class GUI{
             temp = Integer.parseInt(tempS);
             if(temp==3)
             {EndGame wonGame = new EndGame(langID,themeID);
-            EndGame.endGame.repaint();
-            wonGame.endGame.setVisible(true);
-            frameGame.setEnabled(false);}
+                EndGame.endGame.repaint();
+                wonGame.endGame.setVisible(true);
+                frameGame.setEnabled(false);}
             else{fields[7][8].setBackground(actualColor[4]);}
         }
 
@@ -817,9 +801,9 @@ class GUI{
         tempS = String.valueOf(fields[7][2].getValue());
         temp = Integer.parseInt(tempS);
 
-        if (temp==1) {
-            nextStep(2);
-        }else{fields[7][2].setBackground(actualColor[4]);}}
+            if (temp==1) {
+                nextStep(2);
+            }else{fields[7][2].setBackground(actualColor[4]);}}
 
     }
 
@@ -846,7 +830,8 @@ class GUI{
                 nextStep(3);}
             else{fields[6][7].setBackground(actualColor[4]);}}
 
-    }
+        }
+
 
     private void checkRandomMethod(){
         int temp;
@@ -874,7 +859,7 @@ class GUI{
 
     /** Wypełnienie Tablicy samouczka w zależności od wybranej metody.
      *
-     * @param load wybrana metoda.
+     *
      *
      * */
     private void fillTutorialBoard(){
@@ -900,7 +885,7 @@ class GUI{
         generator.boardGeneration(difficultyLevel);
 
         int[][] tempBoard = generator.getGeneratedBoard();
-
+        firstGenerationBoard=tempBoard;
         for (int i = 0; i < Solver.SIZE; i++) {
             System.out.println();
             for (int j = 0; j < Solver.SIZE; j++) {
@@ -913,17 +898,21 @@ class GUI{
                 fields[i][j].setValue(tempBoard[i][j]);
                 if (tempBoard[i][j] != 0) {
                     fields[i][j].setEditable(false);
-                } else
+                    setEditableGenerationBoard[i][j]=tempBoard[i][j];
+                    fields[i][j].setBackground(actualColor[5]);
+                } else {
                     fields[i][j].setValue("");
+                    setEditableGenerationBoard[i][j] = 0;
+                }
             }
         }
-        firstGenerationBoard= tempBoard;
+
         solveTheBoard(firstGenerationBoard);
     }
 
     private void saveGame() throws IOException{
 
-        File fileName = new File(localisation+"gameSaveUser"+1+".txt");
+        File fileName = new File(localisation+"gameSave.txt");
         boolean filegeneration=true;
 
         if(!fileDirectory.exists()){
@@ -946,7 +935,6 @@ class GUI{
             for (int i = 0; i < Solver.SIZE; i++) {
                 for (int j = 0; j < Solver.SIZE; j++) {
                     if (fields[i][j].getValue() == "") {
-
                         saver.write(("0"));
                         System.out.print("0");
                     } else {
@@ -954,7 +942,7 @@ class GUI{
                         saver.write((fields[i][j].getValue()).toString());
                     }
                     saver.write("\n");
-                    saver.write(Integer.toString(firstGenerationBoard[i][j]));
+                    saver.write(Integer.toString(setEditableGenerationBoard[i][j]));
                     saver.write("\n");
                 }
             }
@@ -970,7 +958,7 @@ class GUI{
 
 
 
-        File file  = new File(localisation+"gameSaveUser"+1+".txt");
+        File file  = new File(localisation+"gameSave.txt");
 
         try {
             Scanner reader = new Scanner(file);
@@ -988,8 +976,9 @@ class GUI{
                         else {
                             fields[i][j].setValue(loadBoard[i][j]);
                         }
-                        if(loadBoard[i][j]!=0){
+                        if(firstGenerationBoard[i][j]!=0){
                             fields[i][j].setEditable(false);
+                            fields[i][j].setBackground(actualColor[5]);
                         }
                     }
                 }
@@ -1007,7 +996,7 @@ class GUI{
     }
 
     private void solveTheBoard(int[][] boardToSolve){
-       solvedBoard = Solver.solveTheBoard(boardToSolve);
+        solvedBoard = Solver.solveTheBoard(boardToSolve);
     }
 
     private void checkGame(){
@@ -1038,17 +1027,17 @@ class GUI{
         System.out.println();
         for(int i = 0; i<9; i++) {
             for (int j = 0; j < 9; j++) {
-              System.out.print(solvedBoard[i][j]);
-            if(boardToCheck[i][j]==solvedBoard[i][j])
-            {
-                if(fields[i][j].isEditable()) {
-                    fields[i][j].setBackground(actualColor[0]);
+                System.out.print(solvedBoard[i][j]);
+                if(boardToCheck[i][j]==solvedBoard[i][j])
+                {
+                    if(fields[i][j].isEditable()) {
+                        fields[i][j].setBackground(actualColor[0]);
+                    }
                 }
-            }
-            else{
-                fields[i][j].setBackground(actualColor[1]);
-                wrongAnsw++;
-            }
+                else{
+                    fields[i][j].setBackground(actualColor[1]);
+                    wrongAnsw++;
+                }
             }
             System.out.println();
         }
@@ -1061,12 +1050,12 @@ class GUI{
         if(wrongAnsw==0){
             EndGame.endGame.repaint();
             wonGame.endGame.setVisible(true);
-            frameGame.setEnabled(false); //freeze okna
-
-            //tu musi tak byc zeby działało
+            frameGame.setEnabled(false);
         }
 
     }
+
+
 
     private class newGameAction extends AbstractAction {
         public void actionPerformed(ActionEvent e) {
@@ -1119,7 +1108,7 @@ class GUI{
             Messages.gameNotSaved();
             GUI.frameGame.setVisible(false);
             GUI.frameGame.dispose();
-            //GUI.newGameOptionFrame.setVisible(false);
+//            GUI.newGameOptionFrame.setVisible(false);
             GUI.frameMenu.setVisible(true);
         }
     }
