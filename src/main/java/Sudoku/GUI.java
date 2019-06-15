@@ -745,7 +745,7 @@ class GUI{
 
     /** Ponowne ustawienie kolorów w planszy samouczka i zmiana ustawień edycki pól.
      *
-     * @param load 2
+     * @param load ustawia metodę która obowiązuje w samouczku.
      * */
     private void nextStep(int load) {
         if (load == 2) {
@@ -782,6 +782,8 @@ class GUI{
             fields[1][6].setEditable(true);
         }
     }
+
+    /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
     private void checkBoxMethod(){
         int temp;
         String tempS;
@@ -807,6 +809,7 @@ class GUI{
 
     }
 
+    /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
     private void checkDiagonalMethod(){
         int temp;
         String tempS;
@@ -832,7 +835,7 @@ class GUI{
 
         }
 
-
+    /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
     private void checkRandomMethod(){
         int temp;
         String tempS;
@@ -857,13 +860,8 @@ class GUI{
             else{fields[1][5].setBackground(actualColor[4]);}}
     }
 
-    /** Wypełnienie Tablicy samouczka w zależności od wybranej metody.
-     *
-     *
-     *
-     * */
+    /** Wypełnienie Tablicy samouczka w zależności od wybranej metody. */
     private void fillTutorialBoard(){
-
 
         int[][] tutorialBoard = Tutorial.tutorialFieldsValue;
             for (int i = 0; i < Solver.SIZE; i++) {
@@ -878,7 +876,6 @@ class GUI{
                 {fields[i][j].setEditable(false);}
             }
         }
-
     }
 
     /** Ustawia komórki w grze zgodnie z wygenerowaną planszą. */
@@ -1136,24 +1133,25 @@ class GUI{
         }
     }
 
+    /** Odpowiada za wywołanie funkcji checkDiagonal. */
     private class checkDiagonalAction extends AbstractAction {
-        checkDiagonalAction() {
-        }
+        checkDiagonalAction() {}
 
         public void actionPerformed(ActionEvent e) {
             checkDiagonalMethod();
         }
     }
 
+    /** Odpowiada za wywołanie funkcji checkRandomMethod. */
     private class checkRandomAction extends AbstractAction {
-        checkRandomAction() {
-        }
+        checkRandomAction() {}
 
         public void actionPerformed(ActionEvent e) {
             checkRandomMethod();
         }
     }
 
+    /** Odpowiada za wywołanie funkcji gameItSelf i wyświetlenia ramki gry.*/
     private class easyNewGame extends AbstractAction {
         easyNewGame() {}
 

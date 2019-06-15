@@ -5,10 +5,19 @@ import javax.swing.*;
 import java.awt.*;
 import static Sudoku.GUI.*;
 
-public class EndGame {
+/** Klasa odpowiada za wyświetlenie napisu w przypadku poprawnego rozwiązania sudoku. */
+class EndGame {
+
+    /** Ramka napisu. */
     final static JFrame endGame = new JFrame();
 
-   public EndGame(char langID, int themeID){
+    /** Konstruktor ustawiający parametry napisu i  wyświetlający go.
+     *
+     * @param langID wybór języka.
+     * @param themeID wybór motywu kolorystycznego.
+     *
+     * */
+    EndGame(char langID, int themeID){
        GridBagConstraints gbc = new GridBagConstraints();
        JLabel gameWonLabel = new JLabel();
        JButton gameWonOkButton = new JButton();
