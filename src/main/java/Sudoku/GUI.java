@@ -27,6 +27,7 @@ class GUI{
     private final Action menuItemBackMainAction = new menuItemBackMainAction();
     private final Action checkGameAction = new checkGameAction();
     private final Action checkBoxAction = new checkBoxAction();
+    private final Action checkDiagonalAction = new checkDiagonalAction();
     private final Action easyNewGame = new easyNewGame();
     private final Action mediumNewGame = new mediumNewGame();
     private final Action hardNewGame = new hardNewGame();
@@ -419,6 +420,10 @@ class GUI{
 
         buttonBoxCheck.setText(actualLang[19]);
 
+        JButton buttonDiagonalCheck = new JButton();
+        addListenerAction(buttonDiagonalCheck,checkDiagonalAction);
+
+        buttonDiagonalCheck.setText(actualLang[19]);
 
 
         for (int i = 0; i < Solver.SIZE; i++) {
@@ -542,6 +547,12 @@ class GUI{
         buttonBoxCheck.setBackground(actualColor[4]);
         buttonBoxCheck.setVisible(false);
 
+        gbc.gridx = 2;
+        gbc.gridy = 4;
+        gbc.anchor = GridBagConstraints.CENTER;
+        fieldsPanel.add(buttonDiagonalCheck, gbc);
+        buttonDiagonalCheck.setBackground(actualColor[4]);
+        buttonDiagonalCheck.setVisible(false);
 
 
 /*
@@ -595,6 +606,9 @@ class GUI{
             solvingMethodPanel.setPreferredSize(new Dimension(200,630));
             rootPanel.add(solvingMethodPanel,BorderLayout.WEST);
             fillTutorialBoard(load);
+            firstStepTutorial(load);
+            buttonCheck.setVisible(false);
+            buttonDiagonalCheck.setVisible(true);
         }
 
         if(load==4){
@@ -619,24 +633,19 @@ class GUI{
             fields[7][2].setEditable(true);
             fields[8][7].setBackground(actualColor[0]);
             fields[1][1].setBackground(actualColor[0]);}
-    }
 
-    private void checkBoxMethod(){
-        int temp;
-        String tempS;
+        if (load==3){
+            for (int i= 0; i<9; ++i){
+                fields[i][7].setBackground(actualColor[1]);
+            }
+            for (int j= 0; j<9; ++j){
+                fields[7][j].setBackground(actualColor[1]);
+            }
 
-        if (fields[7][8].isEditable()){
-            System.out.println("s");
-            return;
+            fields[6][7].setBackground(actualColor[0]);
+            fields[6][7].setEditable(true);
+            fields[7][4].setBackground(actualColor[0]);
         }
-
-        if (fields[7][2].isEditable())
-        {tempS = String.valueOf(fields[7][2].getValue());
-        temp = Integer.parseInt(tempS);
-
-        if (temp==1) {
-            nextStep(2);
-        }else{fields[7][2].setBackground(actualColor[4]);}}
 
     }
 
@@ -659,7 +668,76 @@ class GUI{
             fields[7][8].setEditable(true);
 
         }
+        if (load==3){
+            for (int i= 0; i<9; ++i){
+                fields[i][7].setBackground(actualColor[5]);
+            }
+            for (int j= 0; j<9; ++j){
+                fields[7][j].setBackground(actualColor[5]);
+            }
+
+            fields[6][7].setBackground(actualColor[5]);
+            fields[6][7].setEditable(false);
+            fields[7][4].setBackground(actualColor[5]);
+
+            fields[1][6].setBackground(actualColor[0]);
+            fields[1][6].setEditable(true);
+        }
     }
+
+    private void checkBoxMethod(){
+        int temp;
+        String tempS;
+
+        if (fields[7][8].isEditable()){
+            tempS = String.valueOf(fields[7][8].getValue());
+            temp = Integer.parseInt(tempS);
+            if(temp==3)
+            {EndGame wonGame = new EndGame(langID,themeID);
+            EndGame.endGame.repaint();
+            wonGame.endGame.setVisible(true);
+            frameGame.setEnabled(false);}
+            else{fields[7][8].setBackground(actualColor[4]);}
+        }
+
+        if (fields[7][2].isEditable())
+        {tempS = String.valueOf(fields[7][2].getValue());
+        temp = Integer.parseInt(tempS);
+
+        if (temp==1) {
+            nextStep(2);
+        }else{fields[7][2].setBackground(actualColor[4]);}}
+
+    }
+
+    private void checkDiagonalMethod(){
+        int temp;
+        String tempS;
+
+        if (fields[1][6].isEditable()){
+            tempS = String.valueOf(fields[1][6].getValue());
+            temp = Integer.parseInt(tempS);
+            if(temp==3)
+            {EndGame wonGame = new EndGame(langID,themeID);
+                EndGame.endGame.repaint();
+                wonGame.endGame.setVisible(true);
+                frameGame.setEnabled(false);}
+            else{fields[1][6].setBackground(actualColor[4]);}
+        }
+
+        if (fields[6][7].isEditable())
+        {   tempS = String.valueOf(fields[6][7].getValue());
+            temp = Integer.parseInt(tempS);
+
+            if (tempS == "")
+            {fields[6][7].setBackground(actualColor[4]);}
+            if (temp==2) {
+                nextStep(3);
+            }else{fields[6][7].setBackground(actualColor[4]);}}
+
+    }
+
+
 
     private void fillTutorialBoard(int load){
 
@@ -692,9 +770,9 @@ class GUI{
             }
             for (int i = 0; i < Solver.SIZE; i++) {
                 for (int j = 0; j < Solver.SIZE; j++) {
-                    if(diagonalMethodBoard[i][j]!=0)
+                    //if(diagonalMethodBoard[i][j]!=0)
                     {fields[i][j].setEditable(false);}
-                    else fields[i][j].setValue("");
+                    //else fields[i][j].setValue("");
                 }
             }
         }
@@ -708,9 +786,9 @@ class GUI{
             }
             for (int i = 0; i < Solver.SIZE; i++) {
                 for (int j = 0; j < Solver.SIZE; j++) {
-                    if(randomMethodBoard[i][j]!=0)
+                    //if(randomMethodBoard[i][j]!=0)
                     {fields[i][j].setEditable(false);}
-                    else fields[i][j].setValue("");
+                    //else fields[i][j].setValue("");
                 }
             }
         }
@@ -965,6 +1043,14 @@ class GUI{
         }
     }
 
+    private class checkDiagonalAction extends AbstractAction {
+        checkDiagonalAction() {
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            checkDiagonalMethod();
+        }
+    }
 
     private class easyNewGame extends AbstractAction {
         easyNewGame() {
