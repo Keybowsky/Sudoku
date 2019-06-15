@@ -29,8 +29,12 @@ class GUI{
     /** Wygenerowana tablica. */
     private static int[][] firstGenerationBoard = new int[9][9];
 
+
+
+    private int[][] setEditableGenerationBoard = new int[9][9];
+
     /** Tablica komórek. */
-    private final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+    final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
 
     /** Ramka wyboru poziomu trudności nowej gry. */
     static JFrame newGameOptionFrame;
@@ -55,7 +59,9 @@ class GUI{
 
     /** Akcja odpowiedzialna za sprawdzenie poprawności w pojedynczej sekcji. */
     private final Action checkBoxAction = new checkBoxAction();
+
     private final Action checkDiagonalAction = new checkDiagonalAction();
+
     private final Action checkRandomAction = new checkRandomAction();
 
     /** Akcja odpowiedzialna za ustawienie poziomu trodności na łatwy. */
@@ -305,13 +311,10 @@ class GUI{
         menu.add(menuItemSaveGame);
         menu = new JMenu(actualLang[15]);
 
-
         menuBar.add(menu);
 
         menuItemCreators = new JMenuItem(actualLang[16]);
         menuItemCreators.addActionListener(e -> mSG.creatorsMessage());
-
-
         menuItemBackMain.setText(actualLang[17]);
         menuItemSaveGame.setText(actualLang[18]);
         menu.add(menuItemCreators);
@@ -546,6 +549,7 @@ class GUI{
                         buttonPanel[8].add(fields[i][j]);
                 }
                 fields[i][j].setCaretPosition(0);
+
             }
         }
 
@@ -707,7 +711,7 @@ class GUI{
             }
             for (int i= 0; i<9; ++i){
                 fields[i][1].setBackground(actualColor[1]);
-                }
+            }
             fields[7][2].setBackground(actualColor[0]);
             fields[7][2].setEditable(true);
             fields[8][7].setBackground(actualColor[0]);
@@ -741,15 +745,15 @@ class GUI{
 
     /** Ponowne ustawienie kolorów w planszy samouczka i zmiana ustawień edycji pól.
      *
-     * @param load 2
+     * @param load ustawia metodę która obowiązuje w samouczku.
      * */
-    private void nextStep(int load){
-        if (load==2){
+    private void nextStep(int load) {
+        if (load == 2) {
 
-            for (int j=0; j<9; ++j){
+            for (int j = 0; j < 9; ++j) {
                 fields[8][j].setBackground(actualColor[5]);
             }
-            for (int i= 0; i<9; ++i){
+            for (int i = 0; i < 9; ++i) {
                 fields[i][1].setBackground(actualColor[5]);
             }
             fields[7][2].setBackground(actualColor[5]);
@@ -762,11 +766,11 @@ class GUI{
             fields[7][8].setEditable(true);
 
         }
-        if (load==3){
-            for (int i= 0; i<9; ++i){
+        if (load == 3) {
+            for (int i = 0; i < 9; ++i) {
                 fields[i][7].setBackground(actualColor[5]);
             }
-            for (int j= 0; j<9; ++j){
+            for (int j = 0; j < 9; ++j) {
                 fields[7][j].setBackground(actualColor[5]);
             }
 
@@ -794,10 +798,7 @@ class GUI{
         }
     }
 
-    /** Sprawdza poprawność wprowadzonej cyfry w samouczku,
-     * jeżeli jest poprawna kończy samouczek.
-     *
-     * */
+    /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
     private void checkBoxMethod(){
         int temp;
         String tempS;
@@ -834,6 +835,7 @@ class GUI{
      * jeżeli jest poprawna kończy samouczek.
      *
      * */
+    /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
     private void checkDiagonalMethod(){
         int temp;
         String tempS;
@@ -865,12 +867,9 @@ class GUI{
             else{fields[6][7].setBackground(actualColor[4]);}
         }
 
-    }
+        }
 
-    /** Sprawdza poprawność wprowadzonej cyfry w samouczku,
-     * jeżeli jest poprawna kończy samouczek.
-     *
-     * */
+        /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
     private void checkRandomMethod(){
         int temp;
         String tempS;
@@ -903,11 +902,8 @@ class GUI{
         }
     }
 
-    /** Wypełnienie Tablicy samouczka
-     *
-     * */
+    /** Wypełnienie Tablicy samouczka*/
     private void fillTutorialBoard(){
-
 
         int[][] tutorialBoard = Tutorial.tutorialFieldsValue;
             for (int i = 0; i < Solver.SIZE; i++) {
@@ -922,14 +918,14 @@ class GUI{
                 {fields[i][j].setEditable(false);}
             }
         }
-
     }
 
+    /** Ustawia komórki w grze zgodnie z wygenerowaną planszą. */
     private void newGame(int difficultyLevel){
         generator.boardGeneration(difficultyLevel);
 
         int[][] tempBoard = generator.getGeneratedBoard();
-
+        firstGenerationBoard=tempBoard;
         for (int i = 0; i < Solver.SIZE; i++) {
             System.out.println();
             for (int j = 0; j < Solver.SIZE; j++) {
@@ -942,17 +938,22 @@ class GUI{
                 fields[i][j].setValue(tempBoard[i][j]);
                 if (tempBoard[i][j] != 0) {
                     fields[i][j].setEditable(false);
-                } else
+                    setEditableGenerationBoard[i][j]=tempBoard[i][j];
+                    fields[i][j].setBackground(actualColor[5]);
+                } else {
                     fields[i][j].setValue("");
+                    setEditableGenerationBoard[i][j] = 0;
+                }
             }
         }
-        firstGenerationBoard= tempBoard;
+
         solveTheBoard(firstGenerationBoard);
     }
 
+    /** Zapisuje grę. */
     private void saveGame() throws IOException{
 
-        File fileName = new File(localisation+"gameSaveUser"+1+".txt");
+        File fileName = new File(localisation+"gameSave.txt");
         boolean filegeneration=true;
 
         if(!fileDirectory.exists()){
@@ -968,14 +969,12 @@ class GUI{
             }
         }
 
-
         if(filegeneration) {
             BufferedWriter saver = new BufferedWriter(new FileWriter(fileName));
             System.out.print("\nPlansza aktualna:   ");
             for (int i = 0; i < Solver.SIZE; i++) {
                 for (int j = 0; j < Solver.SIZE; j++) {
                     if (fields[i][j].getValue() == "") {
-
                         saver.write(("0"));
                         System.out.print("0");
                     } else {
@@ -983,7 +982,7 @@ class GUI{
                         saver.write((fields[i][j].getValue()).toString());
                     }
                     saver.write("\n");
-                    saver.write(Integer.toString(firstGenerationBoard[i][j]));
+                    saver.write(Integer.toString(setEditableGenerationBoard[i][j]));
                     saver.write("\n");
                 }
             }
@@ -992,14 +991,14 @@ class GUI{
         }
     }
 
+    /** Wczytuje grę. */
     private void loadGame(){
         int col = 9;
         int row = 9;
         int[][] loadBoard = new int[row][col];
 
 
-
-        File file  = new File(localisation+"gameSaveUser"+1+".txt");
+        File file  = new File(localisation+"gameSave.txt");
 
         try {
             Scanner reader = new Scanner(file);
@@ -1017,8 +1016,9 @@ class GUI{
                         else {
                             fields[i][j].setValue(loadBoard[i][j]);
                         }
-                        if(loadBoard[i][j]!=0){
+                        if(firstGenerationBoard[i][j]!=0){
                             fields[i][j].setEditable(false);
+                            fields[i][j].setBackground(actualColor[5]);
                         }
                     }
                 }
@@ -1035,10 +1035,19 @@ class GUI{
         }
     }
 
+    /** Rozwiązuje tablicę.
+     *
+     * @param boardToSolve tablica do rozwiązania.
+     *
+     * */
     private void solveTheBoard(int[][] boardToSolve){
-       solvedBoard = Solver.solveTheBoard(boardToSolve);
+        solvedBoard = Solver.solveTheBoard(boardToSolve);
     }
 
+    /** Prównuje tablice wypełnioną przez gracza do rozwiązanej tablicy i koloruje
+     * pola w zależności od tego czy odpowiedź jest poprawna czy nie.
+     * W przypadku ukończenia gry wyświetla komunikat.
+     * */
     private void checkGame(){
 
         int[][] boardToCheck = new int[9][9];
@@ -1067,36 +1076,35 @@ class GUI{
         System.out.println();
         for(int i = 0; i<9; i++) {
             for (int j = 0; j < 9; j++) {
-              System.out.print(solvedBoard[i][j]);
-            if(boardToCheck[i][j]==solvedBoard[i][j])
-            {
-                if(fields[i][j].isEditable()) {
-                    fields[i][j].setBackground(actualColor[0]);
+                System.out.print(solvedBoard[i][j]);
+                if(boardToCheck[i][j]==solvedBoard[i][j])
+                {
+                    if(fields[i][j].isEditable()) {
+                        fields[i][j].setBackground(actualColor[0]);
+                    }
                 }
-            }
-            else{
-                fields[i][j].setBackground(actualColor[1]);
-                wrongAnsw++;
-            }
+                else{
+                    fields[i][j].setBackground(actualColor[1]);
+                    wrongAnsw++;
+                }
             }
             System.out.println();
         }
 
-
         frameGame.repaint();
-
 
         EndGame wonGame = new EndGame(langID,themeID);
         if(wrongAnsw==0){
             EndGame.endGame.repaint();
             wonGame.endGame.setVisible(true);
-            frameGame.setEnabled(false); //freeze okna
-
-            //tu musi tak byc zeby działało
+            frameGame.setEnabled(false);
         }
-
     }
 
+    /** Odpowiada za wywołane funkcji newGameAction i ustawienie widoczności
+     * głównego menu.
+     *
+     * */
     private class newGameAction extends AbstractAction {
         public void actionPerformed(ActionEvent e) {
             newGameOption();
@@ -1105,8 +1113,9 @@ class GUI{
         }
     }
 
+    /** Odpowiada za wczytanie gry z poziomu głównego menu. */
     private class loadGameAction extends AbstractAction {
-        loadGameAction() { }
+        loadGameAction() {}
         public void actionPerformed(ActionEvent e) {
             GUI.frameMenu.setVisible(false);
             gameItSelf(0,0);
@@ -1116,11 +1125,9 @@ class GUI{
         }
     }
 
+    /** Odpowiada za wywołanie funkcji settings i wyświetleniu jej ramki. */
     private class settingsAction extends AbstractAction {
-        settingsAction() {
-
-        }
-
+        settingsAction() {}
         public void actionPerformed(ActionEvent e) {
             GUI.frameMenu.setVisible(false);
             settings();
@@ -1128,70 +1135,67 @@ class GUI{
         }
     }
 
+    /** Odpowiada za wyjście z gry. */
     private class exitGameAction extends AbstractAction {
-        exitGameAction() {
-
-        }
-
+        exitGameAction() {}
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
         }
     }
 
+    /** Odpowiada za wyjście do menu głównego z gry. */
     private class menuItemBackMainAction extends AbstractAction {
-        menuItemBackMainAction() {
-
-            }
+        menuItemBackMainAction() {}
 
         @Override
         public void actionPerformed(ActionEvent e) {
             Messages.gameNotSaved();
             GUI.frameGame.setVisible(false);
             GUI.frameGame.dispose();
-            //GUI.newGameOptionFrame.setVisible(false);
+//            GUI.newGameOptionFrame.setVisible(false);
             GUI.frameMenu.setVisible(true);
         }
     }
 
+    /** Odpowiada za wywołanie funkcji checkGame. */
     private class checkGameAction extends AbstractAction {
-        checkGameAction() {
-        }
+        checkGameAction() {}
 
         public void actionPerformed(ActionEvent e) {
             checkGame();
         }
     }
 
+    /** Odpowiada za wywołanie funkcji checkBoxMethod. */
     private class checkBoxAction extends AbstractAction {
-        checkBoxAction() {
-        }
+        checkBoxAction() {}
 
         public void actionPerformed(ActionEvent e) {
             checkBoxMethod();
         }
     }
 
+    /** Odpowiada za wywołanie funkcji checkDiagonal. */
     private class checkDiagonalAction extends AbstractAction {
-        checkDiagonalAction() {
-        }
+        checkDiagonalAction() {}
 
         public void actionPerformed(ActionEvent e) {
             checkDiagonalMethod();
         }
     }
 
+    /** Odpowiada za wywołanie funkcji checkRandomMethod. */
     private class checkRandomAction extends AbstractAction {
-        checkRandomAction() {
-        }
+        checkRandomAction() {}
 
         public void actionPerformed(ActionEvent e) {
             checkRandomMethod();
         }
     }
 
+    /** Odpowiada za wywołanie funkcji gameItSelf i wyświetlenia ramki gry.*/
     private class easyNewGame extends AbstractAction {
-        easyNewGame() {
-        }
+        easyNewGame() {}
 
         public void actionPerformed(ActionEvent e) {
             //gameItSelf(generator.difficultyLevel(1));
@@ -1201,9 +1205,9 @@ class GUI{
         }
     }
 
+    /** Odpowiada za wywołanie funkcji gameItSelf i wyświetlenia ramki gry.*/
     private class mediumNewGame extends AbstractAction {
-        mediumNewGame() {
-        }
+        mediumNewGame() {}
 
         public void actionPerformed(ActionEvent e) {
             gameItSelf(2,1);
@@ -1212,9 +1216,9 @@ class GUI{
         }
     }
 
+    /** Odpowiada za wywołanie funkcji gameItSelf i wyświetlenia ramki gry.*/
     private class hardNewGame extends AbstractAction {
-        hardNewGame() {
-        }
+        hardNewGame() {}
 
         public void actionPerformed(ActionEvent e) {
             gameItSelf(3,1);
@@ -1223,19 +1227,18 @@ class GUI{
         }
     }
 
+    /** Odpowiada za utworzenie gry która jest tutorialem. */
     private class tutorialAction extends AbstractAction {
-        tutorialAction() {
-        }
+        tutorialAction() {}
 
         public void actionPerformed(ActionEvent e) {
             new Tutorial(langID,themeID);
-
         }
     }
 
+    /** Odpowiada za zapisanie gry i wyjście do menu głównego. */
     private class saveGameAction extends AbstractAction {
-        saveGameAction() {
-        }
+        saveGameAction() {}
 
         public void actionPerformed(ActionEvent e) {
             try {
@@ -1250,9 +1253,9 @@ class GUI{
         }
     }
 
+    /** Odpowiada za zapisanie zmienionych ustawień i wyjście do menu głównego. */
     private class applySettings extends AbstractAction {
-        applySettings() {
-        }
+        applySettings() {}
 
         public void actionPerformed(ActionEvent e) {
 
@@ -1265,10 +1268,10 @@ class GUI{
             menuItSelf(langID,themeID);
             GUI.frameMenu.setVisible(true);
             GUI.frameSettings.setVisible(false);
-
         }
     }
 
+    /** Odpowiada za powrót do menu głównego. */
     private final WindowListener exitListener = new WindowAdapter() {
         @Override
         public void windowClosing(WindowEvent e) {
@@ -1276,6 +1279,12 @@ class GUI{
         }
     };
 
+    /** Odpowiada za przypisanie przyciskowi wybranej akcji.
+     *
+     * @param buttonName nazwa przycisku.
+     * @param actionName wybrana akcja.
+     *
+     * */
     private void addListenerAction(JButton buttonName, Action actionName){
 
         buttonName.addActionListener(e -> {

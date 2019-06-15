@@ -11,7 +11,6 @@ class BoxMethod extends Tutorial {
     BoxMethod(int langID, int themeID){
     //wywalić themeID
 
-
         boxSolvingMethodPanel.setBackground(actualColor[2]);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(BoxMethod.BoxMethodCom1());

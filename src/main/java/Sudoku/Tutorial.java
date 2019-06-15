@@ -17,7 +17,6 @@ class Tutorial extends GUI {
         tutorialFrame.setMaximumSize(new Dimension(450, 200));
         tutorialFrame.setMinimumSize(new Dimension(450, 200));
         tutorialFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        //tutorialFrame.addWindowListener(exitListener);
         tutorialFrame.setLocationRelativeTo(null);
         tutorialFrame.setVisible(true);
         newGameOptionFrame.setVisible(false);
@@ -34,9 +33,6 @@ class Tutorial extends GUI {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 3;
-        // gbc.ipady = 20;
-        //gbc.ipadx = 3;
-
         rootPanel.add(labelTop, gbc);
 
 
@@ -108,7 +104,7 @@ class Tutorial extends GUI {
     Tutorial() {
     }
 
-    public static final int[][] tutorialFieldsValue = {
+    static final int[][] tutorialFieldsValue = {
             {0, 9, 4, 0, 3, 0, 1, 5, 0},
             {8, 1, 2, 7, 0, 0, 0, 9, 6},
             {3, 0, 0, 1, 9, 0, 0, 8, 0},
