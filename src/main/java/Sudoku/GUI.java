@@ -276,6 +276,7 @@ class GUI{
 
     /** Odpowiada za górny pasek z ustawieniami który pokazuje się w trakcie gry.
      * Pozwala na zapis gry, powrót do menu głównego i wyświetlenie informacji o twórcach gry.
+     *
      * */
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
@@ -484,8 +485,6 @@ class GUI{
 
         buttonBoxCheck.setText(actualLang[19]);
 
-
-
         for (int i = 0; i < Solver.SIZE; i++) {
             for (int j = 0; j < Solver.SIZE; j++) {
                 fields[i][j] = new JFormattedTextField(formatter);
@@ -531,7 +530,6 @@ class GUI{
                         buttonPanel[8].add(fields[i][j]);
                 }
                 fields[i][j].setCaretPosition(0);
-
             }
         }
 
@@ -633,8 +631,6 @@ class GUI{
         frameGame.setContentPane(rootPanel);
         frameGame.setJMenuBar(createMenuBar());
 
-
-
         if(load==0)
             loadGame();
         if(load==1)
@@ -671,6 +667,11 @@ class GUI{
         }
     }
 
+    /** Ustawienie kolorów w planszy samouczka i wybranie pól które mogą być edytowalne.
+     *
+     * @param load odpowiada za rodzaj tutorialu
+     *
+     * */
     private void firstStepTutorial(int load){
         if (load==2){
             for (int j=0; j<9; ++j){
@@ -685,6 +686,10 @@ class GUI{
             fields[1][1].setBackground(actualColor[0]);}
     }
 
+    /** Sprawdza poprawność wprowadzonej cyfry w samouczku,
+     * jeżeli jest poprawna kończy samouczek.
+     *
+     * */
     private void checkBoxMethod(){
         int temp;
         String tempS;
@@ -700,8 +705,8 @@ class GUI{
             else{fields[7][8].setBackground(actualColor[4]);}
         }
 
-        if (fields[7][2].isEditable())
-        {tempS = String.valueOf(fields[7][2].getValue());
+        if (fields[7][2].isEditable()){
+        tempS = String.valueOf(fields[7][2].getValue());
         temp = Integer.parseInt(tempS);
 
         if (temp==1) {
@@ -710,6 +715,10 @@ class GUI{
 
     }
 
+    /** Ponowne ustawienie kolorów w planszy samouczka i zmiana ustawień edycki pól.
+     *
+     * @param load 2
+     * */
     private void nextStep(int load){
         if (load==2){
 
@@ -723,14 +732,16 @@ class GUI{
             fields[7][2].setEditable(false);
             fields[8][7].setBackground(actualColor[5]);
             fields[1][1].setBackground(actualColor[5]);
-
-
             fields[7][8].setBackground(actualColor[0]);
             fields[7][8].setEditable(true);
-
         }
     }
 
+    /** Wypełnienie Tablicy samouczka w zależności od wybranej metody.
+     *
+     * @param load wybrana metoda.
+     *
+     * */
     private void fillTutorialBoard(int load){
 
         if(load==2) {
@@ -1012,7 +1023,7 @@ class GUI{
             Messages.gameNotSaved();
             GUI.frameGame.setVisible(false);
             GUI.frameGame.dispose();
-//            GUI.newGameOptionFrame.setVisible(false);
+            //GUI.newGameOptionFrame.setVisible(false);
             GUI.frameMenu.setVisible(true);
         }
     }
