@@ -197,88 +197,88 @@ class GUI{
      *
      * */
     private void newGameOption(){
+        newGameOptionFrame = new JFrame(actualLang[7]);
+        newGameOptionFrame.setMaximumSize(smallMaximumWindow);
+        newGameOptionFrame.setMinimumSize(smallMinimumWindow);
+        newGameOptionFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        newGameOptionFrame.addWindowListener(exitListener);
+        newGameOptionFrame.setLocationRelativeTo(null);
+        newGameOptionFrame.setVisible(true);
+        JPanel rootPanel = new JPanel();
+        rootPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
-            newGameOptionFrame = new JFrame(actualLang[7]);
-            newGameOptionFrame.setMaximumSize(smallMaximumWindow);
-            newGameOptionFrame.setMinimumSize(smallMinimumWindow);
-            newGameOptionFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-            newGameOptionFrame.addWindowListener(exitListener);
-            newGameOptionFrame.setLocationRelativeTo(null);
-            newGameOptionFrame.setVisible(true);
-            JPanel rootPanel = new JPanel();
-            rootPanel.setLayout(new GridBagLayout());
-            GridBagConstraints gbc = new GridBagConstraints();
+        JLabel labelTop = new JLabel(actualLang[8]);
+        labelTop.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTop.setVerticalAlignment(SwingConstants.CENTER);
+        gbc.fill= GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 3;
+        rootPanel.add(labelTop, gbc);
 
-            JLabel labelTop = new JLabel(actualLang[8]);
-            labelTop.setHorizontalAlignment(SwingConstants.CENTER);
-            labelTop.setVerticalAlignment(SwingConstants.CENTER);
-            gbc.fill= GridBagConstraints.BOTH;
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            gbc.gridwidth = 3;
-            rootPanel.add(labelTop, gbc);
-
-            JButton easyGame = new JButton();
-            gbc.fill= GridBagConstraints.BOTH;
-            gbc.gridx = 0;
-            gbc.gridy = 1;
-            gbc.weightx = 1;
-            gbc.gridwidth = 1;
-            gbc.gridheight = 1;
-            gbc.ipadx = 5;
-            gbc.ipady = 10;
-            rootPanel.add(easyGame, gbc);
-
-
-            JButton mediumGame = new JButton();
-            gbc.fill= GridBagConstraints.BOTH;
-            gbc.gridx = 1;
-            rootPanel.add(mediumGame, gbc);
+        JButton easyGame = new JButton();
+        gbc.fill= GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.ipadx = 5;
+        gbc.ipady = 10;
+        rootPanel.add(easyGame, gbc);
 
 
-            JButton hardGame = new JButton();
-            gbc.fill= GridBagConstraints.BOTH;
-            gbc.gridx = 2;
-            rootPanel.add(hardGame, gbc);
+        JButton mediumGame = new JButton();
+        gbc.fill= GridBagConstraints.BOTH;
+        gbc.gridx = 1;
+        rootPanel.add(mediumGame, gbc);
 
-            JLabel labelBottom = new JLabel(actualLang[9]);
-            labelBottom.setHorizontalAlignment(SwingConstants.CENTER);
-            labelBottom.setVerticalAlignment(SwingConstants.CENTER);
-            gbc.fill= GridBagConstraints.BOTH;
-            gbc.gridx = 0;
-            gbc.gridy = 2;
-            gbc.gridwidth = 3;
-            rootPanel.add(labelBottom, gbc);
 
-            JButton tutorial = new JButton();
-            gbc.fill = GridBagConstraints.BOTH;
-            gbc.gridx = 1;
-            gbc.gridwidth = 1;
-            gbc.gridy = 3;
-            rootPanel.add(tutorial, gbc);
+        JButton hardGame = new JButton();
+        gbc.fill= GridBagConstraints.BOTH;
+        gbc.gridx = 2;
+        rootPanel.add(hardGame, gbc);
 
-            newGameOptionFrame.add(rootPanel);
+        JLabel labelBottom = new JLabel(actualLang[9]);
+        labelBottom.setHorizontalAlignment(SwingConstants.CENTER);
+        labelBottom.setVerticalAlignment(SwingConstants.CENTER);
+        gbc.fill= GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 3;
+        rootPanel.add(labelBottom, gbc);
 
-            addListenerAction(easyGame, easyNewGame);
-            addListenerAction(mediumGame, mediumNewGame);
-            addListenerAction(hardGame, hardNewGame);
-            addListenerAction(tutorial, tutorialAction);
+        JButton tutorial = new JButton();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 1;
+        gbc.gridwidth = 1;
+        gbc.gridy = 3;
+        rootPanel.add(tutorial, gbc);
 
-            easyGame.setText(actualLang[10]);
-            mediumGame.setText(actualLang[11]);
-            hardGame.setText(actualLang[12]);
-            tutorial.setText(actualLang[13]);
+        newGameOptionFrame.add(rootPanel);
 
-            rootPanel.setBackground(actualColor[2]);
-            easyGame.setBackground(actualColor[4]);
-            mediumGame.setBackground(actualColor[4]);
-            hardGame.setBackground(actualColor[4]);
-            tutorial.setBackground(actualColor[4]);
+        addListenerAction(easyGame, easyNewGame);
+        addListenerAction(mediumGame, mediumNewGame);
+        addListenerAction(hardGame, hardNewGame);
+        addListenerAction(tutorial, tutorialAction);
+
+        easyGame.setText(actualLang[10]);
+        mediumGame.setText(actualLang[11]);
+        hardGame.setText(actualLang[12]);
+        tutorial.setText(actualLang[13]);
+
+        rootPanel.setBackground(actualColor[2]);
+        easyGame.setBackground(actualColor[4]);
+        mediumGame.setBackground(actualColor[4]);
+        hardGame.setBackground(actualColor[4]);
+        tutorial.setBackground(actualColor[4]);
 
     }
 
     /** Odpowiada za górny pasek z ustawieniami który pokazuje się w trakcie gry.
      * Pozwala na zapis gry, powrót do menu głównego i wyświetlenie informacji o twórcach gry.
+     *
      * */
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
@@ -546,7 +546,6 @@ class GUI{
                         buttonPanel[8].add(fields[i][j]);
                 }
                 fields[i][j].setCaretPosition(0);
-
             }
         }
 
@@ -654,8 +653,6 @@ class GUI{
         frameGame.setContentPane(rootPanel);
         frameGame.setJMenuBar(createMenuBar());
 
-
-
         if(load==0)
             loadGame();
         if(load==1)
@@ -698,6 +695,11 @@ class GUI{
         }
     }
 
+    /** Ustawienie kolorów w planszy samouczka i wybranie pól które mogą być edytowalne.
+     *
+     * @param load odpowiada za rodzaj tutorialu
+     *
+     * */
     private void firstStepTutorial(int load){
         if (load==2){
             for (int j=0; j<9; ++j){
@@ -737,6 +739,10 @@ class GUI{
 
     }
 
+    /** Ponowne ustawienie kolorów w planszy samouczka i zmiana ustawień edycki pól.
+     *
+     * @param load 2
+     * */
     private void nextStep(int load){
         if (load==2){
 
@@ -788,6 +794,10 @@ class GUI{
         }
     }
 
+    /** Sprawdza poprawność wprowadzonej cyfry w samouczku,
+     * jeżeli jest poprawna kończy samouczek.
+     *
+     * */
     private void checkBoxMethod(){
         int temp;
         String tempS;
@@ -803,8 +813,8 @@ class GUI{
             else{fields[7][8].setBackground(actualColor[4]);}
         }
 
-        if (fields[7][2].isEditable())
-        {tempS = String.valueOf(fields[7][2].getValue());
+        if (fields[7][2].isEditable()){
+        tempS = String.valueOf(fields[7][2].getValue());
         temp = Integer.parseInt(tempS);
 
         if (temp==1) {
@@ -862,7 +872,13 @@ class GUI{
             else{fields[1][5].setBackground(actualColor[4]);}}
     }
 
+    /** Wypełnienie Tablicy samouczka w zależności od wybranej metody.
+     *
+     * @param load wybrana metoda.
+     *
+     * */
     private void fillTutorialBoard(){
+
 
         int[][] tutorialBoard = Tutorial.tutorialFieldsValue;
             for (int i = 0; i < Solver.SIZE; i++) {
@@ -947,14 +963,14 @@ class GUI{
         }
     }
 
-    private void loadGame(int userID){
+    private void loadGame(){
         int col = 9;
         int row = 9;
         int[][] loadBoard = new int[row][col];
 
 
 
-        File file  = new File(localisation+"gameSaveUser"+userID+".txt");
+        File file  = new File(localisation+"gameSaveUser"+1+".txt");
 
         try {
             Scanner reader = new Scanner(file);
@@ -1103,7 +1119,7 @@ class GUI{
             Messages.gameNotSaved();
             GUI.frameGame.setVisible(false);
             GUI.frameGame.dispose();
-//            GUI.newGameOptionFrame.setVisible(false);
+            //GUI.newGameOptionFrame.setVisible(false);
             GUI.frameMenu.setVisible(true);
         }
     }

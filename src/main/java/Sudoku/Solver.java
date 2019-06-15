@@ -77,7 +77,7 @@ class Solver {
      * czy dana komórka nie posiada przypisanej wartości różnej od 0. Jeżeli posiada zwracany jest false,
      * i wykonane jest przejście do następnej komórki.
      *
-     * Jeżeli wartość komórki wynosi EMPTY_CELL następujeiteracja po numerach od 1 do 9.
+     * Jeżeli wartość komórki wynosi EMPTY_CELL następuje iteracja po numerach od 1 do 9.
      * Po każdej iteracji sprawdzane jest czy dany numer może się znajdować w tej komórce (nie powtarza się
      * w danym rzędzie, kolumnie i sekcji) za pomocą metody check. Jeżeli liczba się powtarza wartość komórki
      * ustawiana jest na EMPTY_CELL. Jeżeli wartość się nie powtarza komórce przypisana zostaje wartość
