@@ -5,16 +5,16 @@ import javax.swing.*;
 import java.awt.*;
 import static Sudoku.GUI.*;
 
-/** Klasa odpowiada za wyświetlenie napisu w przypadku poprawnego rozwiązania sudoku. */
+/** Klasa odpowiada za wyswietlenie napisu w przypadku poprawnego rozwiazania sudoku. */
 class EndGame {
 
     /** Ramka napisu. */
     final static JFrame endGame = new JFrame();
 
-    /** Konstruktor ustawiający parametry napisu i  wyświetlający go.
+    /** Konstruktor ustawiajacy parametry napisu i  wyswietlajacy go.
      *
-     * @param langID wybór języka.
-     * @param themeID wybór motywu kolorystycznego.
+     * @param langID wybor jezyka.
+     * @param themeID wybor motywu kolorystycznego.
      *
      * */
     EndGame(char langID, int themeID){

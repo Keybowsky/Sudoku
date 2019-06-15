@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import static Sudoku.GUI.actualColor;
 
-/** Klasa służy do ustawienia nazwy gry. */
+/** Klasa sluzy do ustawienia nazwy gry. */
 
 class GameName {
 
-    /** Kostruktor który zwraca panel z nazwą gry.
+    /** Kostruktor ktory zwraca panel z nazwa gry.
      *
      * @return name
      *

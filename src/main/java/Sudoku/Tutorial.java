@@ -10,7 +10,7 @@ class Tutorial extends GUI {
     /** Ramka samouczka. */
     private JFrame tutorialFrame;
 
-    /** Konstruktor pokazujący ramke wyboru metody nauczania i przekierowujący do wybranej metody. */
+    /** Konstruktor pokazujacy ramke wyboru metody nauczania i przekierowujacy do wybranej metody. */
     Tutorial(char langID, int themeID) {
         changeVisuals(themeID);
         changeVisuals(langID);
@@ -99,7 +99,7 @@ class Tutorial extends GUI {
     /** Konstruktor bezargumentowy. */
     Tutorial() {}
 
-    /** Tablica do rozwiązania w samouczku. */
+    /** Tablica do rozwiazania w samouczku. */
     static final int[][] tutorialFieldsValue = {
             {0, 9, 4, 0, 3, 0, 1, 5, 0},
             {8, 1, 2, 7, 0, 0, 0, 9, 6},
@@ -112,7 +112,7 @@ class Tutorial extends GUI {
             {0, 6, 0, 0, 0, 8, 4, 1, 5},
     };
 
-    /** Wywołuje metode gameItSelf dla metody kwadratów. */
+    /** Wywoluje metode gameItSelf dla metody kwadratow. */
     private class BoxMethodAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -124,7 +124,7 @@ class Tutorial extends GUI {
         }
     }
 
-    /** Wywołuje metode gameItSelf dla metody diagonalnej. */
+    /** Wywoluje metode gameItSelf dla metody diagonalnej. */
     private class DiagonalMethodAction extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -135,7 +135,7 @@ class Tutorial extends GUI {
         }
     }
 
-    /** Wywołuje metode gameItSelf dla metody losowej. */
+    /** Wywoluje metode gameItSelf dla metody losowej. */
     private class RandomMethodAction extends AbstractAction{
         @Override
         public void actionPerformed(ActionEvent e) {

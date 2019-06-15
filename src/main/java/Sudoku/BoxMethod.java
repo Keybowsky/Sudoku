@@ -2,13 +2,13 @@ package Sudoku;
 
 import javax.swing.*;
 
-/** Klasa służy do nauczania gracza rozwiązywania sudoku metodą kwadratów. */
+/** Klasa sluzy do nauczania gracza rozwiazywania sudoku metoda kwadratow. */
 class BoxMethod extends Tutorial {
 
     /** Panel samouczka. */
     final JPanel boxSolvingMethodPanel = new JPanel();
 
-    /** Konstruktor dodający możliwość dodawania tekstu z podpowiedziami. */
+    /** Konstruktor dodajacy mozliwosc dodawania tekstu z podpowiedziami. */
     BoxMethod(int langID, int themeID){
 
         boxSolvingMethodPanel.setBackground(actualColor[2]);
@@ -17,7 +17,7 @@ class BoxMethod extends Tutorial {
         boxSolvingMethodPanel.add(solvingMethod);
     }
 
-    /** Tekst który wyjaśnia metodę. */
+    /** Tekst ktory wyjasnia metode. */
     static String BoxMethodCom1(){
         return "<html><body><br><br><br>" +
                 "Metoda - jedyne pole<br>" +

@@ -3,12 +3,12 @@ package Sudoku;
 import java.util.Random;
 
 /**
- * Klasa służy do generowania tablic do rozwiązania dla użytkownika.
+ * Klasa sluzy do generowania tablic do rozwiazania dla uzytkownika.
  * */
 
 class Generator {
 
-    /** Pusta tablica z której generujemy. */
+    /** Pusta tablica z ktorej generujemy. */
     private int[][] generationBoard;
 
     /** Wygenerowana tablica. */
@@ -17,7 +17,7 @@ class Generator {
     /** Losowa liczba. */
     private final Random rand = new Random();
 
-    /** Zwraca wygenerowaną tablicę.
+    /** Zwraca wygenerowana tablice.
      *
      * @return Wygenerowana tablica.
      *
@@ -26,7 +26,7 @@ class Generator {
         return generatedBoard;
     }
 
-    /** Zwraca tablicę wypełnioną zerami. */
+    /** Zwraca tablice wypelliona zerami. */
     private int[][] cleanBoard() {
         return new int[][]{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -41,12 +41,12 @@ class Generator {
         };
     }
 
-    /** Sprawdza czy w ramach jednej sekcji zadana liczba się nie powtarza.
+    /** Sprawdza czy w ramach jednej sekcji zadana liczba sie nie powtarza.
      *
-     * @param row Rząd sekcji którą chcemy sprawdzić.
-     * @param column Kolumna sekcji którą chcemy sprawdzić.
+     * @param row Rzad sekcji ktora chcemy sprawdzic.
+     * @param column Kolumna sekcji ktora chcemy sprawdzic.
      * @param checkedNumber Sprawdzana liczba.
-     * @return true jeżeli liczba się nie powtarza.
+     * @return true jezeli liczba sie nie powtarza.
      *
      * */
     private boolean diagonalSectionCheck(int row, int column, int checkedNumber) {
@@ -63,7 +63,7 @@ class Generator {
         return true;
     }
 
-    /** Zapełnia losowymi liczbami w zakresie od 1 do 9 sekcje znajdujące się na głównej przekątnej. * */
+    /** Zapelnia losowymi liczbami w zakresie od 1 do 9 sekcje znajdujace sie na glownej przekatnej. */
     private void diagonalSectionGeneration() {
         for (int section = 0; section < 7; section = section + 3) {
             for (int row = section; row < section + 3; row++) {
@@ -93,9 +93,9 @@ class Generator {
 
  */
 
-    /** Usuwa pola w ilości zależnej od wybranego poziomu trudności.
+    /** Usuwa pola w ilosci zaleznej od wybranego poziomu trudnosci.
      *
-     * @param difficultyLevel Wybrany przez użytkownika poziom trudności.
+     * @param difficultyLevel Wybrany przez uzytkownika poziom trudnosci.
      *
      * */
     private void fieldDeletion(int difficultyLevel) {
@@ -111,9 +111,9 @@ class Generator {
             }
     }
 
-    /** Generuje tablicę do rozwiązania przez użytkownika.
+    /** Generuje tablice do rozwiazania przez uzytkownika.
      *
-     * @param difficultyLevelFromGUI Wybrany przez użytkownika poziom trudności.
+     * @param difficultyLevelFromGUI Wybrany przez uzytkownika poziom trudnosci.
      *
      * */
     void boardGeneration(int difficultyLevelFromGUI) {

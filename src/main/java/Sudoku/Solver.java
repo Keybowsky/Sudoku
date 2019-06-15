@@ -2,27 +2,27 @@ package Sudoku;
 
 
 /**
- * Obiekt klasy Solver rozwiązuje zadaną mu tablice i zwraca rozwiązanie.
+ * Obiekt klasy Solver rozwiazuje zadana mu tablice i zwraca rozwiazanie.
  */
 
 class Solver {
 
-    /** Tablica do rozwiązania. */
+    /** Tablica do rozwiazania. */
     private int [][] boardToSolve;
 
-    /** Standardowa ilość elementów w rzędzie lub kolumnie. */
+    /** Standardowa ilosc elementow w rzedzie lub kolumnie. */
     static final int SIZE = 9;
 
-    /** Standardowa ilość elementów w jednej sekcji. */
+    /** Standardowa ilosc elementow w jednej sekcji. */
     private static final int SECTION_SIZE = 3;
 
-    /** Standardowa wartość nierozwiązanej komórki. */
+    /** Standardowa wartosc nierozwiazanej komorki. */
     private static final int EMPTY_CELL = 0;
 
 
-    /** Konstruktor tworzący nową tabele boardToSolve i przypisujący jej odpowiednie wartości.
+    /** Konstruktor tworzacy nowa tabele boardToSolve i przypisujacy jej odpowiednie wartosci.
      *
-     * @param boardToSolve Tablica do rozwiązania.
+     * @param boardToSolve Tablica do rozwiazania.
      *
      * */
 
@@ -31,17 +31,17 @@ class Solver {
             this.boardToSolve = boardToSolve;
     }
 
-    /** Zwraca aktualną tablicę BoardToSolve. */
+    /** Zwraca aktualna tablice BoardToSolve. */
     int[][] getBoardToSolve() {
         return boardToSolve;
     }
 
-    /** Sprawdza czy zadana liczba w danym rzędzie, kolumnie i odpowiadającej im sekcji się nie powtarza.
+    /** Sprawdza czy zadana liczba w danym rzedzie, kolumnie i odpowiadajacej im sekcji sie nie powtarza.
      *
-     * @param row Numer sprawdzanego rzędu.
+     * @param row Numer sprawdzanego rzedu.
      * @param column Numer sprawdzanej kolumny.
      * @param checkedNumber Sprawdzana liczba.
-     * @return true jeżeli numer nie powtarza się w rzędzie, kolumnie i sekcji.
+     * @return true jezeli numer nie powtarza sie w rzedzie, kolumnie i sekcji.
      *
      * */
     private boolean check(int row, int column, int checkedNumber){
@@ -71,20 +71,20 @@ class Solver {
     }
 
     /**
-     * Rozwiązuje zadaną tablice metodą rekurencyjną.
+     * Rozwiazuje zadana tablice metoda rekurencyjna.
      *
-     * Dwie pierwsze pętle for odpowiadają za iteracje po wszystkich komórkach, następnie sprawdzane jest
-     * czy dana komórka nie posiada przypisanej wartości różnej od 0. Jeżeli posiada zwracany jest false,
-     * i wykonane jest przejście do następnej komórki.
+     * Dwie pierwsze petle for odpowiadaja za iteracje po wszystkich komorkach, nastepnie sprawdzane jest
+     * czy dana komorka nie posiada przypisanej wartosci rcznej od 0. Jezeli posiada zwracany jest false,
+     * i wykonane jest przejscie do nastepnej komorki.
      *
-     * Jeżeli wartość komórki wynosi EMPTY_CELL następuje iteracja po numerach od 1 do 9.
-     * Po każdej iteracji sprawdzane jest czy dany numer może się znajdować w tej komórce (nie powtarza się
-     * w danym rzędzie, kolumnie i sekcji) za pomocą metody check. Jeżeli liczba się powtarza wartość komórki
-     * ustawiana jest na EMPTY_CELL. Jeżeli wartość się nie powtarza komórce przypisana zostaje wartość
-     * number i wywoływana rekurencyjnie zostaje następna metoda solve. Dopiero gdy wszystkie wywołane metody solve
-     * zwrócą wartość true tablica jest uznana za rozwiązaną.
+     * Jezeli wartosc komorki wynosi EMPTY_CELL nastepuje iteracja po numerach od 1 do 9.
+     * Po kazdej iteracji sprawdzane jest czy dany numer moze sie znajdowac w tej komorce (nie powtarza sie
+     * w danym rzedzie, kolumnie i sekcji) za pomoca metody check. Jezeli liczba sie powtarza wartosc komorki
+     * ustawiana jest na EMPTY_CELL. Jezeli wartosc sie nie powtarza komorce przypisana zostaje wartosc
+     * number i wywolywana rekurencyjnie zostaje nastepna metoda solve. Dopiero gdy wszystkie wywolane metody solve
+     * zwrcca wartosc true tablica jest uznana za rozwiazana.
      *
-     * @return true jeżeli tablica została rozwiązana.
+     * @return true jezeli tablica zostala rozwiazana.
      *
      * */
     boolean solve() {
@@ -107,10 +107,10 @@ class Solver {
     }
 
     /**
-     * Funkcja wywołująca funkcję solve. Rozwiązuje i zwraca rozwiązaną tablicę.
+     * Funkcja wywolujaca funkcje solve. Rozwiazuje i zwraca rozwiazana tablice.
      *
-     * @param boardToSolve Tablica do rozwiązania.
-     * @return Rozwiązana tablica.
+     * @param boardToSolve Tablica do rozwiazania.
+     * @return Rozwiazana tablica.
      *
      * */
     static int[][] solveTheBoard(int[][] boardToSolve){

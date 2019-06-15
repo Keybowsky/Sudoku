@@ -11,19 +11,19 @@ import java.util.Scanner;
 import static Sudoku.LanguageBase.enLang;
 import static Sudoku.LanguageBase.plLang;
 
-/** Klasa odpowiedzialna za wyświetlanie i obsługę interfejsu graficznego. */
+/** Klasa odpowiedzialna za wyswietlanie i obsluge interfejsu graficznego. */
 class GUI{
 
-    /** Ramka głównego menu. */
+    /** Ramka glownego menu. */
     static JFrame frameMenu;
 
     /** Ramka gry. */
     static JFrame frameGame;
 
-    /** Ramka ustawień. */
+    /** Ramka ustawien. */
     private static JFrame frameSettings;
 
-    /** Rozwiązana tablica. */
+    /** Rozwiazana tablica. */
     private static int[][] solvedBoard;
 
     /** Wygenerowana tablica. */
@@ -33,10 +33,10 @@ class GUI{
 
     private int[][] setEditableGenerationBoard = new int[9][9];
 
-    /** Tablica komórek. */
+    /** Tablica komorek. */
     final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
 
-    /** Ramka wyboru poziomu trudności nowej gry. */
+    /** Ramka wyboru poziomu trudnosci nowej gry. */
     static JFrame newGameOptionFrame;
 
     /** Akcja odpowiedzialna za utworzenie nowej gry. */
@@ -45,41 +45,43 @@ class GUI{
     /** Akcja odpowiedzialna za wczytanie zapisanego stanu gry. */
     private final Action loadGameAction = new loadGameAction();
 
-    /** Akcja odpowiedzialna za zmianę ustawień. */
+    /** Akcja odpowiedzialna za zmiane ustawien. */
     private final Action settingsAction = new settingsAction();
 
-    /** Akcja odpowiedzialna za wyjście z gry. */
+    /** Akcja odpowiedzialna za wyjscie z gry. */
     private final Action exitGameAction = new exitGameAction();
 
-    /** Akcja odpowiedzialna za powrót do głónego menu. */
+    /** Akcja odpowiedzialna za powrot do glownego menu. */
     private final Action menuItemBackMainAction = new menuItemBackMainAction();
 
-    /** Akcja odpowiedzialna za sprawdzenie poprawności wpisanych liczb. */
+    /** Akcja odpowiedzialna za sprawdzenie poprawnosci wpisanych liczb. */
     private final Action checkGameAction = new checkGameAction();
 
-    /** Akcja odpowiedzialna za sprawdzenie poprawności w pojedynczej sekcji. */
+    /** Akcja odpowiedzialna za uruchomienie samouczka z metoda kwadratow. */
     private final Action checkBoxAction = new checkBoxAction();
 
+    /** Akcja odpowiedzialna za uruchomienie samouczka z metoda diagonalna. */
     private final Action checkDiagonalAction = new checkDiagonalAction();
 
+    /** Akcja odpowiedzialna za uruchomienie samouczka z metoda losowa. */
     private final Action checkRandomAction = new checkRandomAction();
 
-    /** Akcja odpowiedzialna za ustawienie poziomu trodności na łatwy. */
+    /** Akcja odpowiedzialna za ustawienie poziomu trodnosci na latwy. */
     private final Action easyNewGame = new easyNewGame();
 
-    /** Akcja odpowiedzialna za ustawienie poziomu trodności na średni. */
+    /** Akcja odpowiedzialna za ustawienie poziomu trodnosci na sredni. */
     private final Action mediumNewGame = new mediumNewGame();
 
-    /** Akcja odpowiedzialna za ustawienie poziomu trodności na trudny. */
+    /** Akcja odpowiedzialna za ustawienie poziomu trodnosci na trudny. */
     private final Action hardNewGame = new hardNewGame();
 
-    /** Akcja odpowiedzialna za utworzenie gry będącej samouczkiem. */
+    /** Akcja odpowiedzialna za utworzenie gry bedacej samouczkiem. */
     private final Action tutorialAction = new tutorialAction();
 
     /** Akcja odpowiedzialna za zapisanie stanu gry. */
     private final Action saveGameAction = new saveGameAction();
 
-    /** Akcja odpowiedzialna za zapisanie zmienionych ustawień. */
+    /** Akcja odpowiedzialna za zapisanie zmienionych ustawien. */
     private final Action applySettingsAction = new applySettings();
 
     /** Instancja klasy generator. */
@@ -93,58 +95,58 @@ class GUI{
     //final int userID = 1;
     private int goodAnsw = 0;
 
-    /** Wybór koloru. */
+    /** Wybcr koloru. */
     private JComboBox<String> colorSelect;
 
-    /** Wybór motywu. */
+    /** Wybcr motywu. */
     private JComboBox<String> themeSelect;
 
-    /** Błąd kóry pokazuje niepoprawne wczytanie gry. */
-    private boolean error=false; //błąd który wyrzuca niepoprawne wczytanie gry
+    /** Blad ktory pokazuje niepoprawne wczytanie gry. */
+    private boolean error=false; //bład który wyrzuca niepoprawne wczytanie gry
 
 
     //zmiennne dla ustawien gry
 
-    /** Miejsce gdzie są przechowywane zapisane stany gry. */
+    /** Miejsce gdzie sa przechowywane zapisane stany gry. */
     private final File fileDirectory = new File("./src/main/resources/saveFiles/");
 
-    /** Miejsce gdzie są przechowywane zapisane stany gry. */
+    /** Miejsce gdzie sa przechowywane zapisane stany gry. */
     private final String localisation = "./src/main/resources/saveFiles/";
 
-    /** Wielkość dużego okna. */
+    /** Wielkosc duzego okna. */
     private final Dimension largeMaximumWindow = new Dimension(630,630);
 
-    /** Wielkość dużego okna. */
+    /** Wielkosc dueego okna. */
     private final Dimension largeMinimumWindow = new Dimension(630,630);
 
-    /** Wielkość średniego okna. */
+    /** Wielkosc sredniego okna. */
     private final Dimension mediumMaximumWindow = new Dimension(400,300);
 
-    /** Wielkość średniego okna. */
+    /** Wielkosc sredniego okna. */
     private final Dimension mediumMinimumWindow = new Dimension(400,300);
 
-    /** Wielkość małego okna. */
+    /** Wielkosc malego okna. */
     static final Dimension smallMaximumWindow = new Dimension(450, 200);
 
-    /** Wielkość małego okna. */
+    /** Wielkosc malego okna. */
     static final Dimension smallMinimumWindow = new Dimension(450, 200);
 
-    /** Domyślne ustawienie kolorów. */
+    /** Domyslne ustawienie kolorow. */
     int themeID = 0;
 
-    /** Domyślne ustawienie języka. */
+    /** Domyslne ustawienie jezyka. */
     char langID = 'p';
 
-    /** Domyślne ustawienie języka. */
+    /** Domyslne ustawienie jezyka. */
     static String[] actualLang=plLang;
 
-    /** Domyślne ustawienie kolorów. */
+    /** Domyslne ustawienie kolorow. */
     static final Color[] actualColor = new Color[6];
 
-    /** Konstruktor  ustawiający domyślny motyw graficzny jak i
-     * domyślny system operacyjny. Uruchamia możliwości interakcji
-     * z przyciskami, ustawia domyślne ustawienia i uruchamia okno
-     * głównego menu.
+    /** Konstruktor  ustawiajacy domyslny motyw graficzny jak i
+     * domyslny system operacyjny. Uruchamia mozliwosci interakcji
+     * z przyciskami, ustawia domyslne ustawienia i uruchamia okno
+     * glownego menu.
      *
      * */
     GUI()  {
@@ -162,9 +164,9 @@ class GUI{
         menuItSelf(langID,themeID);
     }
 
-    /** Ustawia schemat kolorów w zależności od parametru.
+    /** Ustawia schemat kolorow w zaleznosci od parametru.
      *
-     * @param input parametr ustawiający schemat kolorów.
+     * @param input parametr ustawiajacy schemat kolorow.
      *
      * */
     static void changeVisuals(int input){
@@ -187,9 +189,9 @@ class GUI{
         }
     }
 
-    /** Ustawia język w zależności od parametru.
+    /** Ustawia jezyk w zaleznosci od parametru.
      *
-     * @param input parametr ustawiający język.
+     * @param input parametr ustawiajacy jezyk.
      *
      * */
     static void changeVisuals(char input){
@@ -197,9 +199,9 @@ class GUI{
         if(input=='e'){actualLang=enLang;}
     }
 
-    /** Okno odpowiedzialne za wybór rodzaju nowej gry.
-     * Wyświetla możliwe opcje i wywołuje funkcje odpowiedzialne
-     * za obsługę tych przycisków.
+    /** Okno odpowiedzialne za wybcr rodzaju nowej gry.
+     * Wyswietla mozliwe opcje i wywoluje funkcje odpowiedzialne
+     * za obsluge tych przyciskow.
      *
      * */
     private void newGameOption(){
@@ -282,8 +284,8 @@ class GUI{
 
     }
 
-    /** Odpowiada za górny pasek z ustawieniami który pokazuje się w trakcie gry.
-     * Pozwala na zapis gry, powrót do menu głównego i wyświetlenie informacji o twórcach gry.
+    /** Odpowiada za gorny pasek z ustawieniami ktory pokazuje sie w trakcie gry.
+     * Pozwala na zapis gry, powrct do menu glownego i wyswietlenie informacji o tworcach gry.
      *
      * */
     private JMenuBar createMenuBar() {
@@ -323,7 +325,7 @@ class GUI{
     }
 
     /** Okno odpowiedzialne za ustawienia gry.
-     * Umożliwia zmianę języka i wersji kolorystycznej.
+     * Umozliwia zmiane jezyka i wersji kolorystycznej.
      * */
     private void settings(){
 
@@ -360,9 +362,9 @@ class GUI{
         frameSettings.add(rootPanel);
     }
 
-    /** Okno głównego menu, umożliwia rozpowczęcie nowej gry,
-     * wczytanie ostatniego zapisu gry, wejście do panelu ustawień
-     * i wyjście z gry.
+    /** Okno glownego menu, umozliwia rozpowczecie nowej gry,
+     * wczytanie ostatniego zapisu gry, wejscie do panelu ustawien
+     * i wyjscie z gry.
      * */
     private void menuItSelf(char langID, int themeID) {
 
@@ -452,15 +454,15 @@ class GUI{
 
     }
 
-    /** Okno samej gry. Formatuje komórki, i przypisuje im dozwolone wartości.
-     * Ustawia komórki w odpowiednich miejscach i przypisuje je do odpowiadającym
-     * tym miejscom sekcji. Ustawia granicę między sekcjami. Pozwala na sprawdzenie
-     * usupełnionych komórek. Jeżeli gra jest samouczkiem, pozwala na wyświetlanie komunikatów.
-     * Tworzy tablicę do uzupełnienia w zależności od wybranego wcześniej poziomu trudności.
-     * Pozwala na wczytanie poprzedniej gry jak i na grę w trybie samouczku.
+    /** Okno samej gry. Formatuje komorki, i przypisuje im dozwolone wartosci.
+     * Ustawia komorki w odpowiednich miejscach i przypisuje je do odpowiadajacym
+     * tym miejscom sekcji. Ustawia granice miedzy sekcjami. Pozwala na sprawdzenie
+     * usupelnionych komorek. Jezeli gra jest samouczkiem, pozwala na wyswietlanie komunikatow.
+     * Tworzy tablice do uzupelnienia w zaleznosci od wybranego wczesniej poziomu trudnosci.
+     * Pozwala na wczytanie poprzedniej gry jak i na gre w trybie samouczku.
      *
-     * @param difficultyLevel poziom trudności.
-     * @param load parametr informujący o rodzaju gry (wczytana, nowa, tutorial).
+     * @param difficultyLevel poziom trudnosci.
+     * @param load parametr informujacy o rodzaju gry (wczytana, nowa, tutorial).
      *
      * */
     void gameItSelf(int difficultyLevel, int load){
@@ -699,7 +701,7 @@ class GUI{
         }
     }
 
-    /** Ustawienie kolorów w planszy samouczka i wybranie pól które mogą być edytowalne.
+    /** Ustawienie kolorow w planszy samouczka i wybranie pol ktore moga byc edytowalne.
      *
      * @param load odpowiada za rodzaj tutorialu
      *
@@ -743,9 +745,9 @@ class GUI{
 
     }
 
-    /** Ponowne ustawienie kolorów w planszy samouczka i zmiana ustawień edycji pól.
+    /** Ponowne ustawienie kolorow w planszy samouczka i zmiana ustawien edycji pol.
      *
-     * @param load ustawia metodę która obowiązuje w samouczku.
+     * @param load ustawia metode ktora obowiazuje w samouczku.
      * */
     private void nextStep(int load) {
         if (load == 2) {
@@ -798,7 +800,7 @@ class GUI{
         }
     }
 
-    /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
+    /** Sprawdza czy pola w samouczku zostaly poprawnie wypelnione i konczy go. */
     private void checkBoxMethod(){
         int temp;
         String tempS;
@@ -831,7 +833,7 @@ class GUI{
         }
     }
 
-    /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
+    /** Sprawdza czy pola w samouczku zostaly poprawnie wypelnione i konczy go. */
     private void checkDiagonalMethod(){
         int temp;
         String tempS;
@@ -864,7 +866,7 @@ class GUI{
         }
     }
 
-    /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
+    /** Sprawdza czy pola w samouczku zostaly poprawnie wypelnione i konczy go. */
     private void checkRandomMethod(){
         int temp;
         String tempS;
@@ -897,7 +899,7 @@ class GUI{
         }
     }
 
-    /** Wypełnienie Tablicy samouczka*/
+    /** Wypelnienie Tablicy samouczka*/
     private void fillTutorialBoard(){
 
         int[][] tutorialBoard = Tutorial.tutorialFieldsValue;
@@ -915,7 +917,7 @@ class GUI{
         }
     }
 
-    /** Ustawia komórki w grze zgodnie z wygenerowaną planszą. */
+    /** Ustawia komorki w grze zgodnie z wygenerowana plansza. */
     private void newGame(int difficultyLevel){
         generator.boardGeneration(difficultyLevel);
 
@@ -945,7 +947,7 @@ class GUI{
         solveTheBoard(firstGenerationBoard);
     }
 
-    /** Zapisuje grę. */
+    /** Zapisuje gre. */
     private void saveGame() throws IOException{
 
         File fileName = new File(localisation+"gameSave.txt");
@@ -986,7 +988,7 @@ class GUI{
         }
     }
 
-    /** Wczytuje grę. */
+    /** Wczytuje gre. */
     private void loadGame(){
         int col = 9;
         int row = 9;
@@ -1030,18 +1032,18 @@ class GUI{
         }
     }
 
-    /** Rozwiązuje tablicę.
+    /** Rozwiazuje tablice.
      *
-     * @param boardToSolve tablica do rozwiązania.
+     * @param boardToSolve tablica do rozwiazania.
      *
      * */
     private void solveTheBoard(int[][] boardToSolve){
         solvedBoard = Solver.solveTheBoard(boardToSolve);
     }
 
-    /** Prównuje tablice wypełnioną przez gracza do rozwiązanej tablicy i koloruje
-     * pola w zależności od tego czy odpowiedź jest poprawna czy nie.
-     * W przypadku ukończenia gry wyświetla komunikat.
+    /** Prownuje tablice wypelniona przez gracza do rozwiazanej tablicy i koloruje
+     * pola w zaleznosci od tego czy odpowiedc jest poprawna czy nie.
+     * W przypadku ukończenia gry wyswietla komunikat.
      * */
     private void checkGame(){
 
@@ -1096,8 +1098,8 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wywołane funkcji newGameAction i ustawienie widoczności
-     * głównego menu.
+    /** Odpowiada za wywolane funkcji newGameAction i ustawienie widocznosci
+     * glownego menu.
      *
      * */
     private class newGameAction extends AbstractAction {
@@ -1108,7 +1110,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wczytanie gry z poziomu głównego menu. */
+    /** Odpowiada za wczytanie gry z poziomu glownego menu. */
     private class loadGameAction extends AbstractAction {
         loadGameAction() {}
         public void actionPerformed(ActionEvent e) {
@@ -1120,7 +1122,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wywołanie funkcji settings i wyświetleniu jej ramki. */
+    /** Odpowiada za wywolanie funkcji settings i wyswietleniu jej ramki. */
     private class settingsAction extends AbstractAction {
         settingsAction() {}
         public void actionPerformed(ActionEvent e) {
@@ -1130,7 +1132,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wyjście z gry. */
+    /** Odpowiada za wyjscie z gry. */
     private class exitGameAction extends AbstractAction {
         exitGameAction() {}
         public void actionPerformed(ActionEvent e) {
@@ -1138,7 +1140,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wyjście do menu głównego z gry. */
+    /** Odpowiada za wyjscie do menu glownego z gry. */
     private class menuItemBackMainAction extends AbstractAction {
         menuItemBackMainAction() {}
 
@@ -1152,7 +1154,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wywołanie funkcji checkGame. */
+    /** Odpowiada za wywolanie funkcji checkGame. */
     private class checkGameAction extends AbstractAction {
         checkGameAction() {}
 
@@ -1161,7 +1163,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wywołanie funkcji checkBoxMethod. */
+    /** Odpowiada za wywolanie funkcji checkBoxMethod. */
     private class checkBoxAction extends AbstractAction {
         checkBoxAction() {}
 
@@ -1170,7 +1172,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wywołanie funkcji checkDiagonal. */
+    /** Odpowiada za wywolanie funkcji checkDiagonal. */
     private class checkDiagonalAction extends AbstractAction {
         checkDiagonalAction() {}
 
@@ -1179,7 +1181,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wywołanie funkcji checkRandomMethod. */
+    /** Odpowiada za wywolanie funkcji checkRandomMethod. */
     private class checkRandomAction extends AbstractAction {
         checkRandomAction() {}
 
@@ -1188,7 +1190,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wywołanie funkcji gameItSelf i wyświetlenia ramki gry.*/
+    /** Odpowiada za wywolanie funkcji gameItSelf i wyswietlenia ramki gry.*/
     private class easyNewGame extends AbstractAction {
         easyNewGame() {}
 
@@ -1200,7 +1202,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wywołanie funkcji gameItSelf i wyświetlenia ramki gry.*/
+    /** Odpowiada za wywolanie funkcji gameItSelf i wyswietlenia ramki gry.*/
     private class mediumNewGame extends AbstractAction {
         mediumNewGame() {}
 
@@ -1211,7 +1213,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za wywołanie funkcji gameItSelf i wyświetlenia ramki gry.*/
+    /** Odpowiada za wywolanie funkcji gameItSelf i wyswietlenia ramki gry.*/
     private class hardNewGame extends AbstractAction {
         hardNewGame() {}
 
@@ -1222,7 +1224,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za utworzenie gry która jest tutorialem. */
+    /** Odpowiada za utworzenie gry ktora jest tutorialem. */
     private class tutorialAction extends AbstractAction {
         tutorialAction() {}
 
@@ -1231,7 +1233,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za zapisanie gry i wyjście do menu głównego. */
+    /** Odpowiada za zapisanie gry i wyjscie do menu glownego. */
     private class saveGameAction extends AbstractAction {
         saveGameAction() {}
 
@@ -1248,7 +1250,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za zapisanie zmienionych ustawień i wyjście do menu głównego. */
+    /** Odpowiada za zapisanie zmienionych ustawien i wyjscie do menu glownego. */
     private class applySettings extends AbstractAction {
         applySettings() {}
 
@@ -1266,7 +1268,7 @@ class GUI{
         }
     }
 
-    /** Odpowiada za powrót do menu głównego. */
+    /** Odpowiada za powrct do menu glownego. */
     private final WindowListener exitListener = new WindowAdapter() {
         @Override
         public void windowClosing(WindowEvent e) {

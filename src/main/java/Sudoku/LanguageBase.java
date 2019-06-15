@@ -1,9 +1,9 @@
 package Sudoku;
 
-/** Klasa służy do przechowania wersji językowych. */
+/** Klasa sluzy do przechowania wersji jezykowych. */
 class LanguageBase {
 
-    /** Polska wersja językowa. */
+    /** Polska wersja jezykowa. */
     static final String[] plLang = {
             "Nowa gra",
             "Wczytaj grę",
@@ -13,7 +13,7 @@ class LanguageBase {
             "Informacja",
             "Błąd",
             "Wybór trybu gry",
-            "Wybór poziomu trudności dla gry wolnej:",
+            "Wybór poziomu trudnosci dla gry wolnej:",
             "Inne opcje:",
             "Łatwy",
             "Sredni",
@@ -41,7 +41,7 @@ class LanguageBase {
             "Gratulacje! Udało ci się ukończyć grę!"
     };
 
-    /** Angielska wersja językowa. */
+    /** Angielska wersja jezykowa. */
     static final String[] enLang = {
             "New game",
             "Load game",
