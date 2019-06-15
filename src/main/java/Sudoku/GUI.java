@@ -36,7 +36,7 @@ class GUI{
     private final Generator generator = new Generator();
     private final GameName gN = new GameName();
     private final Messages mSG = new Messages();
-    final int userID = 1;
+    //final int userID = 1;
     private int goodAnsw = 0;
     private JComboBox<String> colorSelect;
     private JComboBox<String> themeSelect;
@@ -306,33 +306,7 @@ class GUI{
         mainPanel.setBackground(actualColor[2]);
         buttonPanel.setBackground(actualColor[2]);
 
-
-
-
-/*
-        JComboBox userList = new JComboBox(users);
-        JButton user = new JButton("Nowy użytkownik");
-
-
- */
-
-
-//        JPanel userMenu = new JPanel();
-
         GridBagConstraints gbc = new GridBagConstraints();
-
- /*
-        userMenu.setLayout(new GridBagLayout());
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        userMenu.add(userList,gbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        userMenu.add(user,gbc);
-
-  */
 
         GridLayout gl = new GridLayout();
         gl.setColumns(1);
@@ -389,7 +363,7 @@ class GUI{
 
     }
 
-    void gameItSelf(int difficultyLevel, int userID, int load){
+    void gameItSelf(int difficultyLevel, int load){
 
         frameGame = new JFrame("SUDOKU");
         frameGame.setMaximumSize(largeMaximumWindow);
@@ -573,7 +547,7 @@ class GUI{
 
 
 
-        if(load==0) {loadGame(userID);}
+        if(load==0) {loadGame();}
         if(load==1){ newGame(difficultyLevel); }
 
         if(load==2){
@@ -750,7 +724,7 @@ class GUI{
 
     private void saveGame() throws IOException{
 
-        File fileName = new File(localisation+"gameSaveUser"+userID+".txt");
+        File fileName = new File(localisation+"gameSaveUser"+1+".txt");
         boolean filegeneration=true;
 
         if(!fileDirectory.exists()){
@@ -790,14 +764,14 @@ class GUI{
         }
     }
 
-    private void loadGame(int userID){
+    private void loadGame(){
         int col = 9;
         int row = 9;
         int[][] loadBoard = new int[row][col];
 
 
 
-        File file  = new File(localisation+"gameSaveUser"+userID+".txt");
+        File file  = new File(localisation+"gameSaveUser"+1+".txt");
 
         try {
             Scanner reader = new Scanner(file);
@@ -909,7 +883,7 @@ class GUI{
         loadGameAction() { }
         public void actionPerformed(ActionEvent e) {
             GUI.frameMenu.setVisible(false);
-            gameItSelf(0,userID,0);
+            gameItSelf(0,0);
             if(!error){ GUI.frameGame.setVisible(true);}
             else{GUI.frameMenu.setVisible(true);}
             error=false;
@@ -978,7 +952,7 @@ class GUI{
 
         public void actionPerformed(ActionEvent e) {
             //gameItSelf(generator.difficultyLevel(1));
-            gameItSelf(1,userID,1);
+            gameItSelf(1,1);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
@@ -989,7 +963,7 @@ class GUI{
         }
 
         public void actionPerformed(ActionEvent e) {
-            gameItSelf(2,userID,1);
+            gameItSelf(2,1);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
@@ -1000,7 +974,7 @@ class GUI{
         }
 
         public void actionPerformed(ActionEvent e) {
-            gameItSelf(3,userID,1);
+            gameItSelf(3,1);
             GUI.newGameOptionFrame.setVisible(false);
             GUI.frameGame.setVisible(true);
         }
