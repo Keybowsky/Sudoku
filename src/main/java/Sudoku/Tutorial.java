@@ -126,7 +126,7 @@ class Tutorial extends GUI {
         public void actionPerformed(ActionEvent e) {
          new BoxMethod(langID,themeID);
             tutorialFrame.setVisible(false);
-            gameItSelf(0,1,2);
+            gameItSelf(0,2);
             frameGame.setVisible(true);
 
         }
@@ -136,7 +136,7 @@ class Tutorial extends GUI {
         public void actionPerformed(ActionEvent e) {
         new DiagonalMethod(langID,themeID);
             tutorialFrame.setVisible(false);
-            gameItSelf(0,1,3);
+            gameItSelf(0,3);
             frameGame.setVisible(true);
         }
     }
@@ -145,7 +145,7 @@ class Tutorial extends GUI {
         public void actionPerformed(ActionEvent e) {
         new RandomMethod(langID,themeID);
             tutorialFrame.setVisible(false);
-            gameItSelf(0,1,4);
+            gameItSelf(0,4);
             frameGame.setVisible(true);
         }
     }

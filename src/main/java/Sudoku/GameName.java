@@ -15,7 +15,6 @@ class GameName {
      * */
     JLabel gameName() {
 
-
         JLabel name = new JLabel("SUDOKU");
         name.setFont(new Font("Verdana", Font.BOLD, 100));
         name.setHorizontalAlignment(SwingConstants.CENTER);
@@ -24,6 +23,5 @@ class GameName {
         name.setForeground(actualColor[4]);
 
         return name;
-
     }
 }
