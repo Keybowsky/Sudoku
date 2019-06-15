@@ -38,7 +38,7 @@ class LanguageBase {
             "Metoda diagonalna",
             "Metoda losowa",
             "Wygrana!",
-            "Gratulacje! Udało ci się ukończyć grę!"
+            "Gratulacje! Udało ci się ukonczyć grę!"
     };
 
     /** Angielska wersja jezykowa. */

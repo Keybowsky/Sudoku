@@ -1043,7 +1043,7 @@ class GUI{
 
     /** Prownuje tablice wypelniona przez gracza do rozwiazanej tablicy i koloruje
      * pola w zaleznosci od tego czy odpowiedc jest poprawna czy nie.
-     * W przypadku ukończenia gry wyswietla komunikat.
+     * W przypadku ukonczenia gry wyswietla komunikat.
      * */
     private void checkGame(){
 
