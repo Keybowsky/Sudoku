@@ -831,10 +831,6 @@ class GUI{
         }
     }
 
-    /** Sprawdza poprawność wprowadzonej cyfry w samouczku,
-     * jeżeli jest poprawna kończy samouczek.
-     *
-     * */
     /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
     private void checkDiagonalMethod(){
         int temp;
@@ -866,10 +862,9 @@ class GUI{
                 nextStep(3);}
             else{fields[6][7].setBackground(actualColor[4]);}
         }
+    }
 
-        }
-
-        /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
+    /** Sprawdza czy pola w samouczku zostały poprawnie wypełnione i kończy go. */
     private void checkRandomMethod(){
         int temp;
         String tempS;

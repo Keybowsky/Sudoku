@@ -2,22 +2,22 @@ package Sudoku;
 
 import javax.swing.*;
 
+/** Klasa służy do nauczania gracza rozwiązywania sudoku metodą diagonalną. */
 class DiagonalMethod extends Tutorial {
 
+    /** Panel samouczka. */
     final JPanel diagonalSolvingMethodPanel = new JPanel();
 
-
-
+    /** Konstruktor dodający możliwość dodawania tekstu z podpowiedziami. */
     DiagonalMethod(int langID, int themeID){
 
         diagonalSolvingMethodPanel.setBackground(actualColor[2]);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(DiagonalMethod.DiagonalMethodCom1());
         diagonalSolvingMethodPanel.add(solvingMethod);
-
-
     }
 
+    /** Tekst który wyjaśnia metodę. */
     static String DiagonalMethodCom1(){
         return "<html><body><br><br><br>" +
                 "Metoda - jedyne pole <br>" +

@@ -2,24 +2,22 @@ package Sudoku;
 
 import javax.swing.*;
 
+/** Klasa służy do nauczania gracza rozwiązywania sudoku metodą kwadratów. */
 class BoxMethod extends Tutorial {
 
-
+    /** Panel samouczka. */
     final JPanel boxSolvingMethodPanel = new JPanel();
 
-
+    /** Konstruktor dodający możliwość dodawania tekstu z podpowiedziami. */
     BoxMethod(int langID, int themeID){
-    //wywalić themeID
 
         boxSolvingMethodPanel.setBackground(actualColor[2]);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(BoxMethod.BoxMethodCom1());
         boxSolvingMethodPanel.add(solvingMethod);
-
-
     }
 
-
+    /** Tekst który wyjaśnia metodę. */
     static String BoxMethodCom1(){
         return "<html><body><br><br><br>" +
                 "Metoda - jedyne pole<br>" +
@@ -40,7 +38,4 @@ class BoxMethod extends Tutorial {
                 "liczbę pasującą do pola<br><br></body></html>";
 
     }
-
-
-
 }

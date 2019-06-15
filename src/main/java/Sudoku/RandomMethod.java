@@ -2,13 +2,13 @@ package Sudoku;
 
 import javax.swing.*;
 
+/** Klasa służy do nauczania gracza rozwiązywania sudoku metodą losową. */
 class RandomMethod extends Tutorial{
 
+    /** Panel samouczka. */
     final JPanel randomSolvingMethodPanel = new JPanel();
 
-
-
-
+    /** Konstruktor dodający możliwość dodawania tekstu z podpowiedziami. */
     RandomMethod(int langID, int themeID){
 
         randomSolvingMethodPanel.setBackground(actualColor[2]);
@@ -18,6 +18,7 @@ class RandomMethod extends Tutorial{
 
     }
 
+    /** Tekst który wyjaśnia metodę. */
     static String RandomMethodCom1(){
         return  "<html><body><br><br><br>" +
                 "Metoda - <br>" +
