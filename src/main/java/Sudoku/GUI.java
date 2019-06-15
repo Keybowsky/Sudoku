@@ -37,7 +37,7 @@ class GUI{
     private final Generator generator = new Generator();
     private final GameName gN = new GameName();
     private final Messages mSG = new Messages();
-    final int userID = 1;
+    //final int userID = 1;
     private int goodAnsw = 0;
     private JComboBox<String> colorSelect;
     private JComboBox<String> themeSelect;
@@ -307,33 +307,7 @@ class GUI{
         mainPanel.setBackground(actualColor[2]);
         buttonPanel.setBackground(actualColor[2]);
 
-
-
-
-/*
-        JComboBox userList = new JComboBox(users);
-        JButton user = new JButton("Nowy użytkownik");
-
-
- */
-
-
-//        JPanel userMenu = new JPanel();
-
         GridBagConstraints gbc = new GridBagConstraints();
-
- /*
-        userMenu.setLayout(new GridBagLayout());
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        userMenu.add(userList,gbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        userMenu.add(user,gbc);
-
-  */
 
         GridLayout gl = new GridLayout();
         gl.setColumns(1);
