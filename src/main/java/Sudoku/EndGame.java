@@ -29,13 +29,11 @@ public class EndGame {
         gameWonOkButton.setText(actualLang[17]);
         gameWonOkButton.setBackground(actualColor[4]);
        rootPanel.setLayout(new GridBagLayout());
-       //gbc.fill = GridBagConstraints.HORIZONTAL;
        gbc.gridx = 0;
        gbc.gridy = 0;
        gbc.weighty = 1;
        rootPanel.add(gameWonLabel,gbc);
 
-       //gbc.fill = GridBagConstraints.CENTER;
        gbc.gridy = 1;
        rootPanel.add(gameWonOkButton,gbc);
 
