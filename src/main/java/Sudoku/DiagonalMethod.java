@@ -18,17 +18,7 @@ class DiagonalMethod extends Tutorial {
             {0, 6, 0, 0, 0, 8, 4, 1, 5},
     };
 
-    public int[][] fieldsToColor = {
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0},
-    };
+
 
     DiagonalMethod(int langID, int themeID){
 
@@ -42,6 +32,22 @@ class DiagonalMethod extends Tutorial {
     }
 
     static String DiagonalMethodCom1(){
-        return "Tutaj dajesz tekst który chcesz żeby był wskazówką";
+        return "<html><body><br><br><br>" +
+                "Metoda - jedyne pole <br>" +
+                "na cyfrę w linii <br><br><br>" +
+                "Analizujemy planszę<br>" +
+                "badając cyfra po cyfrze<br>" +
+                "w każdej linii<br>" +
+                "(poziomej i pionowej),<br>" +
+                "sprawdzając czy cyfra<br>" +
+                "może wystąpić tylko<br>" +
+                "w jednym polu w linii.<br> "+
+                "Wpisz prawidłową cyfrę<br>" +
+                "w zaznaczone pole<br>" +
+                "i naciśnij przycisk sprawdź<br><br>" +
+                "Krok 1: W zaznaczonym polu<br> " +
+                "możemy wpisać 2<br>" +
+                "Krok 2: Sam spróbuj znaleźć <br>" +
+                "liczbę pasującą do pola<br><br></body></html>";
     }
 }
