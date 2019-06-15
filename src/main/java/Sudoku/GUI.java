@@ -91,8 +91,6 @@ class GUI{
 
     /** Instancja klasy Messages. */
     private final Messages mSG = new Messages();
-    //final int userID = 1;
-    private int goodAnsw = 0;
 
     /** Wybcr koloru. */
     private JComboBox<String> colorSelect;

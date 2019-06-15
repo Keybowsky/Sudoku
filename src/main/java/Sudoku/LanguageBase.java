@@ -38,7 +38,8 @@ class LanguageBase {
             "Metoda diagonalna",
             "Metoda losowa",
             "Wygrana!",
-            "Gratulacje! Udało ci się ukonczyć grę!"
+            "Gratulacje! Udało ci się ukonczyć grę!",
+            "Wybierz samouczek"
     };
 
     /** Angielska wersja jezykowa. */
@@ -76,7 +77,8 @@ class LanguageBase {
             "Diagonal Method",
             "Random Method",
             "Game won!",
-            "Congratulations! You managed to finish the game!"
+            "Congratulations! You managed to finish the game!",
+            "Choose tutorial"
     };
 
 

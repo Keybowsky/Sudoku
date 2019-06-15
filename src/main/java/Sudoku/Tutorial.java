@@ -15,7 +15,7 @@ class Tutorial extends GUI {
         changeVisuals(themeID);
         changeVisuals(langID);
 
-        tutorialFrame = new JFrame("Wybór samouczka");
+        tutorialFrame = new JFrame(actualLang[34]);
         tutorialFrame.setMaximumSize(new Dimension(450, 200));
         tutorialFrame.setMinimumSize(new Dimension(450, 200));
         tutorialFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
