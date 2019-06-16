@@ -31,7 +31,11 @@ class Solver {
             this.boardToSolve = boardToSolve;
     }
 
-    /** Zwraca aktualna tablice BoardToSolve. */
+    /** Zwraca aktualna tablice BoardToSolve.
+     *
+     * @return tablica do rozwiazania.
+     *
+     * */
     int[][] getBoardToSolve() {
         return boardToSolve;
     }

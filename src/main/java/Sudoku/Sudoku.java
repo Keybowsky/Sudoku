@@ -5,7 +5,11 @@ import java.awt.*;
 /** Klasa sluzy do przechowania funkcji main. */
 public class Sudoku {
 
-    /** Sluzy do uruchomienia programu. */
+    /** Sluzy do uruchomienia programu.
+     *
+     * @param args komendy.
+     *
+     * */
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {

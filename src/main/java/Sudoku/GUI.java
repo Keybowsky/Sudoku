@@ -284,6 +284,8 @@ class GUI{
     /** Odpowiada za gorny pasek z ustawieniami ktory pokazuje sie w trakcie gry.
      * Pozwala na zapis gry, powrot do menu glownego i wyswietlenie informacji o tworcach gry.
      *
+     * @return menuBar
+     *
      * */
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
@@ -362,6 +364,10 @@ class GUI{
     /** Okno glownego menu, umozliwia rozpowczecie nowej gry,
      * wczytanie ostatniego zapisu gry, wejscie do panelu ustawien
      * i wyjscie z gry.
+     *
+     * @param themeID schemat kolorow.
+     * @param langID wybrana wersja jezykowa.
+     *
      * */
     private void menuItSelf(char langID, int themeID) {
 
@@ -914,7 +920,11 @@ class GUI{
         }
     }
 
-    /** Ustawia komorki w grze zgodnie z wygenerowana plansza. */
+    /** Ustawia komorki w grze zgodnie z wygenerowana plansza.
+     *
+     * @param difficultyLevel poziom trodnosci.
+     *
+     * */
     private void newGame(int difficultyLevel){
         generator.boardGeneration(difficultyLevel);
 

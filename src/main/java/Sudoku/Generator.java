@@ -26,7 +26,11 @@ class Generator {
         return generatedBoard;
     }
 
-    /** Zwraca tablice wypelliona zerami. */
+    /** Zwraca tablice wypelliona zerami.
+     *
+     * @return czysta tablica.
+     *
+     * */
     private int[][] cleanBoard() {
         return new int[][]{
                 {0, 0, 0, 0, 0, 0, 0, 0, 0},
