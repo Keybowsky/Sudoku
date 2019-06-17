@@ -705,25 +705,6 @@ class GUI{
     }
 
 
-
-    /** Wypelnienie Tablicy samouczka*/
-    private void fillTutorialBoard(){
-
-        int[][] tutorialBoard = Tutorial.tutorialFieldsValue;
-            for (int i = 0; i < Solver.SIZE; i++) {
-                for (int j = 0; j < Solver.SIZE; j++) {
-                    if(tutorialBoard[i][j]!=0)
-                    {fields[i][j].setText(String.valueOf(tutorialBoard[i][j]));}
-                }
-            }
-
-        for (int i = 0; i < Solver.SIZE; i++) {
-            for (int j = 0; j < Solver.SIZE; j++) {
-                {fields[i][j].setEditable(false);}
-            }
-        }
-    }
-
     /** Ustawia komorki w grze zgodnie z wygenerowana plansza.
      *
      * @param difficultyLevel poziom trodnosci.

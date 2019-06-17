@@ -120,6 +120,24 @@ abstract class Tutorial extends GUI {
 
     abstract void check();
 
+    /** Wypelnienie Tablicy samouczka*/
+    private void fillTutorialBoard(){
+
+        int[][] tutorialBoard = Tutorial.tutorialFieldsValue;
+        for (int i = 0; i < Solver.SIZE; i++) {
+            for (int j = 0; j < Solver.SIZE; j++) {
+                if(tutorialBoard[i][j]!=0)
+                {fields[i][j].setText(String.valueOf(tutorialBoard[i][j]));}
+            }
+        }
+
+        for (int i = 0; i < Solver.SIZE; i++) {
+            for (int j = 0; j < Solver.SIZE; j++) {
+                {fields[i][j].setEditable(false);}
+            }
+        }
+    }
+
     /** Wywoluje metode gameItSelf dla metody kwadratow. */
     private class BoxMethodAction extends AbstractAction {
         @Override
