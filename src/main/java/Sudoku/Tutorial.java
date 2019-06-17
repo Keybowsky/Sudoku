@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /** Klasa odpowiada za zrealizowanie samouczka.  */
-abstract class Tutorial extends GUI {
+class Tutorial extends GUI {
 
     /** Ramka samouczka. */
     private JFrame tutorialFrame;
@@ -111,32 +111,6 @@ abstract class Tutorial extends GUI {
             {5, 0, 0, 0, 2, 0, 7, 0, 0},
             {0, 6, 0, 0, 0, 8, 4, 1, 5},
     };
-
-    abstract String methodText ();
-
-    abstract void firstStepTutorial();
-
-    abstract void nextStep();
-
-    abstract void check();
-
-    /** Wypelnienie Tablicy samouczka*/
-    private void fillTutorialBoard(){
-
-        int[][] tutorialBoard = Tutorial.tutorialFieldsValue;
-        for (int i = 0; i < Solver.SIZE; i++) {
-            for (int j = 0; j < Solver.SIZE; j++) {
-                if(tutorialBoard[i][j]!=0)
-                {fields[i][j].setText(String.valueOf(tutorialBoard[i][j]));}
-            }
-        }
-
-        for (int i = 0; i < Solver.SIZE; i++) {
-            for (int j = 0; j < Solver.SIZE; j++) {
-                {fields[i][j].setEditable(false);}
-            }
-        }
-    }
 
     /** Wywoluje metode gameItSelf dla metody kwadratow. */
     private class BoxMethodAction extends AbstractAction {
