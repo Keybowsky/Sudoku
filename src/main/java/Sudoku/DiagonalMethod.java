@@ -10,15 +10,82 @@ class DiagonalMethod extends Tutorial {
 
     /** Konstruktor dodajacy mozliwosc dodawania tekstu z podpowiedziami. */
     DiagonalMethod(int langID, int themeID){
-
+        changeVisuals(langID);
+        changeVisuals(themeID);
         diagonalSolvingMethodPanel.setBackground(actualColor[2]);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(DiagonalMethod.DiagonalMethodCom1());
         diagonalSolvingMethodPanel.add(solvingMethod);
     }
 
+    @Override
+    void firstStepTutorial(){
+
+        for (int i= 0; i<9; ++i){
+            fields[i][7].setBackground(actualColor[1]);
+        }
+        for (int j= 0; j<9; ++j){
+            fields[7][j].setBackground(actualColor[1]);
+        }
+
+        fields[6][7].setBackground(actualColor[0]);
+        fields[6][7].setEditable(true);
+        fields[7][4].setBackground(actualColor[0]);
+    }
+
+    @Override
+    void nextStep() {
+        for (int i = 0; i < 9; ++i) {
+            fields[i][7].setBackground(actualColor[5]);
+        }
+        for (int j = 0; j < 9; ++j) {
+            fields[7][j].setBackground(actualColor[5]);
+        }
+
+        fields[6][7].setBackground(actualColor[5]);
+        fields[6][7].setEditable(false);
+        fields[7][4].setBackground(actualColor[5]);
+
+        fields[1][6].setBackground(actualColor[0]);
+        fields[1][6].setEditable(true);
+    }
+
+    @Override
+    void check() {
+        int temp;
+        String tempS;
+
+        if (fields[1][6].isEditable()&&fields[1][6].getValue()==null){
+            fields[1][6].setBackground(actualColor[4]);
+        }
+        else if(fields[1][6].isEditable()){
+
+            tempS = String.valueOf(fields[1][6].getValue());
+            temp = Integer.parseInt(tempS);
+            if(temp==3)
+            {EndGame wonGame = new EndGame(langID,themeID);
+                EndGame.endGame.repaint();
+                wonGame.endGame.setVisible(true);
+                frameGame.setEnabled(false);}
+            else{fields[1][6].setBackground(actualColor[4]);}
+        }
+
+        if (fields[6][7].isEditable()&&fields[6][7].getValue()==null)
+        {   fields[6][7].setBackground(actualColor[4]);
+        }
+        else if (fields[6][7].isEditable()){
+            tempS = String.valueOf(fields[6][7].getValue());
+            temp = Integer.parseInt(tempS);
+
+            if (temp==2) {
+                nextStep();}
+            else{fields[6][7].setBackground(actualColor[4]);}
+        }
+    }
+
     /** Tekst ktcoy wyjasnia metode. */
-    static String DiagonalMethodCom1(){
+    @Override
+    String methodText(){
         return "<html><body><br><br><br>" +
                 "Metoda - jedyne pole <br>" +
                 "na cyfrę w linii <br><br><br>" +

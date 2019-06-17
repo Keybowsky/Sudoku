@@ -10,7 +10,8 @@ class RandomMethod extends Tutorial{
 
     /** Konstruktor dodajacy mozliwosc dodawania tekstu z podpowiedziami. */
     RandomMethod(int langID, int themeID){
-
+        changeVisuals(langID);
+        changeVisuals(themeID);
         randomSolvingMethodPanel.setBackground(actualColor[2]);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(RandomMethod.RandomMethodCom1());
@@ -18,8 +19,72 @@ class RandomMethod extends Tutorial{
 
     }
 
+    @Override
+    void firstStepTutorial() {
+
+        for (int i= 0; i<9; ++i){
+            fields[i][5].setBackground(actualColor[1]);
+        }
+        for (int j= 0; j<9; ++j){
+            fields[1][j].setBackground(actualColor[1]);
+        }
+
+        fields[1][5].setBackground(actualColor[0]);
+        fields[1][5].setEditable(true);
+    }
+
+    @Override
+    void nextStep() {
+        for (int i= 0; i<9; ++i){
+            fields[i][5].setBackground(actualColor[5]);
+        }
+        for (int j= 0; j<9; ++j){
+            fields[1][j].setBackground(actualColor[5]);
+        }
+
+        fields[1][5].setBackground(actualColor[5]);
+        fields[1][5].setEditable(false);
+
+        fields[8][3].setBackground(actualColor[0]);
+        fields[8][3].setEditable(true);
+    }
+
+    @Override
+    void check() {
+        int temp;
+        String tempS;
+
+        if (fields[8][3].isEditable()&&fields[8][3].getValue()==null){
+            fields[8][3].setBackground(actualColor[4]);
+        }
+        else if(fields[8][3].isEditable()){
+
+            tempS = String.valueOf(fields[8][3].getValue());
+            temp = Integer.parseInt(tempS);
+            if(temp==3)
+            {EndGame wonGame = new EndGame(langID,themeID);
+                EndGame.endGame.repaint();
+                wonGame.endGame.setVisible(true);
+                frameGame.setEnabled(false);}
+            else{fields[8][3].setBackground(actualColor[4]);}
+        }
+
+        if (fields[1][5].isEditable()&&fields[1][5].getValue()==null)
+        {   fields[1][5].setBackground(actualColor[4]);
+        }
+        else if (fields[1][5].isEditable()){
+            tempS = String.valueOf(fields[1][5].getValue());
+            temp = Integer.parseInt(tempS);
+
+            if (temp==5) {
+                nextStep();}
+            else{fields[1][5].setBackground(actualColor[4]);}
+        }
+    }
+
     /** Tekst ktory wyjasnia metode. */
-    static String RandomMethodCom1(){
+    @Override
+    String methodText(){
         return  "<html><body><br><br><br>" +
                 "Metoda - <br>" +
                 "pojedyncza cyfra w polu<br><br><br>"+

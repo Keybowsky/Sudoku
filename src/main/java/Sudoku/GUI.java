@@ -33,7 +33,7 @@ class GUI{
     private int[][] setEditableGenerationBoard = new int[9][9];
 
     /** Tablica komorek. */
-     JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
+    private final JFormattedTextField[][] fields = new JFormattedTextField[Solver.SIZE][Solver.SIZE];
 
     /** Ramka wyboru poziomu trudnosci nowej gry. */
     static JFrame newGameOptionFrame;
@@ -752,7 +752,7 @@ class GUI{
      *
      * @param load ustawia metode ktora obowiazuje w samouczku.
      * */
-    void nextStep(int load) {
+    private void nextStep(int load) {
         if (load == 2) {
 
             for (int j = 0; j < 9; ++j) {
@@ -805,8 +805,6 @@ class GUI{
 
     /** Sprawdza czy pola w samouczku zostaly poprawnie wypelnione i konczy go. */
     private void checkBoxMethod(){
-
-
         int temp;
         String tempS;
 
