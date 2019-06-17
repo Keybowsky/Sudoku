@@ -10,7 +10,8 @@ class BoxMethod extends Tutorial {
 
     /** Konstruktor dodajacy mozliwosc dodawania tekstu z podpowiedziami. */
     BoxMethod(int langID, int themeID){
-
+        changeVisuals(langID);
+        changeVisuals(themeID);
         boxSolvingMethodPanel.setBackground(actualColor[2]);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(BoxMethod.BoxMethodCom1());
@@ -18,7 +19,7 @@ class BoxMethod extends Tutorial {
     }
 
     /** Tekst ktory wyjasnia metode. */
-    static String BoxMethodCom1(){
+    private static String BoxMethodCom1(){
         return "<html><body><br><br><br>" +
                 "Metoda - jedyne pole<br>" +
                 "na cyfrę w kwadracie <br><br><br>" +

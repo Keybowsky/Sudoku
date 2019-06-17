@@ -10,7 +10,8 @@ class DiagonalMethod extends Tutorial {
 
     /** Konstruktor dodajacy mozliwosc dodawania tekstu z podpowiedziami. */
     DiagonalMethod(int langID, int themeID){
-
+        changeVisuals(langID);
+        changeVisuals(themeID);
         diagonalSolvingMethodPanel.setBackground(actualColor[2]);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(DiagonalMethod.DiagonalMethodCom1());
@@ -18,7 +19,7 @@ class DiagonalMethod extends Tutorial {
     }
 
     /** Tekst ktcoy wyjasnia metode. */
-    static String DiagonalMethodCom1(){
+    private static String DiagonalMethodCom1(){
         return "<html><body><br><br><br>" +
                 "Metoda - jedyne pole <br>" +
                 "na cyfrę w linii <br><br><br>" +

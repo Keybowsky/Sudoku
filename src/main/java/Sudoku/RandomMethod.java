@@ -10,7 +10,8 @@ class RandomMethod extends Tutorial{
 
     /** Konstruktor dodajacy mozliwosc dodawania tekstu z podpowiedziami. */
     RandomMethod(int langID, int themeID){
-
+        changeVisuals(langID);
+        changeVisuals(themeID);
         randomSolvingMethodPanel.setBackground(actualColor[2]);
         JLabel solvingMethod = new JLabel();
         solvingMethod.setText(RandomMethod.RandomMethodCom1());
@@ -19,7 +20,7 @@ class RandomMethod extends Tutorial{
     }
 
     /** Tekst ktory wyjasnia metode. */
-    static String RandomMethodCom1(){
+   private static String RandomMethodCom1(){
         return  "<html><body><br><br><br>" +
                 "Metoda - <br>" +
                 "pojedyncza cyfra w polu<br><br><br>"+
