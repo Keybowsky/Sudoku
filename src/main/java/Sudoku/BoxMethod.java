@@ -17,6 +17,7 @@ class BoxMethod extends Tutorial {
         boxSolvingMethodPanel.add(solvingMethod);
     }
 
+
     /** Tekst ktory wyjasnia metode. */
     static String BoxMethodCom1(){
         return "<html><body><br><br><br>" +
